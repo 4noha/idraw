@@ -1,0 +1,16 @@
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<display-name>idraw</display-name>
+    <servlet>
+        <servlet-name>WsChatServlet</servlet-name>
+        <servlet-class>wsapp.WsChatServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>WsChatServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+        <url-pattern>/idraw</url-pattern>
+    </servlet-mapping>
+
+</web-app>
