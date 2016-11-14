@@ -20,7 +20,10 @@ public class WebsocketEndpoint {
     @OnMessage
     public void onMessage(String message) {
         for(Session s : sessions){
-            s.getAsyncRemote().sendText(message);
+        	// おまじない
+        	synchronized(s) {
+                s.getAsyncRemote().sendText(message);
+        	}
         }
     }
     
