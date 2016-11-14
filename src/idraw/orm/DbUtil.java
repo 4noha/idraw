@@ -14,7 +14,7 @@ public class DbUtil {
 
     public static void connect() throws SQLException, ClassNotFoundException {
 		Class.forName("org.gjt.mm.mysql.Driver");
-		String url = "jdbc:mysql://" + HOST + "/"  + DB_NAME + "?characterEncoding=utf8";
+		String url = "jdbc:mysql://" + HOST + "/" + ENV + "_" + DB_NAME + "?characterEncoding=utf8";
     	con = DriverManager.getConnection(url, USER, PASSWORD);
     }
     public static void connect(Map<String, String> params) throws SQLException, ClassNotFoundException {
@@ -23,7 +23,7 @@ public class DbUtil {
 		// Mapで値が与えられているところだけ、デフォルト以外を使う
 		String url = "jdbc:mysql://" +
 				(params != null && params.containsKey("host") ? params.get("host") : HOST) + "/" +
-				(params != null && params.containsKey("env") ? params.get("env") : ENV) + //+ "_" +
+				(params != null && params.containsKey("env") ? params.get("env") : ENV) + "_" +
 				(params != null && params.containsKey("db_name") ? params.get("db_name") : DB_NAME) +
 				"?characterEncoding=utf8";
 		
