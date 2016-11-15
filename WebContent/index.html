@@ -5,12 +5,16 @@
 <title>Canvas</title>
 <style>
 body {
-    margin: 20px;
+    margin: 0;
+    background-color:#000;
+}
+::-webkit-scrollbar {
+  display: none;
 }
 canvas {
     top: 20px;
     left: 20px;
-    border: 5px solid #ccc;
+    background-color:#fff;
 }
 #button {
     position: relative;
@@ -36,14 +40,14 @@ li {
     cursor:pointer;
     cursor:hand;
     display:inline-block;
-    border: 1px solid #000;
+    border: 1px solid #fff;
     width: 50px;
     height: 50px;
 }
 </style>
 </head>
-<body>
-<canvas width="500" height="400"></canvas>
+<body style="">
+<canvas width="800" height="600"></canvas>
 <ul>
 <li style="background-color:#000"></li>
 <li style="background-color:#f00"></li>
@@ -64,6 +68,7 @@ $(function() {
     var fromX;
     var fromY;
     var drawFlag = false;
+    var drawFlip = false;
     var context = $("canvas").get(0).getContext('2d');
     var host="ws://localhost:8080/idraw/endpoint";
     socket = new WebSocket(host);
@@ -93,7 +98,10 @@ $(function() {
  
     $('canvas').mousemove(function(e) {
         if (drawFlag) {
-            draw(e);
+        	if (drawFlip) {
+                draw(e);
+        	}
+        	drawFlip = !drawFlip;
         }
     });
  
