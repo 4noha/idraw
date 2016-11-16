@@ -36,13 +36,19 @@ $(function() {
     socket.onmessage = function(msg){
         var json = $.parseJSON(msg.data);
     	console.log(json);
-        context.strokeStyle = json.color;
-        context.lineWidth = 2;
-        context.beginPath();
-        context.moveTo(json.fx, json.fy);
-        context.lineTo(json.tx, json.ty);
-        context.stroke();
-        context.closePath(); 
+    	switch (json.cmd){
+    	case "pen":
+            context.strokeStyle = json.color;
+            context.lineWidth = 2;
+            context.beginPath();
+            context.moveTo(json.fx, json.fy);
+            context.lineTo(json.tx, json.ty);
+            context.stroke();
+            context.closePath(); 
+    		break;
+    	case "save":
+    		break;
+    	}
     }
     
     // キー入力時の処理
@@ -101,9 +107,7 @@ $(function() {
     });
  
     $('#save').click(function() {
-        var d = $("canvas")[0].toDataURL("image/png");
-        d = d.replace("image/png", "image/octet-stream");
-        window.open(d,"save");
+        socket.send(JSON.stringify({ cmd:"save", page:1, image: canvasToMinimizeBase64($("#canvas")[0])}));
     });
 
     function draw(e) {
@@ -117,8 +121,7 @@ $(function() {
         context.closePath();
  
         // サーバへメッセージ送信
-        //socket.emit('server send', { fx:fromX, fy:fromY, tx:toX, ty:toY, color:context.strokeStyle });
-        socket.send(JSON.stringify({ cmd:"pen", fx:fromX, fy:fromY, tx:toX, ty:toY, color:context.strokeStyle }));
+        socket.send(JSON.stringify({ cmd:"pen", page: 1, fx:fromX, fy:fromY, tx:toX, ty:toY, color:context.strokeStyle }));
         fromX = toX;
         fromY = toY;
     }
@@ -132,6 +135,20 @@ $(function() {
 
 		// 要素の位置にスクロールさせる
 		window.scrollTo( positionX, positionY );
+    }
+    
+    canvasToMinimizeBase64 = function(canvas) {
+        var ctx = canvas.getContext('2d');
+        // 小さいキャンバスを作成
+        // 800x600の解像度だとJavascriptのWebsocketで送れるデータ量上限に引っかかって送れない
+		// 苦肉の策として同じ4:3の576x432にした
+        var canvas2 = document.createElement('canvas');
+        canvas2.width = 576;
+        canvas2.height = 432;
+        var ctx2 = canvas2.getContext('2d');
+        // 元のキャンバスを縮小コピー
+        ctx2.drawImage(canvas, 0, 0, canvas2.width, canvas2.height);
+        return canvas2.toDataURL("image/png");
     }
 });
 </script>
