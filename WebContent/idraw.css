@@ -7,11 +7,6 @@ body {
 ::-webkit-scrollbar {
   display: none;
 }
-canvas {
-    top: 20px;
-    left: 20px;
-    background-color:#fff;
-}
 #button {
     position: relative;
     top: -55px;

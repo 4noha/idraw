@@ -6,18 +6,21 @@
 <link rel="stylesheet" type="text/css" href="./idraw.css">
 </head>
 <body>
-<canvas width="800" height="600" id="canvas"></canvas>
-<ul id="color_button">
-<li style="background-color:#000"></li>
-<li style="background-color:#f00"></li>
-<li style="background-color:#0f0"></li>
-<li style="background-color:#00f"></li>
-<li style="background-color:#ff0"></li>
-<li style="background-color:#fff"></li>
-</ul>
-<div id="button">
-<input type="button" id="save" value="保存" />
-<input type="button" id="clear" value="消去" />
+<canvas width="800" height="600" id="canvas" style="position: absolute;"></canvas>
+<canvas width="800" height="600" id="base_canvas" style="background-color:#fff;"></canvas>
+<div id="console">
+	<ul>
+	<li style="background-color:#000"></li>
+	<li style="background-color:#f00"></li>
+	<li style="background-color:#0f0"></li>
+	<li style="background-color:#00f"></li>
+	<li style="background-color:#ff0"></li>
+	<li style="background-color:#fff"></li>
+	</ul>
+	<div id="button">
+		<input type="button" id="save" value="保存" />
+		<input type="button" id="clear" value="消去" />
+	</div>
 </div>
  
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
@@ -62,7 +65,7 @@ $(function() {
     	case "ArrowDown":
     	case "s":
     		// 下に移動
-    		setPositionById("color_button");
+    		setPositionById("console");
     		break;
     	}
     };
@@ -136,7 +139,7 @@ $(function() {
 		// 要素の位置にスクロールさせる
 		window.scrollTo( positionX, positionY );
     }
-    
+
     canvasToMinimizeBase64 = function(canvas) {
         var ctx = canvas.getContext('2d');
         // 小さいキャンバスを作成
@@ -149,6 +152,16 @@ $(function() {
         // 元のキャンバスを縮小コピー
         ctx2.drawImage(canvas, 0, 0, canvas2.width, canvas2.height);
         return canvas2.toDataURL("image/png");
+    }
+    
+    pasteBase64 = function(canvas, x, y, base64Image) {
+    	var img = new Image();
+    	img.onload = function() {
+    	  //Imageをキャンバスに描画
+    	  var context = canvas.getContext("2d");
+    	  context.drawImage(img, x, y);
+    	};
+    	img.src = base64Image;
     }
 });
 </script>
