@@ -1,4 +1,4 @@
-package idraw.model;
+package idraw.manager;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
