@@ -11,7 +11,7 @@ public class Page extends DbInstanceDao<Page>{
 	//ORMはTABLE_NAME, THIS_CLASSの入力とカラムと同名のフィールドを定義すれば後は大体コピペで使える
 	
 	// ORMでクラスをテーブルにマッピングするのに必要
-	private final static String TABLE_NAME = "employee";
+	private final static String TABLE_NAME = "page";
 	private final static Class<Page> THIS_CLASS = Page.class;
 	private static ArrayList<String> columnNames;
 	private static DbStaticDao<Page> dbStaticAdapter = null;
