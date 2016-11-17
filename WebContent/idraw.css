@@ -7,6 +7,18 @@ body {
 ::-webkit-scrollbar {
   display: none;
 }
+.button {
+    background: #1a1a1a;
+    border: 0;
+    border-radius: 2px;
+    color: #fff;
+    font-family: Montserrat, "Helvetica Neue", sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.046875em;
+    line-height: 1;
+    padding: 0.84375em 0.875em 0.78125em;
+    text-transform: uppercase;
+}
 #button {
     position: relative;
     top: -55px;

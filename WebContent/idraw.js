@@ -77,7 +77,6 @@ $(function() {
     });
  
     $('#clear').click(function(e) {
-        //socket.emit('clear send');
         e.preventDefault();
         context.clearRect(0, 0, $('canvas').width(), $('canvas').height());
     });
