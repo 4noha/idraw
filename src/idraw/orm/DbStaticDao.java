@@ -67,6 +67,29 @@ public class DbStaticDao<T> {
 	protected static Object find(String column_name, String id){
 		// 未実装
 		return true;
+	
+	public ArrayList<T> all() throws SQLException, InstantiationException, IllegalAccessException, NoSuchFieldException, SecurityException{
+		String sql = "SELECT * FROM " + tableName;
+		PreparedStatement stmt = DbUtil.con.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		System.out.println("SQL_Log: " + stmt.toString().split(":")[1]);
+		
+		ArrayList<T> records = new ArrayList<T>();
+		while(rs.next()){
+			T record = modelClass.newInstance();
+			Field modelField = DbInstanceDao.class.getDeclaredField("newFlag");
+			modelField.set(record, false);
+			for(int i = 1; i <= getColumnNames().size(); i++){
+				modelField = modelClass.getDeclaredField(getColumnNames().get(i-1));
+				modelField.set(record, rs.getObject(i));
+			}
+			records.add(record);
+		}
+		if(records.isEmpty()){
+			return null;
+		}
+
+		return records;
 	}
 	
 	public ArrayList<String> getColumnNames() throws SQLException {
