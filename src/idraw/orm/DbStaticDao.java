@@ -4,10 +4,10 @@ import java.lang.reflect.Field;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DbStaticDao<T> {
 	private Class<T> modelClass;
@@ -25,14 +25,17 @@ public class DbStaticDao<T> {
 		setValue(stmt, 1, value);
 		
 		ResultSet rs = stmt.executeQuery();
-		ResultSetMetaData rsmd = rs.getMetaData();
-		rs.next();
+		System.out.println("SQL_Log: " + stmt.toString().split(":")[1]);
+		if(!rs.next()){
+			// 検索結果なし
+			return null;
+		}
 
 		T tInstance = modelClass.newInstance();
 		Field modelField = DbInstanceDao.class.getDeclaredField("newFlag");
 		modelField.set(tInstance, false);
-		for(int i = 1; i <= rsmd.getColumnCount(); i++){
-			modelField = modelClass.getDeclaredField(rsmd.getColumnName(i));
+		for(int i = 1; i <= getColumnNames().size(); i++){
+			modelField = modelClass.getDeclaredField(getColumnNames().get(i-1));
 			modelField.set(tInstance, rs.getObject(i));
 		}
 		
@@ -45,7 +48,7 @@ public class DbStaticDao<T> {
 		PreparedStatement stmt = DbUtil.con.prepareStatement(sql);
 		stmt.setString(1, "%"+value+"%");
 		ResultSet rs = stmt.executeQuery();
-		ResultSetMetaData rsmd = rs.getMetaData();
+		System.out.println("SQL_Log: " + stmt.toString().split(":")[1]);
 		
 		ArrayList<T> tInstances = new ArrayList<T>();
 		while(rs.next()){
@@ -53,8 +56,8 @@ public class DbStaticDao<T> {
 			Field modelField = DbInstanceDao.class.getDeclaredField("newFlag");
 			modelField.set(tInstance, false);
 			
-			for(int i = 1; i <= rsmd.getColumnCount(); i++){
-				modelField = modelClass.getDeclaredField(rsmd.getColumnName(i));
+			for(int i = 1; i <= getColumnNames().size(); i++){
+				modelField = modelClass.getDeclaredField(getColumnNames().get(i-1));
 				modelField.set(tInstance, rs.getObject(i));
 			}
 			tInstances.add(tInstance);

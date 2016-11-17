@@ -7,7 +7,6 @@ import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class DbInstanceDao<T> {
@@ -111,7 +110,7 @@ public class DbInstanceDao<T> {
 	private String getPrimaryKey() throws SQLException{
 		if(primaryKey == null){
 			DatabaseMetaData meta = DbUtil.con.getMetaData();
-			// �J�������擾�̏�����ݒ�
+			// 今の実装だと主キーはひとつしか取れない
 			ResultSet rs = meta.getPrimaryKeys(null, null, tableName);
 			rs.next();
 			primaryKey = rs.getString(4);
