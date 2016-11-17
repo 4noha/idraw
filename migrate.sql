@@ -17,6 +17,7 @@ CREATE TABLE user(
 CREATE TABLE page(
     page_num		INT PRIMARY KEY,
     joined_image	TEXT, #NOT NULL,
+    background_image	TEXT,
     INDEX idx_pnum(page_num)
 );
 # ) engine=memory; # オンメモリで爆速
