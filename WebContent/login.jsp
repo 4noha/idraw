@@ -44,39 +44,40 @@
 </body>
 <script>
 	$("#loginButton").click(function() {
-		$("#title").hide();
-		$("#loginButton").hide();
-		$("#signUpButton").hide();
+		$("#title").hide(300);
+		$("#loginButton").hide(300);
+		$("#signUpButton").hide(300);
 		
-		$("#infoTitle").show();
-		$("#subInfo").show();
-		$("#idField").show();
-		$("#idSubmitButton").show();
+		$("#infoTitle").show(300);
+		$("#subInfo").show(300);
+		$("#idField").show(300);
+		$("#idSubmitButton").show(300);
 	});
 	
 	$("#signUpButton").click(function() {
-		$("#title").hide();
-		$("#loginButton").hide();
-		$("#signUpButton").hide();
+		$("#title").hide(300);
+		$("#loginButton").hide(300);
+		$("#signUpButton").hide(300);
 
 		$("#infoTitle").text("サインアップ");
 		
-		$("#infoTitle").show();
-		$("#subInfo").show();
-		$("#idField").show();
-		$("#idSubmitButton").show();
+		$("#infoTitle").show(300);
+		$("#subInfo").show(300);
+		$("#idField").show(300);
+		$("#idSubmitButton").show(300);
 	});
 
 	$("#idSubmitButton").click(function() {
-		$("#subInfo").hide();
-		$("#idField").hide();
-		$("#idSubmitButton").hide();
-
-		$("#subInfo").text("パスワードを入力");
-		
-		$("#subInfo").show();
-		$("#pwField").show();
-		$("#pwSubmitButton").show();
+		$("#idField").hide(300);
+		$("#idSubmitButton").hide(300);
+		// subinfoをしまい終わってから全部出す
+		$("#subInfo").hide(300, function() {
+			$("#subInfo").text("パスワードを入力");
+			
+			$("#subInfo").show(300);
+			$("#pwField").show(300);
+			$("#pwSubmitButton").show(300);
+		});
 	});
 
 	$("#pwSubmitButton").click(function() {
