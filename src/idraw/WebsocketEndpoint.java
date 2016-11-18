@@ -2,6 +2,7 @@ package idraw;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.HashMap;
@@ -19,7 +20,9 @@ import javax.websocket.server.ServerEndpoint;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import idraw.manager.EncryptManager;
 import idraw.model.Page;
+import idraw.model.User;
 import idraw.orm.DbUtil;
 
 /**
@@ -32,7 +35,7 @@ public class WebsocketEndpoint {
 	@OnMessage //
 	public void onMessage(String message) throws IOException, InstantiationException, IllegalAccessException,
 			ClassNotFoundException, NoSuchFieldException, SecurityException, SQLException, IllegalArgumentException,
-			NoSuchMethodException, InvocationTargetException {
+			NoSuchMethodException, InvocationTargetException, NoSuchAlgorithmException {
 		////
 		// 送信以外の処理はこのへん(Synchronizedの外)で書きます
 		////
@@ -43,7 +46,6 @@ public class WebsocketEndpoint {
 
 		switch (cmd) {
 		case "pen": // cmd = pen の場合、DBへの保存やpen自体の新規作成はないため何もしない
-
 			break;
 
 		case "save": // cmd = save の場合、状況により新規作成 or 上書きをする
@@ -57,6 +59,33 @@ public class WebsocketEndpoint {
 				page.joined_image = (String) parsedJson.get("image");
 			}
 			page.save();
+			break;
+
+		case "login": // cmd = login の場合、ログイン判定を行う
+			String userName = (String) parsedJson.get("id");
+			boolean cmdNew = (boolean) parsedJson.get("new");
+			User user = null;
+			if (cmdNew == true) {
+				user = new User();
+				user.username = userName;
+				user.save();
+			} else {
+				user = User.findBy("username", parsedJson.get("id"));
+				if (user == null) {
+					message = "{ \"cmd\":\"error\", \"key\":\"IDが見つかりません\" }";
+					break;
+				}
+			}
+			String publicKey = EncryptManager.generateKeyPair(user);
+			Map<Object, Object> json = toMap(m -> {
+				m.put("cmd", "pubkey");
+				m.put("key", publicKey);
+			});
+			ObjectMapper om = new ObjectMapper();
+			message = om.writeValueAsString(json);
+
+
+
 			break;
 
 		default:
@@ -73,21 +102,22 @@ public class WebsocketEndpoint {
 		}
 	}
 
-	@OnOpen //接続したユーザをセッションに加えるメソッド
+	@OnOpen // 接続したユーザをセッションに加えるメソッド
 	public void open(Session sess) throws ClassNotFoundException, SQLException {
-		if (sessions.isEmpty()) { //誰も接続していない状況ならDBへの接続を開始する
+		if (sessions.isEmpty()) { // 誰も接続していない状況ならDBへの接続を開始する
 			DbUtil.connect(toMap(m -> {
 				m.put("env", "production");
 				m.put("host", "127.0.0.1:3306");
+				m.put("db_name", "idraw");
 			}));
 		}
 		sessions.add(sess);
 	}
 
-	@OnClose //接続済みのユーザをセッションから除外するメソッド
+	@OnClose // 接続済みのユーザをセッションから除外するメソッド
 	public void close(Session sess) throws SQLException {
 		sessions.remove(sess);
-		if (sessions.isEmpty()) { //最後のユーザがセッションから外れた時にDBを閉じる
+		if (sessions.isEmpty()) { // 最後のユーザがセッションから外れた時にDBを閉じる
 			DbUtil.close();
 		}
 	}

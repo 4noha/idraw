@@ -24,7 +24,7 @@ public class EncryptManager {
      * @throws SecurityException
      * @throws NoSuchFieldException
      */
-	public String generateKeyPair(User user) throws NoSuchAlgorithmException, NoSuchFieldException,
+	public static String generateKeyPair(User user) throws NoSuchAlgorithmException, NoSuchFieldException,
 	SecurityException, IllegalArgumentException, IllegalAccessException, NoSuchMethodException,
 	InvocationTargetException, SQLException {
 

@@ -24,9 +24,9 @@ public class DbStaticDao<T> {
 		String sql = "SELECT * FROM " + tableName + " WHERE " + column_name + " = ? LIMIT 1";
 		PreparedStatement stmt = DbUtil.con.prepareStatement(sql);
 		setValue(stmt, 1, value);
+		System.out.println("SQL_Log: " + stmt.toString().split(":")[1]);
 
 		ResultSet rs = stmt.executeQuery();
-		System.out.println("SQL_Log: " + stmt.toString().split(":")[1]);
 		if (!rs.next()) {
 			// 検索結果なし
 			return null;
@@ -157,6 +157,8 @@ public class DbStaticDao<T> {
 			stmt.setString(index, (String) value);
 		} else if (value instanceof Timestamp) {
 			stmt.setTimestamp(index, (Timestamp) value);
+		} else if (value == null) {
+			stmt.setObject(index, null);
 		} else {
 			stmt.setInt(index, (int) value);
 		}
