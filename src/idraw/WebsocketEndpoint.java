@@ -29,31 +29,31 @@ import idraw.orm.DbUtil;
 public class WebsocketEndpoint {
 	static Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
 
-	@OnMessage
+	@OnMessage //
 	public void onMessage(String message) throws IOException, InstantiationException, IllegalAccessException,
 			ClassNotFoundException, NoSuchFieldException, SecurityException, SQLException, IllegalArgumentException,
 			NoSuchMethodException, InvocationTargetException {
 		////
 		// 送信以外の処理はこのへん(Synchronizedの外)で書きます
 		////
+
 		// JSON（文字列ベースのデータフォーマット）形式の文字列をHashMapインスタンスに＜Command名:値＞にパースする
-		// 2016/11/18高田追加
 		HashMap<String, Object> parsedJson = new ObjectMapper().readValue(message, HashMap.class);
 		String cmd = (String) parsedJson.get("cmd"); // onMessageメソッドを呼び出したコマンドを選択
 
 		switch (cmd) {
-		case "pen": //cmd = pen なら何も保存する必要はない
+		case "pen": // cmd = pen の場合、DBへの保存やpen自体の新規作成はないため何もしない
 
 			break;
 
-		case "save":
+		case "save": // cmd = save の場合、状況により新規作成 or 上書きをする
 			Page page = Page.findBy("page_num", parsedJson.get("page"));
-			if (page == null) {
+			if (page == null) { // pageが何も無ければ新規作成する
 				page = new Page(toMap(m -> {
 					m.put("page", parsedJson.get("page"));
 					m.put("joined_image", parsedJson.get("image"));
 				}));
-			} else {
+			} else { // pageが既にあれば上書保存する
 				page.joined_image = (String) parsedJson.get("image");
 			}
 			page.save();
@@ -73,9 +73,9 @@ public class WebsocketEndpoint {
 		}
 	}
 
-	@OnOpen
+	@OnOpen //接続したユーザをセッションに加えるメソッド
 	public void open(Session sess) throws ClassNotFoundException, SQLException {
-		if (sessions.isEmpty()) {
+		if (sessions.isEmpty()) { //誰も接続していない状況ならDBへの接続を開始する
 			DbUtil.connect(toMap(m -> {
 				m.put("env", "production");
 				m.put("host", "127.0.0.1:3306");
@@ -84,10 +84,10 @@ public class WebsocketEndpoint {
 		sessions.add(sess);
 	}
 
-	@OnClose
+	@OnClose //接続済みのユーザをセッションから除外するメソッド
 	public void close(Session sess) throws SQLException {
 		sessions.remove(sess);
-		if (sessions.isEmpty()) {
+		if (sessions.isEmpty()) { //最後のユーザがセッションから外れた時にDBを閉じる
 			DbUtil.close();
 		}
 	}
