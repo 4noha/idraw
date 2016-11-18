@@ -90,7 +90,7 @@
     <td class="palette_cell" style="background-color:hsl(330, 0%, 50%)"></td>
   </tr>
   <tr>
-    <td class="palette_cell" style="background-color:hsl(0, 100%, 50%)"></td>
+    <td class="palette_cell" style="background-color:hsl(0, 100%, 40%)"></td>
     <td class="palette_cell" style="background-color:hsl(30, 100%, 40%)"></td> 
     <td class="palette_cell" style="background-color:hsl(60, 100%, 40%)"></td>
     <td class="palette_cell" style="background-color:hsl(90, 100%, 40%)"></td>

@@ -32,7 +32,7 @@ $(function() {
     	switch (e.key){
     	case "ArrowUp":
     	case "w":
-    		$("#console").animate({top: '500px'},500);
+    		$("#console").animate({top: '480px'},500);
     		// 上に移動
     		//setPositionById("canvas");
     		break;
