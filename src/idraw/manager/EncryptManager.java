@@ -1,22 +1,31 @@
 package idraw.manager;
 
-import java.security.InvalidParameterException;
+import java.lang.reflect.InvocationTargetException;
 import java.security.Key;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.sql.SQLException;
+
+import idraw.model.User;
 
 public class EncryptManager {
     /**
      * 公開鍵と秘密鍵の生成.
      * @param user User型(Userテーブル)
      * @return 公開鍵(16進数文字列)
+     * @throws SQLException
+     * @throws InvocationTargetException
+     * @throws NoSuchMethodException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws SecurityException
+     * @throws NoSuchFieldException
      */
-	public String GetEncrypt() throws InvalidParameterException,NoSuchAlgorithmException {
-		// 現在はユーザテーブルへの書き込みはまだ書いてません
-		// また、引数がエラーになるので削除しています
+	public String GetEncrypt(User user) throws NoSuchAlgorithmException, NoSuchFieldException, SecurityException,
+	IllegalArgumentException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, SQLException {
 
 		// RSA暗号化キーを生成する.
 		KeyPairGenerator keygen = KeyPairGenerator.getInstance("RSA");
@@ -34,6 +43,10 @@ public class EncryptManager {
 		byte[] binPublic = keys[1].getEncoded();
 		String encodedPrivate = toHexString(binPrivate);
 		String encodedPublic = toHexString(binPublic);
+
+		// Userテーブルへ秘密鍵を書き出す
+		user.secret_key = encodedPrivate;
+		user.save();
 
 		// 公開鍵を戻す
 		return encodedPublic;
