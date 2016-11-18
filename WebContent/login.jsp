@@ -6,6 +6,7 @@
 	<title>Login</title>
 	<link rel="stylesheet" type="text/css" href="./idraw.css">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="./cryptico.min.js"></script>
 	<script src="./idraw.js"></script>
 </head>
 <body>
@@ -44,6 +45,7 @@
 </body>
 <script>
 	$("#loginButton").click(function() {
+		method = "login";
 		$("#title").hide(300);
 		$("#loginButton").hide(300);
 		$("#signUpButton").hide(300);
@@ -55,6 +57,7 @@
 	});
 	
 	$("#signUpButton").click(function() {
+		method = "signup";
 		$("#title").hide(300);
 		$("#loginButton").hide(300);
 		$("#signUpButton").hide(300);
@@ -68,6 +71,9 @@
 	});
 
 	$("#idSubmitButton").click(function() {
+		// id送信
+		socket.send(JSON.stringify({ cmd:method, id:$("#idField").val()}));
+		
 		$("#idField").hide(300);
 		$("#idSubmitButton").hide(300);
 		// subinfoをしまい終わってから全部出す
