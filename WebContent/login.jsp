@@ -45,7 +45,7 @@
 </body>
 <script>
 	$("#loginButton").click(function() {
-		method = "login";
+		idNew = false;
 		$("#title").hide(300);
 		$("#loginButton").hide(300);
 		$("#signUpButton").hide(300);
@@ -57,7 +57,7 @@
 	});
 	
 	$("#signUpButton").click(function() {
-		method = "signup";
+		idNew = true;
 		$("#title").hide(300);
 		$("#loginButton").hide(300);
 		$("#signUpButton").hide(300);
@@ -72,7 +72,7 @@
 
 	$("#idSubmitButton").click(function() {
 		// id送信
-		socket.send(JSON.stringify({ cmd:method, id:$("#idField").val()}));
+		socket.send(JSON.stringify({ cmd:"login", id:$("#idField").val(), "new":idNew}));
 		
 		$("#idField").hide(300);
 		$("#idSubmitButton").hide(300);
