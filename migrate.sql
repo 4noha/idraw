@@ -5,7 +5,7 @@ create database production_idraw;
 
 use test_idraw;
 CREATE TABLE user(
-    username		varchar(255) PRIMARY KEY,
+    username		varchar(20) PRIMARY KEY,
     pwd				TEXT, #NOT NULL,
     salt			TEXT, #NOT NULL,
     secret_key		TEXT, #NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE page(
 
 use production_idraw;
 CREATE TABLE user(
-    id			varchar(20) PRIMARY KEY,
+    username	varchar(20) PRIMARY KEY,
     pwd			TEXT, #NOT NULL,
     salt		TEXT, #NOT NULL,
     secret_key	TEXT, #NOT NULL,
