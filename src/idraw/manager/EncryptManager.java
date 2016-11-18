@@ -24,10 +24,11 @@ public class EncryptManager {
      * @throws SecurityException
      * @throws NoSuchFieldException
      */
-	public String GetEncrypt(User user) throws NoSuchAlgorithmException, NoSuchFieldException, SecurityException,
-	IllegalArgumentException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, SQLException {
+	public String generateKeyPair(User user) throws NoSuchAlgorithmException, NoSuchFieldException,
+	SecurityException, IllegalArgumentException, IllegalAccessException, NoSuchMethodException,
+	InvocationTargetException, SQLException {
 
-		// RSA暗号化キーを生成する.
+		// RSA暗号化キーを生成する
 		KeyPairGenerator keygen = KeyPairGenerator.getInstance("RSA");
 		keygen.initialize(1024); // 1024bit - 88bit = 117byte (最大平文サイズ)
 		KeyPair keyPair = keygen.generateKeyPair();
