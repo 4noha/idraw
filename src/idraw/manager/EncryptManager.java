@@ -14,8 +14,9 @@ public class EncryptManager {
      * @param user User型(Userテーブル)
      * @return 公開鍵(16進数文字列)
      */
-	public String GetEncrypt(User user) throws InvalidParameterException,NoSuchAlgorithmException {
-		//現在は
+	public String GetEncrypt() throws InvalidParameterException,NoSuchAlgorithmException {
+		// 現在はユーザテーブルへの書き込みはまだ書いてません
+		// また、引数がエラーになるので削除しています
 
 		// RSA暗号化キーを生成する.
 		KeyPairGenerator keygen = KeyPairGenerator.getInstance("RSA");
