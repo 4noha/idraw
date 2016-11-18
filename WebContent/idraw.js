@@ -1,5 +1,5 @@
 $(function() {
-    var offset = 5;
+    var offset = 0;
     var fromX;
     var fromY;
     var drawFlag = false;
@@ -32,13 +32,15 @@ $(function() {
     	switch (e.key){
     	case "ArrowUp":
     	case "w":
+    		$("#console").animate({top: '500px'},500);
     		// 上に移動
-    		setPositionById("canvas");
+    		//setPositionById("canvas");
     		break;
     	case "ArrowDown":
     	case "s":
+    		$("#console").animate({top: '600px'},500);
     		// 下に移動
-    		setPositionById("console");
+    		//setPositionById("console");
     		break;
     	}
     };
@@ -66,8 +68,8 @@ $(function() {
     $('canvas').on('mouseleave', function() {
         drawFlag = false;
     });
- 
-    $('li').click(function() {
+    
+    $('.palette_cell').click(function() {
         context.strokeStyle = $(this).css('background-color');
     });
  
@@ -97,15 +99,15 @@ $(function() {
     }
     
     // IDのタグの位置に移動
-    function setPositionById(id) {
-		var element = document.getElementById(id);
-		var rect = element.getBoundingClientRect();
-		var positionX = rect.left + window.pageXOffset;	// 要素のX座標
-		var positionY = rect.top + window.pageYOffset;	// 要素のY座標
-
-		// 要素の位置にスクロールさせる
-		window.scrollTo( positionX, positionY );
-    }
+//    function setPositionById(id) {
+//		var element = document.getElementById(id);
+//		var rect = element.getBoundingClientRect();
+//		var positionX = rect.left + window.pageXOffset;	// 要素のX座標
+//		var positionY = rect.top + window.pageYOffset;	// 要素のY座標
+//
+//		// 要素の位置にスクロールさせる
+//		window.scrollTo( positionX, positionY );
+//    }
 
     canvasToMinimizeBase64 = function(canvas) {
         var ctx = canvas.getContext('2d');
