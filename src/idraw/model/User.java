@@ -72,10 +72,10 @@ public class User extends DbInstanceDao<User> {
 		return columnNames;
 	}
 
-	// ユーザーネームのバリデーター(英数字20字まで)
+	// ユーザーネームのバリデータ(英数字20字まで)
 	public boolean AcceptableName(String userName) {
-		int a = userName.length();
-		if (a <= 20) {
+		int unamelength = userName.length();
+		if (unamelength <= 20) {
 			return true;
 		} else {
 			return false;
