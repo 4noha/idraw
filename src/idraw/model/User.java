@@ -81,4 +81,14 @@ public class User extends DbInstanceDao<User> {
 			return false;
 		}
 	}
+
+	// パスワードのバリデータ(英数字混合8字以上)
+	public boolean AcceptablePass(String userPass) {
+		int unamelength = userPass.length();
+		if (unamelength >=8  && userPass.matches("^[0-9a-zA-Z]+$") && (!(userPass.matches("^[0-9]+$")) && !(userPass.matches("^[a-zA-Z]+$"))) ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
