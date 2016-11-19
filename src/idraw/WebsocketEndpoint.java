@@ -65,11 +65,11 @@ public class WebsocketEndpoint {
 			String userName = (String) parsedJson.get("id");
 			boolean cmdNew = (boolean) parsedJson.get("new");
 			User user = null;
-			if (cmdNew == true) {
+			if (cmdNew == true) { //ユーザの新規作成をするための処理
 				user = new User();
 				user.username = userName;
 				user.save();
-			} else {
+			} else { //ユーザ検索の結果ユーザが存在した場合にPublicKeyを作成し”key”として返却するための処理
 				user = User.findBy("username", parsedJson.get("id"));
 				if (user == null) {
 					message = "{ \"cmd\":\"error\", \"key\":\"IDが見つかりません\" }";
@@ -83,9 +83,18 @@ public class WebsocketEndpoint {
 			});
 			ObjectMapper om = new ObjectMapper();
 			message = om.writeValueAsString(json);
+			break;
 
+		case "image": // cmd = image の場合、Websocket上では何もせずクライアントへ送信
+			break;
 
-
+		case "session": // cmd = session の場合、ユーザを検索し、ユーザが見つかればページを与える
+			User sessionUser = User.findBy("secret_key", parsedJson.get("id"));
+			if (sessionUser == null) {
+				message = "{ \"cmd\":\"error\", \"key\":\"ユーザが見つかりません\" }";
+			}else{
+				//ページを返す処理を記載予定
+			}
 			break;
 
 		default:
