@@ -19,7 +19,9 @@
 	%>
 </head>
 <body>
+<div id="canvas_panel">
 <canvas width="800" height="600" id="canvas" style="position: absolute;"></canvas>
+</div>
 <div id="console">
 
 <table id="palette">

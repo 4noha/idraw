@@ -11,6 +11,11 @@ body {
 ::-webkit-scrollbar {
   display: none;
 }
+#canvas_panel{
+	width:800px;
+	height:600px;
+	background-color:#fff;
+}
 #title {
     font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
     font-size: 140px;
