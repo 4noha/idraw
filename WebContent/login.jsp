@@ -23,7 +23,7 @@
 <body id="login_body">
 <div>
 <% // インフォメーション用文字  %>
-<h1 id="title" style="position:absolute;margin-left: 160px;margin-top: 140px;">WeDraw</h1>
+<h1 id="title"><span id="title_secondary">We</span>Draw</h1>
 <h1 id="infoTitle" style="position:absolute;margin-left: 340px;margin-top: 240px;font-size: 24px;display:none;">ログイン</h1>
 <h1 id="subInfo" style="position:absolute;margin-left: 280px;margin-top: 280px;font-size: 20px;display:none;">ログインIDを入力</h1>
 <% // 絵を書くキャンバス  %>

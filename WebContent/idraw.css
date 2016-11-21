@@ -12,8 +12,16 @@ body {
   display: none;
 }
 #title {
-    font-family: Montserrat, "Helvetica Neue", sans-serif;
+    font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
     font-size: 140px;
+    color:#1a1a1a;
+    position:absolute;
+    margin-left: 160px;
+    margin-top: 140px;
+}
+#title_secondary{
+	font-family:'Monotype Corsiva','lucida handwriting';
+	font-size: 140px;
 }
 .button {
     background: #1a1a1a;
