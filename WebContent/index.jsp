@@ -19,10 +19,10 @@
 	%>
 </head>
 <body>
-<div id="canvas_panel">
+<div id="panel_canvas">
 <canvas width="800" height="600" id="canvas" style="position: absolute;"></canvas>
 </div>
-<div id="console">
+<div id="panel_console">
 
 <table id="palette">
   <tr>
@@ -162,9 +162,12 @@
   </tr>
 </table>	
 
-    <div id="button">
-		<input type="button" id="save" />
-		<input type="button" id="clear"/>
+    <div id="panel_button">
+    	<input type="button" id="tool_pen" />
+    	<input type="button" id="tool_text" />
+    	<input type="button" id="tool_image" />
+		<input type="button" id="tool_save" />
+		<input type="button" id="tool_clear"/>
 	</div>
 </div>
 </body>

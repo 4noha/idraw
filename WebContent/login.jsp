@@ -20,8 +20,8 @@
 		}
 	%>
 </head>
-<body id="login_body">
-<div id="canvas_panel_login">
+<body>
+<div id="panel_canvas_login">
 <% // インフォメーション用文字  %>
 <h1 id="title"><span id="title_secondary">We</span>Draw</h1>
 <h1 id="infoTitle" style="position:absolute;margin-left: 340px;margin-top: 240px;font-size: 24px;display:none;">ログイン</h1>
@@ -39,7 +39,7 @@
 <input id="pwField" type="text" value="" class="button" style="position:absolute;margin-left: 280px;margin-top: 330px;display:none;">
 <input id="pwSubmitButton" type="submit" value="Submit" class="button" style="position:absolute;margin-left: 440px;margin-top: 330px;display:none;">
 </div>
-<div id="console">
+<div id="panel_console">
 
 <table id="palette">
   <tr>
@@ -179,9 +179,12 @@
   </tr>
 </table>	
 
-    <div id="button">
-		<input type="button" id="save" />
-		<input type="button" id="clear" />
+    <div id="panel_button">
+    	<input type="button" id="tool_pen" />
+    	<input type="button" id="tool_text" />
+    	<input type="button" id="tool_image" />
+		<input type="button" id="tool_save" />
+		<input type="button" id="tool_clear"/>
 	</div>
 </div>
 </body>

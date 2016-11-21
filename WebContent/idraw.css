@@ -7,12 +7,12 @@ body {
 ::-webkit-scrollbar {
   display: none;
 }
-#canvas_panel{
+#panel_canvas{
 	width:800px;
 	height:600px;
 	background-color:#fff;
 }
-#canvas_panel_login{
+#panel_canvas_login{
 	width:800px;
 	height:600px;
 	background-color:#fff;
@@ -43,13 +43,37 @@ body {
     padding: 0.84375em 0.875em 0.78125em;
     text-transform: uppercase;
 }
-#button {
+#panel_button {
     position: relative;
     top: -90px;
-    left: 500px;
+    left: 300px;
     width: 300px;
 }
-#save {
+#tool_pen {
+    font-size: 120%;
+    width: 56px;
+    height: 56px;
+    background-image:url("");
+    background-repeat: no-repeat;
+    background-position: center center; 
+}
+#tool_text {
+    font-size: 120%;
+    width: 56px;
+    height: 56px;
+    background-image:url("");
+    background-repeat: no-repeat;
+    background-position: center center; 
+}
+#tool_image {
+    font-size: 120%;
+    width: 56px;
+    height: 56px;
+    background-image:url("");
+    background-repeat: no-repeat;
+    background-position: center center; 
+}
+#tool_save {
     font-size: 120%;
     width: 56px;
     height: 56px;
@@ -57,7 +81,7 @@ body {
     background-repeat: no-repeat;
     background-position: center center; 
 }
-#clear {
+#tool_clear {
     font-size: 120%;
     width: 56px;
     height: 56px;
@@ -79,7 +103,7 @@ li {
     height: 50px;
 }
 
-#console{
+#panel_console{
 	position: absolute;
 	top: 600px;
     background-color: grey;
