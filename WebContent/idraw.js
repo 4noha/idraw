@@ -39,17 +39,47 @@ $(function() {
     	switch (e.key){
     	case "ArrowUp":
     	case "w":
-    		$("#panel_console").animate({top: '480px'},500);
     		// 上に移動
-    		//setPositionById("canvas");
+    		$("#panel_console").animate({top: '480px'},500);
     		break;
     	case "ArrowDown":
     	case "s":
-    		$("#panel_console").animate({top: '600px'},500);
     		// 下に移動
-    		//setPositionById("console");
+    		$("#panel_console").animate({top: '600px'},500);
     		break;
-    	}
+    	case "ArrowLeft":
+    	case "a":
+    		if (!(pagerJson === undefined || currentPage === undefined || pagerJson[currentPage+1] === undefined)){
+    			pagerJson[currentPage]["image"] = $("#canvas")[0].toDataURL("image/png");
+    			var image = new Image();
+    			image.src = pagerJson[currentPage+1]["image"];
+    			currentPage += 1;
+    			image.onload = function(){
+    			  // 画像の読み込みが終わったら、Canvasに画像を反映する。
+    				var ctx = $("#canvas")[0].getContext("2d");
+    				ctx.clearRect(0, 0, 800, 600);
+    				ctx.drawImage(image, 0, 0);
+    				console.log(currentPage);
+    			}
+    		}
+    		break;
+		case "ArrowRight":
+		case "d":
+    		if (!(pagerJson === undefined || currentPage === undefined || pagerJson[currentPage-1] === undefined)){
+    			pagerJson[currentPage]["image"] = $("#canvas")[0].toDataURL("image/png");
+    			var image = new Image();
+    			image.src = pagerJson[currentPage-1]["image"];
+    			currentPage -= 1;
+    			image.onload = function(){
+    				// 画像の読み込みが終わったら、Canvasに画像を反映する。
+    				var ctx = $("#canvas")[0].getContext("2d");
+    				ctx.clearRect(0, 0, 800, 600);
+    				ctx.drawImage(image, 0, 0);
+    				console.log(currentPage);
+    			}
+    		}
+			break;
+		}
     };
 
     $('canvas').mousedown(function(e) {
