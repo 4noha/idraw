@@ -80,12 +80,12 @@ $(function() {
         context.strokeStyle = $(this).css('background-color');
     });
 
-    $('#clear').click(function(e) {
+    $('#tool_clear').click(function(e) {
         e.preventDefault();
         context.clearRect(0, 0, $('canvas').width(), $('canvas').height());
     });
 
-    $('#save').click(function() {
+    $('#tool_save').click(function() {
         socket.send(JSON.stringify({ cmd:"save", page_num:1, image: canvasToMinimizeBase64($("#canvas")[0])}));
     });
 
