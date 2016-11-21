@@ -233,6 +233,8 @@
 	});
 
 	$("#pwSubmitButton").click(function() {
+		// id, pwd, sessionid送信
+		socket.send(JSON.stringify({ cmd:"login", id:$("#idField").val(), pwd: $("#pwField").val(), session_id: sessionId}));
 		var redirect_url = "index.jsp" + location.search;
 		if (document.referrer) {
 			var referrer = "referrer=" + encodeURIComponent(document.referrer);
