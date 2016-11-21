@@ -74,7 +74,7 @@ public class EncryptManager {
      * @throws BadPaddingException
      * @throws IllegalBlockSizeException
      */
-	public static String getDecryptPwd(User user) throws NoSuchAlgorithmException, InvalidKeySpecException,
+	public static String getDecryptPwd(User user, String pwd) throws NoSuchAlgorithmException, InvalidKeySpecException,
 	NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
 
 		// 秘密鍵をバイト列に変換し(16進数文字列→バイト列)、key型に復元
@@ -87,7 +87,7 @@ public class EncryptManager {
 		// 秘密鍵でパスワードを復号化する(16進数文字列→バイト列)
 		Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
 		cipher.init(Cipher.DECRYPT_MODE, privateKey);
-		byte[] decrypted = cipher.doFinal(DatatypeConverter.parseHexBinary(user.pwd));
+		byte[] decrypted = cipher.doFinal(DatatypeConverter.parseHexBinary(pwd));
 
 		// パスワードを文字列に変換して戻す(バイト列→文字列)
 		return new String(decrypted);
