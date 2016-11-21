@@ -122,21 +122,25 @@ public class WebsocketEndpoint {
 
 	@OnOpen // 接続したユーザをセッションに加えるメソッド
 	public void open(Session sess) throws ClassNotFoundException, SQLException {
-		if (sessions.isEmpty()) { // 誰も接続していない状況ならDBへの接続を開始する
-			DbUtil.connect(toMap(m -> {
-				m.put("env", "production");
-				m.put("host", "127.0.0.1:3306");
-				m.put("db_name", "idraw");
-			}));
+		synchronized (sessions) {
+			if (sessions.isEmpty()) { // 誰も接続していない状況ならDBへの接続を開始する
+				DbUtil.connect(toMap(m -> {
+					m.put("env", "production");
+					m.put("host", "127.0.0.1:3306");
+					m.put("db_name", "idraw");
+				}));
+			}
+			sessions.add(sess);
 		}
-		sessions.add(sess);
 	}
 
 	@OnClose // 接続済みのユーザをセッションから除外するメソッド
 	public void close(Session sess) throws SQLException {
-		sessions.remove(sess);
-		if (sessions.isEmpty()) { // 最後のユーザがセッションから外れた時にDBを閉じる
-			DbUtil.close();
+		synchronized (sessions) {
+			sessions.remove(sess);
+			if (sessions.isEmpty()) { // 最後のユーザがセッションから外れた時にDBを閉じる
+				DbUtil.close();
+			}
 		}
 	}
 
