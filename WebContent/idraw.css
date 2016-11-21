@@ -4,10 +4,6 @@ body {
     margin: 0;
     background-color:#000;
 }
-#login_body {
-    background-image:url("images/login_back.jpg");
-    background-repeat: no-repeat;
-}
 ::-webkit-scrollbar {
   display: none;
 }
@@ -15,6 +11,13 @@ body {
 	width:800px;
 	height:600px;
 	background-color:#fff;
+}
+#canvas_panel_login{
+	width:800px;
+	height:600px;
+	background-color:#fff;
+	background-image:url("images/login_back.jpg");
+    background-repeat: no-repeat;
 }
 #title {
     font-family: 'Montserrat', 'Helvetica Neue', sans-serif;

@@ -21,7 +21,7 @@
 	%>
 </head>
 <body id="login_body">
-<div id="canvas_panel">
+<div id="canvas_panel_login">
 <% // インフォメーション用文字  %>
 <h1 id="title"><span id="title_secondary">We</span>Draw</h1>
 <h1 id="infoTitle" style="position:absolute;margin-left: 340px;margin-top: 240px;font-size: 24px;display:none;">ログイン</h1>
