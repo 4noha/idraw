@@ -177,6 +177,8 @@
 		<input type="button" id="tool_clear"/>
 	</div>
 </div>
+<div id="panel_mask">
+</div>
 </body>
 <script>
 	$(function() {

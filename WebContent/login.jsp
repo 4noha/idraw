@@ -187,6 +187,8 @@
 		<input type="button" id="tool_clear"/>
 	</div>
 </div>
+<div id="panel_mask">
+</div>
 </body>
 <script>
 	var ani_speed = 500;

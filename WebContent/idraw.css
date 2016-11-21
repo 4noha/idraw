@@ -131,3 +131,10 @@ li {
     width:10px;
 	height:5px;
 }
+#panel_mask{
+	position: absolute;
+	top: 600px;
+    width: 800px;
+    height: 100px;
+    background-color: #000;
+}
