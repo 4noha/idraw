@@ -173,6 +173,11 @@
 </body>
 <script>
 	$(function() {
+	    pagerJson = {
+	    		1: {bg_image: null, image: $("#canvas")[0].toDataURL("image/png")},
+	    		2: {bg_image: null, image: $("#canvas")[0].toDataURL("image/png")}
+	    }
+	    currentPage = 1;
 		socket.onopen = function(){
 	        socket.send(JSON.stringify({cmd:"session", id: sessionId}));
 		}
