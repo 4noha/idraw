@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -48,6 +49,7 @@ public class WebsocketEndpoint {
 			break;
 
 		case "save": // cmd = save の場合、状況により新規作成 or 上書きをする
+			//System.out.println(message);
 			Page page = Page.findBy("page_num", parsedJson.get("page_num"));
 			if (page == null) { // pageが何も無ければ新規作成する
 				page = new Page(toMap(m -> {
@@ -62,7 +64,7 @@ public class WebsocketEndpoint {
 			final int pageNum = page.page_num;
 			message = mapToJsonString(m -> {
 				m.put("cmd", "save");
-				m.put("page", pageNum);
+				m.put("page_num", pageNum);
 			});
 			break;
 
@@ -74,7 +76,24 @@ public class WebsocketEndpoint {
 			String session_id = (String) parsedJson.get("session_id");
 			boolean cmdNew = (boolean) parsedJson.get("new");
 
-			if (userName != null && pwd != null && session_id != null) { // 来たJSONがcmd=login且つ情報内にpwdとsession_idがあれば
+			// 来たJSONがcmd=login且つ情報内にpwdとsession_idがあればusernameとpwdに合致するユーザにsession_idを付与
+			if (userName != null && pwd != null && session_id != null) {
+				ArrayList<User> searchedUser = User.find(toMap(m -> {
+					m.put("usernum", parsedJson.get("id"));
+					m.put("pwd", parsedJson.get("pwd"));
+				}));
+
+				//usernameはユニークなのでArrayListは要素数１のはず、そのためnullならエラーを返す
+				if(searchedUser != null){
+					User user = searchedUser.get(0);
+					user.session_id = (String) parsedJson.get("session_id");
+					user.save();
+					message = null;
+
+				}else{
+					message = "{ \"cmd\":\"error\", \"key\":\"ユーザが見つかりません\" }";
+				}
+
 
 			} else { // 来たJSON内にidはあるがpwd,session_id情報が無ければpwd,publicKeyを返す
 				User user = null;
@@ -108,6 +127,11 @@ public class WebsocketEndpoint {
 
 		default:
 			break;
+		}
+
+		//messageがnullならセッションを無駄に消費するだけなのでreturnで返す
+		if(message == null){
+			return;
 		}
 
 		// 送信中はセマフォで他のプロセスにアクセスされないようにする
