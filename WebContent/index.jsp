@@ -152,8 +152,8 @@
 </table>	
 
     <div id="button">
-		<input type="button" id="save" value="保存" />
-		<input type="button" id="clear" value="消去" />
+		<input type="button" id="save" />
+		<input type="button" id="clear"/>
 	</div>
 </div>
 </body>

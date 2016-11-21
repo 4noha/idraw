@@ -27,8 +27,6 @@
 <input id="idSubmitButton" type="submit" value="Submit" class="button" style="position:absolute;margin-left: 440px;margin-top: 330px;display:none;">
 <input id="pwField" type="text" value="" class="button" style="position:absolute;margin-left: 280px;margin-top: 330px;display:none;">
 <input id="pwSubmitButton" type="submit" value="Submit" class="button" style="position:absolute;margin-left: 440px;margin-top: 330px;display:none;">
-<% // 背景のキャンバス  %>
-<canvas width="800" height="600" id="base_canvas"></canvas>
 </div>
 <div id="console">
 
@@ -171,8 +169,8 @@
 </table>	
 
     <div id="button">
-		<input type="button" id="save" value="保存" />
-		<input type="button" id="clear" value="消去" />
+		<input type="button" id="save" />
+		<input type="button" id="clear" />
 	</div>
 </div>
 </body>

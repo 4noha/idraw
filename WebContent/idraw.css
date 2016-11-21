@@ -35,17 +35,19 @@ body {
 }
 #save {
     font-size: 120%;
-    width: 50px;
-    height: 50px;
+    width: 56px;
+    height: 56px;
     background-image:url("images/save.png");
     background-repeat: no-repeat;
+    background-position: center center; 
 }
 #clear {
     font-size: 120%;
-    width: 50px;
-    height: 50px;
+    width: 56px;
+    height: 56px;
     background-image:url("images/delete.png");
     background-repeat: no-repeat;
+    background-position: center center; 
 }
 ul {
     margin: 0;
