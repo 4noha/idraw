@@ -44,10 +44,18 @@ public class WebsocketEndpoint {
 		String cmd = (String) parsedJson.get("cmd"); // onMessageメソッドを呼び出したコマンドを選択
 
 		switch (cmd) {
+
+
+
+		/*■■■■■■■■■■【コマンドが（pen）、（image）の場合】■■■■■■■■■■*/
 		case "pen": // cmd = pen の場合、DBへの保存やpen自体の新規作成はないため何もしない
 		case "image": // cmd = image の場合、Websocket上では何もせずクライアントへ送信
 			break;
 
+
+
+
+			/*■■■■■■■■■■【コマンドが（save）の場合】■■■■■■■■■■*/
 		case "save": // cmd = save の場合、状況により新規作成 or 上書きをする
 			//System.out.println(message);
 			Page page = Page.findBy("page_num", parsedJson.get("page_num"));
@@ -68,6 +76,10 @@ public class WebsocketEndpoint {
 			});
 			break;
 
+
+
+
+			/*■■■■■■■■■■【コマンドが（login）の場合】■■■■■■■■■■*/
 		case "login": // cmd = login の場合、ログイン判定を行う
 
 			// 来たJSONから情報を読み取る
@@ -115,6 +127,13 @@ public class WebsocketEndpoint {
 				});
 				break;
 			}
+
+
+
+
+			/*■■■■■■■■■■【コマンドが（bgsave）の場合】■■■■■■■■■■*/
+		case "bgsave":
+			break;
 
 		default:
 			break;
