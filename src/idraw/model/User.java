@@ -74,8 +74,8 @@ public class User extends DbInstanceDao<User> {
 
 	// ユーザーネームのバリデータ(英数字20字まで)
 	public boolean AcceptableName(String userName) {
-		int unamelength = userName.length();
-		if (unamelength <= 20 && userName.matches("[0-9a-zA-Z]+")) {
+		int uNamelength = userName.length();
+		if (uNamelength <= 20 && userName.matches("[0-9a-zA-Z]+$")) {
 			return true;
 		} else {
 			return false;
