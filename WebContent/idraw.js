@@ -7,7 +7,7 @@ $(function() {
     var context = $("canvas").get(0).getContext('2d');
     var host="ws://localhost:8080/idraw/endpoint";
     socket = new WebSocket(host);
- 
+
     // Websocket受信時の処理
     socket.onmessage = function(msg){
         var json = $.parseJSON(msg.data);
@@ -20,13 +20,13 @@ $(function() {
             context.moveTo(json.fx, json.fy);
             context.lineTo(json.tx, json.ty);
             context.stroke();
-            context.closePath(); 
+            context.closePath();
     		break;
     	case "save":
     		break;
     	}
     }
-    
+
     // キー入力時の処理
     document.onkeydown = function (e){
     	switch (e.key){
@@ -44,14 +44,14 @@ $(function() {
     		break;
     	}
     };
- 
+
     $('canvas').mousedown(function(e) {
         drawFlag = true;
         fromX = e.pageX - $(this).offset().left - offset;
         fromY = e.pageY - $(this).offset().top - offset;
         return false;  // for chrome
     });
- 
+
     $('canvas').mousemove(function(e) {
         if (drawFlag) {
         	if (drawFlip) {
@@ -60,26 +60,26 @@ $(function() {
         	drawFlip = !drawFlip;
         }
     });
- 
+
     $('canvas').on('mouseup', function() {
         drawFlag = false;
     });
- 
+
     $('canvas').on('mouseleave', function() {
         drawFlag = false;
     });
-    
+
     $('.palette_cell').click(function() {
         context.strokeStyle = $(this).css('background-color');
     });
- 
+
     $('#clear').click(function(e) {
         e.preventDefault();
         context.clearRect(0, 0, $('canvas').width(), $('canvas').height());
     });
- 
+
     $('#save').click(function() {
-        socket.send(JSON.stringify({ cmd:"save", page:1, image: canvasToMinimizeBase64($("#canvas")[0])}));
+        socket.send(JSON.stringify({ cmd:"save", page_num:1, image: canvasToMinimizeBase64($("#canvas")[0])}));
     });
 
     function draw(e) {
@@ -91,13 +91,13 @@ $(function() {
         context.lineTo(toX, toY);
         context.stroke();
         context.closePath();
- 
+
         // サーバへメッセージ送信
         socket.send(JSON.stringify({ cmd:"pen", page: 1, fx:fromX, fy:fromY, tx:toX, ty:toY, color:context.strokeStyle }));
         fromX = toX;
         fromY = toY;
     }
-    
+
     // IDのタグの位置に移動
 //    function setPositionById(id) {
 //		var element = document.getElementById(id);
@@ -122,7 +122,7 @@ $(function() {
         ctx2.drawImage(canvas, 0, 0, canvas2.width, canvas2.height);
         return canvas2.toDataURL("image/png");
     }
-    
+
     pasteBase64 = function(canvas, x, y, base64Image) {
     	var img = new Image();
     	img.onload = function() {
