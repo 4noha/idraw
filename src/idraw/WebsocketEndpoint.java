@@ -34,7 +34,7 @@ import idraw.orm.DbUtil;
 public class WebsocketEndpoint {
 	static Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
 
-	@OnMessage //
+	@OnMessage //クライアントから来たJSON文字列から認識、処理しJSON文字列を返すメソッド
 	public void onMessage(String message) throws IOException, InstantiationException, IllegalAccessException,
 			ClassNotFoundException, NoSuchFieldException, SecurityException, SQLException, IllegalArgumentException,
 			NoSuchMethodException, InvocationTargetException, NoSuchAlgorithmException {
@@ -115,15 +115,6 @@ public class WebsocketEndpoint {
 				});
 				break;
 			}
-
-		case "session": // cmd = session の場合、ユーザを検索し、ユーザが見つかればページを与える
-			User sessionUser = User.findBy("secret_key", parsedJson.get("id"));
-			if (sessionUser == null) {
-				message = "{ \"cmd\":\"error\", \"key\":\"ユーザが見つかりません\" }";
-			} else {
-				// ページを返す処理を記載予定
-			}
-			break;
 
 		default:
 			break;
