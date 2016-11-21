@@ -44,8 +44,8 @@ body {
     text-transform: uppercase;
 }
 #panel_button {
-    position: relative;
-    top: -90px;
+    position: absolute;
+    top: 10px;
     left: 300px;
     width: 300px;
 }
@@ -109,12 +109,14 @@ li {
     background-color: grey;
     width: 780px;
     padding: 10px;
-    height: 100px;
+    height: 56px;
     background-image:url("images/toolbar.jpg");
     background-repeat: no-repeat;
 }
 
 #palette{
+	position: absolute;
+	top:5px;
 	width:260px;
 	display: table;
     border-collapse:collapse;
@@ -128,5 +130,5 @@ li {
     display: table-cell;
     vertical-align: inherit;
     width:10px;
-	height:9px;
+	height:5px;
 }
