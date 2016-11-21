@@ -7,6 +7,13 @@ $(function() {
     var context = $("canvas").get(0).getContext('2d');
     var host="ws://localhost:8080/idraw/endpoint";
     socket = new WebSocket(host);
+    
+    // Cookieが使えるかの処理
+    if (window.navigator.cookieEnabled) {
+    	sessionId = $.cookie("JSESSIONID");
+    } else {
+    	alert("ブラウザでCookieを有効化してください");
+    }
 
     // Websocket受信時の処理
     socket.onmessage = function(msg){

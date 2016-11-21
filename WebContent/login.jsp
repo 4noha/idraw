@@ -6,8 +6,19 @@
 	<title>Login</title>
 	<link rel="stylesheet" type="text/css" href="./idraw.css">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="./jquery.cookie-1.4.1.min.js"></script>
 	<script src="./cryptico.min.js"></script>
 	<script src="./idraw.js"></script>
+	<%
+		Cookie[] coockies = request.getCookies();
+		for(Cookie cookie: coockies){
+			if(cookie.getName().equals("JSESSIONID")){
+				System.out.println(coockies[0].getValue());
+				cookie.setHttpOnly(false);
+				response.addCookie(cookie);
+			}
+		}
+	%>
 </head>
 <body id="login_body">
 <div>

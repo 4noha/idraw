@@ -6,7 +6,17 @@
 	<title>Canvas</title>
 	<link rel="stylesheet" type="text/css" href="./idraw.css">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="./jquery.cookie-1.4.1.min.js"></script>
 	<script src="./idraw.js"></script>
+	<%
+		Cookie[] coockies = request.getCookies();
+		for(Cookie cookie: coockies){
+			if(cookie.getName().equals("JSESSIONID")){
+				cookie.setHttpOnly(false);
+				response.addCookie(cookie);
+			}
+		}
+	%>
 </head>
 <body>
 <canvas width="800" height="600" id="canvas" style="position: absolute;"></canvas>
@@ -157,4 +167,11 @@
 	</div>
 </div>
 </body>
+<script>
+	$(function() {
+		socket.onopen = function(){
+	        socket.send(JSON.stringify({cmd:"session", id: sessionId}));
+		}
+	});
+</script>
 </html>
