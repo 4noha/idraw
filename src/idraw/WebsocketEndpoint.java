@@ -133,6 +133,12 @@ public class WebsocketEndpoint {
 
 			/*■■■■■■■■■■【コマンドが（bgsave）の場合】■■■■■■■■■■*/
 		case "bgsave":
+			int bgNum = (int) parsedJson.get("bg_num");
+			String image = (String) parsedJson.get("image");
+			Page bg = new Page();
+			bg.page_num = bgNum;
+			bg.background_image = image;
+			bg.save();
 			break;
 
 		default:
@@ -185,6 +191,7 @@ public class WebsocketEndpoint {
 		return map;
 	}
 
+	// JSON(map)を与えることでJSON(String)を返却するメソッド
 	public static <K, V> String mapToJsonString(Consumer<Map<K, V>> initializer) throws JsonProcessingException {
 		Map<K, V> map = new LinkedHashMap<>();
 		initializer.accept(map);
