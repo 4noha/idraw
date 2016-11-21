@@ -133,10 +133,10 @@ public class WebsocketEndpoint {
 
 			/*■■■■■■■■■■【コマンドが（bgsave）の場合】■■■■■■■■■■*/
 		case "bgsave":
-			int bgNum = (int) parsedJson.get("bg_num");
+			int bgPageNum = (int) parsedJson.get("page_num");
 			String image = (String) parsedJson.get("image");
 			Page bg = new Page();
-			bg.page_num = bgNum;
+			bg.page_num = bgPageNum;
 			bg.background_image = image;
 			bg.save();
 			break;
