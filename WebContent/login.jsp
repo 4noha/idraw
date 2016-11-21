@@ -9,16 +9,16 @@
 	<script src="./cryptico.min.js"></script>
 	<script src="./idraw.js"></script>
 </head>
-<body>
+<body id="login_body">
 <div>
 <% // インフォメーション用文字  %>
-<h1 id="title" style="position:absolute;margin-left: 160px;margin-top: 160px;font-size: 140px;">WeDraw</h1>
+<h1 id="title" style="position:absolute;margin-left: 160px;margin-top: 140px;">WeDraw</h1>
 <h1 id="infoTitle" style="position:absolute;margin-left: 340px;margin-top: 240px;font-size: 24px;display:none;">ログイン</h1>
 <h1 id="subInfo" style="position:absolute;margin-left: 280px;margin-top: 280px;font-size: 20px;display:none;">ログインIDを入力</h1>
 <% // 絵を書くキャンバス  %>
 <canvas width="800" height="600" id="canvas" style="position: absolute;"></canvas>
 <% // ブラッシュの画像  %>
-<img id="brush" src="images/brush.jpg" style="height:130px;width:0px;position:absolute">
+<img id="brush" src="images/brush.png" style="height:130px;width:0px;position:absolute">
 <% // タイトルのオブジェクト  %>
 <input id="loginButton" type="submit" value="ログイン" class="button" style="position:absolute;margin-left: 280px;margin-top: 350px;">
 <input id="signUpButton" type="submit" value="サインアップ" class="button" style="position:absolute;margin-left: 440px;margin-top: 350px;">
@@ -28,7 +28,7 @@
 <input id="pwField" type="text" value="" class="button" style="position:absolute;margin-left: 280px;margin-top: 330px;display:none;">
 <input id="pwSubmitButton" type="submit" value="Submit" class="button" style="position:absolute;margin-left: 440px;margin-top: 330px;display:none;">
 <% // 背景のキャンバス  %>
-<canvas width="800" height="600" id="base_canvas" style="background-color:#fff;"></canvas>
+<canvas width="800" height="600" id="base_canvas"></canvas>
 </div>
 <div id="console">
 
@@ -233,18 +233,23 @@
 	});
 	
 $("#loginButton").mouseover(function() {
+	$("#brush").stop(true,true);
 	$("#brush").animate({top: '300px', left: '220px'},0);
-	$("#brush").animate({width: '200px'},200);
+	$("#brush").animate({width: '200px'},ani_speed/4);
+	
 	});
 $("#loginButton").mouseout(function() {
-	$("#brush").animate({width: '0px'},200);
+	$("#brush").stop(true,true);
+	$("#brush").animate({width: '0px'},ani_speed/4);
 	});
 $("#signUpButton").mouseover(function() {
+	$("#brush").stop(true,true);
 	$("#brush").animate({top: '300px', left: '390px'},0);
-	$("#brush").animate({width: '200px'},200);
+	$("#brush").animate({width: '200px'},ani_speed/4);
 	});
 $("#signUpButton").mouseout(function() {
-	$("#brush").animate({width: '0px'},200);
+	$("#brush").stop(true,true);
+	$("#brush").animate({width: '0px'},ani_speed/4);
 	});
 </script>
 </html>
