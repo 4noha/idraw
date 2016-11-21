@@ -2,6 +2,7 @@ package idraw.model;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import idraw.orm.DbInstanceDao;
@@ -48,6 +49,13 @@ public class User extends DbInstanceDao<User> {
 		return dbStaticAdapter.findBy(column_name, value);
 	}
 
+	//複数の条件で検索するためのメソッド
+	public static ArrayList<User> find(Map<String, Object> columnObjectMap) throws SQLException, InstantiationException,
+			IllegalAccessException, ClassNotFoundException, NoSuchFieldException, SecurityException {
+		adapterStandby();
+		return dbStaticAdapter.find((HashMap<String, Object>) columnObjectMap);
+	}
+
 	public static ArrayList<User> findPartial(String column_name, String value)
 			throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException,
 			NoSuchFieldException, SecurityException {
@@ -85,7 +93,8 @@ public class User extends DbInstanceDao<User> {
 	// パスワードのバリデータ(英数字混合8字以上)
 	public boolean AcceptablePass(String userPass) {
 		int uPassLength = userPass.length();
-		if (uPassLength >=8  && userPass.matches("^[0-9a-zA-Z]+$") && !(userPass.matches("^[0-9]+$")) && !(userPass.matches("^[a-zA-Z]+$")) ) {
+		if (uPassLength >= 8 && userPass.matches("^[0-9a-zA-Z]+$") && !(userPass.matches("^[0-9]+$"))
+				&& !(userPass.matches("^[a-zA-Z]+$"))) {
 			return true;
 		} else {
 			return false;
