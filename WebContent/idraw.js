@@ -105,17 +105,6 @@ $(function() {
         fromY = toY;
     }
 
-    // IDのタグの位置に移動
-//    function setPositionById(id) {
-//		var element = document.getElementById(id);
-//		var rect = element.getBoundingClientRect();
-//		var positionX = rect.left + window.pageXOffset;	// 要素のX座標
-//		var positionY = rect.top + window.pageYOffset;	// 要素のY座標
-//
-//		// 要素の位置にスクロールさせる
-//		window.scrollTo( positionX, positionY );
-//    }
-
     canvasToMinimizeBase64 = function(canvas) {
         var ctx = canvas.getContext('2d');
         // 小さいキャンバスを作成

@@ -20,7 +20,6 @@
 </head>
 <body>
 <canvas width="800" height="600" id="canvas" style="position: absolute;"></canvas>
-<canvas width="800" height="600" id="base_canvas" style="background-color:#fff;"></canvas>
 <div id="console">
 
 <table id="palette">
