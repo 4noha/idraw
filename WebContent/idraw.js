@@ -39,7 +39,7 @@ $(function() {
     	switch (e.key){
     	case "ArrowUp":
     	case "w":
-    		$("#panel_console").animate({top: '524px'},500);
+    		$("#panel_console").animate({top: '500px'},500);
     		// 上に移動
     		//setPositionById("canvas");
     		break;
