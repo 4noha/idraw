@@ -39,13 +39,13 @@ $(function() {
     	switch (e.key){
     	case "ArrowUp":
     	case "w":
-    		$("#console").animate({top: '480px'},500);
+    		$("#panel_console").animate({top: '480px'},500);
     		// 上に移動
     		//setPositionById("canvas");
     		break;
     	case "ArrowDown":
     	case "s":
-    		$("#console").animate({top: '600px'},500);
+    		$("#panel_console").animate({top: '600px'},500);
     		// 下に移動
     		//setPositionById("console");
     		break;
