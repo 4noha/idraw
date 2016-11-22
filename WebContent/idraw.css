@@ -122,7 +122,7 @@ li {
     height: 50px;
 }
 
-#panel_console{
+div.console1{
 	position: absolute;
 	top: 600px;
     width: 800px;
@@ -130,7 +130,13 @@ li {
     background-image:url("images/torn.png");
     background-repeat: no-repeat;
 }
-
+div.console2{
+	position: absolute;
+	top: 600px;
+    width: 800px;
+    height: 100px;
+    background-color: grey;
+}
 #palette{
 	position: absolute;
 	top:30px;
