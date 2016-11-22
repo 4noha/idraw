@@ -9,7 +9,7 @@ CREATE TABLE user(
     pwd				TEXT, #NOT NULL,
     salt			TEXT, #NOT NULL,
     secret_key		TEXT, #NOT NULL,
-    session_id		varchar(255) UNIQUE, #NOT NULL,
+    session_id		varchar(32) UNIQUE, #NOT NULL,
     INDEX idx_sid(session_id)
 );
 # ) engine=memory; # オンメモリで爆速
@@ -28,15 +28,15 @@ CREATE TABLE user(
     pwd			TEXT, #NOT NULL,
     salt		TEXT, #NOT NULL,
     secret_key	TEXT, #NOT NULL,
-    session_id	varchar(255) UNIQUE, #NOT NULL,
+    session_id	varchar(32) UNIQUE, #NOT NULL,
     INDEX idx_sid(session_id)
 );
 # ) engine=memory; # オンメモリで爆速
 
 CREATE TABLE page(
-    page_num		INT PRIMARY KEY,
-    joined_image	TEXT, #NOT NULL,
-    background_image	TEXT,
+    page_num		 INT PRIMARY KEY,
+    joined_image	 TEXT, #NOT NULL,
+    background_image TEXT,
     INDEX idx_pnum(page_num)
 );
 # ) engine=memory; # オンメモリで爆速
