@@ -178,6 +178,7 @@
 <script>
 $(function(){
 	idraw.websocketInit();
+	idraw.loadSessionId();
 	idraw.eventDefine();
     pagerJson = {
     		1: {bg_image: null, image: $("#canvas")[0].toDataURL("image/png")},

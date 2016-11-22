@@ -5,6 +5,15 @@ idraw.websocketInit = function() {
     socket = new WebSocket(host);
 }
 // 次にこちらを実行
+idraw.loadSessionId = function() {
+    // Cookieが使えるかの処理
+    if (window.navigator.cookieEnabled) {
+    	sessionId = $.cookie("JSESSIONID");
+    } else {
+    	alert("ブラウザでCookieを有効化してください");
+    }
+}
+// 次にこちらを実行
 idraw.eventDefine = function() {
     var offset = 0;
     var fromX;
@@ -12,13 +21,6 @@ idraw.eventDefine = function() {
     var drawFlag = false;
     var drawFlip = false;
     var context = $("canvas").get(0).getContext('2d');
-    
-    // Cookieが使えるかの処理
-    if (window.navigator.cookieEnabled) {
-    	sessionId = $.cookie("JSESSIONID");
-    } else {
-    	alert("ブラウザでCookieを有効化してください");
-    }
 
     // Websocket受信時の処理
     socket.onmessage = function(msg){

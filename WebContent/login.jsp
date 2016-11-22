@@ -193,6 +193,7 @@
 <script>
 $(function(){
 	idraw.websocketInit();
+	idraw.loadSessionId();
 	idraw.eventDefine();
 	var ani_speed = 500;
 	$("#loginButton").click(function() {
