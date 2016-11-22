@@ -77,12 +77,12 @@ public class WebsocketEndpoint {
 			String userName = (String) parsedJson.get("id");
 			String pwd = (String) parsedJson.get("pwd");
 			String session_id = (String) parsedJson.get("session_id");
-			boolean cmdNew = (boolean) parsedJson.get("new");
+			Boolean cmdNew = (Boolean) parsedJson.get("new");
 
 			// 来たJSONがcmd=login且つ情報内にpwdとsession_idがあればusernameとpwdに合致するユーザにsession_idを付与
 			if (userName != null && pwd != null && session_id != null) {
 				ArrayList<User> searchedUser = User.find(toMap(m -> {
-					m.put("usernum", parsedJson.get("id"));
+					m.put("username", parsedJson.get("id"));
 					m.put("pwd", parsedJson.get("pwd"));
 				}));
 
