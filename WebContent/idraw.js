@@ -1,19 +1,26 @@
-$(function() {
-    var offset = 0;
-    var fromX;
-    var fromY;
-    var drawFlag = false;
-    var drawFlip = false;
-    var context = $("canvas").get(0).getContext('2d');
+idraw = {}
+// まず実行、mockの場合はこれを実行せず、socketのmockを作成する
+idraw.websocketInit = function() {
     var host="ws://localhost:8080/idraw/endpoint";
     socket = new WebSocket(host);
-    
+}
+// 次にこちらを実行
+idraw.loadSessionId = function() {
     // Cookieが使えるかの処理
     if (window.navigator.cookieEnabled) {
     	sessionId = $.cookie("JSESSIONID");
     } else {
     	alert("ブラウザでCookieを有効化してください");
     }
+}
+// 次にこちらを実行
+idraw.eventDefine = function() {
+    var offset = 0;
+    var fromX;
+    var fromY;
+    var drawFlag = false;
+    var drawFlip = false;
+    var context = $("canvas").get(0).getContext('2d');
 
     // Websocket受信時の処理
     socket.onmessage = function(msg){
@@ -160,4 +167,4 @@ $(function() {
     	};
     	img.src = base64Image;
     }
-});
+}

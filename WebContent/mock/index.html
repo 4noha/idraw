@@ -1,39 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="idraw.model.User" %>
-<%@ page import="idraw.orm.DbUtil" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.util.HashMap" %>
-<%@ page import="java.util.LinkedHashMap" %>
-<%@page import="java.util.function.Consumer"%>
 <!doctype html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<title>Canvas</title>
-	<link rel="stylesheet" type="text/css" href="./idraw.css">
+	<link rel="stylesheet" type="text/css" href="../idraw.css">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-	<script src="./jquery.cookie-1.4.1.min.js"></script>
-	<script src="./idraw.js"></script>
-	<%
-		Cookie[] coockies = request.getCookies();
-		for(Cookie cookie: coockies){
-			if(cookie.getName().equals("JSESSIONID")){
-				Map dbConfig = new HashMap<String, Object>();
-				dbConfig.put("env", "production");
-				dbConfig.put("host", "127.0.0.1:3306");
-				dbConfig.put("db_name", "idraw");
-				DbUtil.connect(dbConfig);
-				//現在のクッキーの値がDBに格納されていないかチェック
-				if(User.findBy("session_id",cookie.getValue()).equals(null)){
-					// True:格納されていないので、ログインページに強制リダイレクト
-					response.sendRedirect("./login.jsp");
-					return;
-				}else{
-					cookie.setHttpOnly(false);
-					response.addCookie(cookie);
-			}
-		}
-	%>
+	<script src="../jquery.cookie-1.4.1.min.js"></script>
+	<script src="../idraw.js"></script>
 </head>
 <body>
 <div id="panel_canvas">
@@ -191,9 +164,9 @@
 </div>
 </body>
 <script>
-$(function(){
-	idraw.websocketInit();
-	idraw.loadSessionId();
+$(function() {
+	socket = {send:function(){}}
+	sessionId = "";
 	idraw.eventDefine();
     pagerJson = {
     		1: {bg_image: null, image: $("#canvas")[0].toDataURL("image/png")},
