@@ -203,6 +203,10 @@
     	</table>
 	</div>
 
+	<div id="panel_meter">
+		<p></p>
+	</div>
+
 </div>
 <div id="panel_mask">
 </div>

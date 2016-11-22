@@ -61,6 +61,16 @@ canvas{
     left: 740px;
     width: 500px;
 }
+
+#panel_meter {
+    position: absolute;
+    top: 22px;
+    left: 0px;
+    height: 5px;
+    width: 800px;
+    background-color:blue;
+}
+
 #tool_pen {
     font-size: 120%;
     width: 56px;
