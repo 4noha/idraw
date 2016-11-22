@@ -184,13 +184,15 @@
 </table>
 
     <div id="panel_button">
-    	<input type="button" id="tool_pen" />
-    	<input type="button" id="tool_text" />
-    	<input type="button" id="tool_image" />
-    	<input type="button" id="tool_newp" />
-    	<input type="button" id="tool_delp" />
-		<input type="button" id="tool_save" />
-		<input type="button" id="tool_clear"/>
+    	<input type="button" id="tool_pen" class="tool_button" />
+    	<input type="button" id="tool_text" class="tool_button" />
+    	<object id="tool_image_surface" class="tool_button" >
+    		<input type="file" id="tool_image" style="opacity: 0;width:56px;height: 56px;"/>
+    	</object>
+    	<input type="button" id="tool_newp" class="tool_button" />
+    	<input type="button" id="tool_delp" class="tool_button" />
+		<input type="button" id="tool_save" class="tool_button" />
+		<input type="button" id="tool_clear" class="tool_button" />
 	</div>
 </div>
 <div id="panel_mask">
@@ -209,6 +211,23 @@ $(function(){
 	socket.onopen = function(){
         socket.send(JSON.stringify({cmd:"session", id: sessionId}));
 	}
+
+	// 背景アップロードはindexだけの機能
+    $('#tool_image').click(function(e) {
+    	console.log("aaa");
+		var preview = new Image();
+		var file    = e.target.files[0];
+		var reader  = new FileReader();
+		
+		reader.onloadend = function () {
+			$('#panel-canvas').css('background-image', 'url('+reader.result+')');
+	    	console.log("reader.result");
+		}
+		
+		if (file) {
+			reader.readAsDataURL(file);
+		}
+    });
 });
 </script>
 </html>

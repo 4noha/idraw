@@ -54,61 +54,34 @@ canvas{
     left: 300px;
     width: 500px;
 }
-#tool_pen {
+.tool_button {
     font-size: 120%;
     width: 56px;
     height: 56px;
-    background-image:url("images/pencil_ic.png");
+	float: left;
+	padding :1px 6px;
+	margin-right: 2px;
     background-repeat: no-repeat;
     background-position: center center; 
 }
-#tool_text {
-    font-size: 120%;
+#tool_pen { background-image:url("images/pencil_ic.png") }
+#tool_text { background-image:url("images/text.png") }
+#tool_save { background-image:url("images/save.png") }
+#tool_clear { background-image:url("images/delete.png") }
+#tool_newp{ background-image:url("images/newp.png") }
+#tool_delp{ background-image:url("images/delp.png") }
+#tool_image_surface {
+	padding: 0px;
+    border-top: 1px solid #DDD;
+    border-left: 1px solid #DDD;
+    border-right: 1px solid #888;
+    border-bottom: 1px solid #888;
     width: 56px;
     height: 56px;
-    background-image:url("images/text.png");
-    background-repeat: no-repeat;
-    background-position: center center; 
-}
-#tool_image {
-    font-size: 120%;
-    width: 56px;
-    height: 56px;
+    box-sizing: border-box;
+    background-color: buttonface;
     background-image:url("images/upload.png");
-    background-repeat: no-repeat;
-    background-position: center center; 
-}
-#tool_save {
-    font-size: 120%;
-    width: 56px;
-    height: 56px;
-    background-image:url("images/save.png");
-    background-repeat: no-repeat;
-    background-position: center center; 
-}
-#tool_clear {
-    font-size: 120%;
-    width: 56px;
-    height: 56px;
-    background-image:url("images/delete.png");
-    background-repeat: no-repeat;
-    background-position: center center; 
-}
-#tool_newp{
-    font-size: 120%;
-    width: 56px;
-    height: 56px;
-    background-image:url("images/newp.png");
-    background-repeat: no-repeat;
-    background-position: center center; 
-}
-#tool_delp{
-    font-size: 120%;
-    width: 56px;
-    height: 56px;
-    background-image:url("images/delp.png");
-    background-repeat: no-repeat;
-    background-position: center center; 
+    
 }
 ul {
     margin: 0;
