@@ -127,6 +127,11 @@ idraw.eventDefine = function() {
     $('#tool_save').click(function() {
         socket.send(JSON.stringify({ cmd:"save", page_num:1, image: canvasToMinimizeBase64($("#canvas")[0])}));
     });
+    
+    $('select#select_theme').change(function() {
+    	var theme=$("option:selected", theme).text();
+    	$('#panel_console').attr('class', theme);
+    });
 
     function draw(e) {
         var toX = e.pageX - $('canvas').offset().left - offset;
