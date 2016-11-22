@@ -247,7 +247,11 @@ $(function(){
 
 function onClickTimer(progress) {
 	var sec = document.forms.timer_form.elements.timer_text.value;
-	progress.value = sec;
+	progress.max = sec;
+	setInterval(() => {
+		progress.value += 0.01;
+	}, 10);
+
 }
 </script>
 </html>
