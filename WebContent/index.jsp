@@ -196,10 +196,10 @@
 	</div>
 
 	<div id="panel_timer">
-    	<table>
-    		<tr><td>タイマ</td></tr>
-    		<tr><td><input type="text" id="timer_text"  size="1"/></td></tr>
-    		<tr><td><input type="button" id="timer_button" value="設定"/></td></tr>
+    	<table style="width:50px;">
+    		<tr style="height:25px;"><td><input type="button" id="timer_button" value="設定" style="width:48px;"/></td></tr>
+    		<tr style="height:25px;"><td><input type="text" id="timer_text"  size="1" style="width:44px;" value="タイマー" onClick="Clear_text(this.id);"/></td></tr>
+    		<tr style="height:50px;"><td></td></tr>
     	</table>
 	</div>
 

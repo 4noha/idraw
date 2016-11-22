@@ -57,9 +57,14 @@ canvas{
 
 #panel_timer {
     position: absolute;
-    top: 30px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: hsl(330, 0%, 20%);
+    background-color: buttonface;
+    height:54px;
+    width:54px;
+    top: 35px;
     left: 740px;
-    width: 500px;
 }
 
 #panel_meter {
