@@ -88,10 +88,11 @@ public class WebsocketEndpoint {
 					break;
 				}
 				// pwdが空なら新規ユーザーなのでpwdを入れる
-				if (user.pwd.equals("")){
+				if (user.pwd == null){
 					// 今は平文だが後で暗号、復号化、ハッシュ化が必要
 					user.pwd = pwd;
-				} else if (!user.pwd.equals(pwd)){
+				}
+				if (!user.pwd.equals(pwd)){
 					message = "{ \"cmd\":\"error\", \"key\":\"ユーザIDとPWの組み合わせが間違っています\" }";
 					break;
 				}
@@ -101,23 +102,27 @@ public class WebsocketEndpoint {
 				message = null;
 
 			} else { // 来たJSON内にidはあるがpwd,session_id情報が無ければpublicKeyを返す
-				User user = null;
-				if (cmdNew == true) { // ユーザの新規作成をするための処理
+				User user = User.findBy("username", parsedJson.get("id"));
+				if (user == null) {
+					// ユーザが無く、newフラグも無ければエラー
+					if (cmdNew != true) {
+						message = "{ \"cmd\":\"error\", \"key\":\"ユーザIDが見つかりません\" }";
+						break;
+					}
+					
+					// ユーザの新規作成をするための処理
 					user = new User();
 					user.username = userName;
 					user.save();
-				} else { // ユーザ検索の結果ユーザが存在した場合にPublicKeyを作成し”key”として返却するための処理
-					user = User.findBy("username", parsedJson.get("id"));
-					if (user == null) {
-						message = "{ \"cmd\":\"error\", \"key\":\"IDが見つかりません\" }";
-						break;
-					}
 				}
+				
+				// newでもnewじゃなくてもPublicKeyを作成し”key”として返却するための処理
 				String publicKey = EncryptManager.generateKeyPair(user);
 				message = mapToJsonString(m -> {
 					m.put("cmd", "pubkey");
 					m.put("key", publicKey);
 				});
+				break;
 			}
 			break;
 
