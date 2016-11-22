@@ -121,13 +121,13 @@ public class WebsocketEndpoint {
 			}
 			break;
 
-			/* ■■■■■■■■■■【コマンドが（bgsave）の場合】■■■■■■■■■■ */
+		/* ■■■■■■■■■■【コマンドが（bgsave）の場合】■■■■■■■■■■ */
 		case "bgsave":
 			int bgPageNum = (int) parsedJson.get("page_num");
 			String image = (String) parsedJson.get("image");
-			if (bgPageNum >= 0 || image == null) { //値が正しくない際はエラーメッセージを表示
+			if (bgPageNum >= 0 || image == null) { // 値が正しくない際はエラーメッセージを表示
 				message = "{ \"cmd\":\"error\", \"key\":\"ページ番号が０以下かBGイメージがnullです\" }";
-			} else { //値が適切であればBGイメージを保存
+			} else { // 値が適切であればBGイメージを保存
 				Page bg = new Page();
 				bg.page_num = bgPageNum;
 				bg.background_image = image;
