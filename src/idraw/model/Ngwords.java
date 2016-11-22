@@ -3,7 +3,7 @@ package idraw.model;
 import java.util.Arrays;
 
 public class Ngwords {
-	public static void isTaboo(String text) {
+	public static boolean isTaboo(String text) {
 		String[] array={
 			"阿呆",
 			"馬鹿",
@@ -14,9 +14,9 @@ public class Ngwords {
 			"manuke",
 			"tawake"};
 		if(Arrays.asList(array).contains(text)){
-			System.out.println("true");
+			return true;
 		} else {
-			System.out.println("false");
+			return false;
 		}
 	}
 }
