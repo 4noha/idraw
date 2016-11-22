@@ -40,11 +40,13 @@
 <div id="panel_canvas">
 <canvas width="800" height="600" id="canvas" style="position: absolute;"></canvas>
 </div>
-<div id="panel_console" class="console1">
+<div id="panel_console" class="Paper">
+<div id="panel_theme"><span>テーマ：</span>
 <select id="select_theme">
-	<option>console1</option>
-	<option>console2</option>
+	<option>Paper</option>
+	<option>Modern</option>
 </select>
+</div>
 <table id="palette">
   <tr>
     <td class="palette_cell" style="background-color:hsl(0, 100%, 90%)"></td>
@@ -194,6 +196,19 @@
 		<input type="button" id="tool_save" class="tool_button" />
 		<input type="button" id="tool_clear" class="tool_button" />
 	</div>
+
+	<div id="panel_timer">
+    	<table style="width:50px;">
+    		<tr style="height:25px;"><td><input type="button" id="timer_button" value="設定" style="width:48px;"/></td></tr>
+    		<tr style="height:25px;"><td><input type="text" id="timer_text"  size="1" style="width:44px;" value="タイマー" onClick="Clear_text(this.id);"/></td></tr>
+    		<tr style="height:50px;"><td></td></tr>
+    	</table>
+	</div>
+
+	<div id="panel_meter">
+		<p></p>
+	</div>
+
 </div>
 <div id="panel_mask">
 </div>

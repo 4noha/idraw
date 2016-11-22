@@ -54,15 +54,27 @@ canvas{
     left: 300px;
     width: 500px;
 }
+#panel_timer {
+    position: absolute;
+    border-style: solid;
+    border-width: 1px;
+    border-color: hsl(330, 0%, 20%);
+    background-color: buttonface;
+    height:54px;
+    width:54px;
+    top: 35px;
+    left: 740px;
+}
 .tool_button {
-    font-size: 120%;
+	font-size: 120%;
     width: 56px;
     height: 56px;
-	float: left;
-	padding :1px 6px;
-	margin-right: 2px;
+    background-image:url("images/pencil_ic.png");
+    float: left;
+    padding :1px 6px;
+    margin-right: 2px;
     background-repeat: no-repeat;
-    background-position: center center; 
+    background-position: center center;
 }
 #tool_pen { background-image:url("images/pencil_ic.png") }
 #tool_text { background-image:url("images/text.png") }
@@ -76,12 +88,16 @@ canvas{
     border-left: 1px solid #DDD;
     border-right: 1px solid #888;
     border-bottom: 1px solid #888;
-    width: 56px;
-    height: 56px;
-    box-sizing: border-box;
-    background-color: buttonface;
-    background-image:url("images/upload.png");
-    
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+#panel_meter {
+    position: absolute;
+    top: 22px;
+    left: 0px;
+    height: 5px;
+    width: 800px;
+    background-color:blue;
 }
 ul {
     margin: 0;
@@ -97,7 +113,7 @@ li {
     height: 50px;
 }
 
-div.console1{
+div.Paper{
 	position: absolute;
 	top: 600px;
     width: 800px;
@@ -105,12 +121,22 @@ div.console1{
     background-image:url("images/torn.png");
     background-repeat: no-repeat;
 }
-div.console2{
+div.Modern{
 	position: absolute;
 	top: 600px;
     width: 800px;
     height: 100px;
     background-color: grey;
+}
+#panel_theme{
+	position: absolute;
+	top:10px;
+	left:15px;
+}
+#select_theme{
+	position: absolute;
+	top:0px;
+	left:50px;
 }
 #palette{
 	position: absolute;

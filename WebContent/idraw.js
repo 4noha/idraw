@@ -168,4 +168,8 @@ idraw.eventDefine = function() {
     	};
     	img.src = base64Image;
     }
+    Clear_text=function(str)
+    {    
+    	document.getElementById(str).value= "";
+    }
 }

@@ -39,11 +39,13 @@
 <input id="pwField" type="text" value="" class="button" style="position:absolute;margin-left: 280px;margin-top: 330px;display:none;">
 <input id="pwSubmitButton" type="submit" value="Submit" class="button" style="position:absolute;margin-left: 440px;margin-top: 330px;display:none;">
 </div>
-<div id="panel_console" class="console1">
+<div id="panel_console" class="Paper">
+<div id="panel_theme"><span>テーマ：</span>
 <select id="select_theme">
-	<option>console1</option>
-	<option>console2</option>
+	<option>Paper</option>
+	<option>Modern</option>
 </select>
+</div>
 <table id="palette">
   <tr>
     <td class="palette_cell" style="background-color:hsl(0, 100%, 90%)"></td>
