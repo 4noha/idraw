@@ -34,7 +34,7 @@ import idraw.orm.DbUtil;
 public class WebsocketEndpoint {
 	static Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
 
-	@OnMessage //クライアントから来たJSON文字列から認識、処理しJSON文字列を返すメソッド
+	@OnMessage // クライアントから来たJSON文字列から処理を認識、実行しJSON文字列を返却するメソッド
 	public void onMessage(String message) throws IOException, InstantiationException, IllegalAccessException,
 			ClassNotFoundException, NoSuchFieldException, SecurityException, SQLException, IllegalArgumentException,
 			NoSuchMethodException, InvocationTargetException, NoSuchAlgorithmException {
@@ -45,19 +45,13 @@ public class WebsocketEndpoint {
 
 		switch (cmd) {
 
-
-
-		/*■■■■■■■■■■【コマンドが（pen）、（image）の場合】■■■■■■■■■■*/
+		/* ■■■■■■■■■■【コマンドが（pen）、（image）の場合】■■■■■■■■■■ */
 		case "pen": // cmd = pen の場合、DBへの保存やpen自体の新規作成はないため何もしない
 		case "image": // cmd = image の場合、Websocket上では何もせずクライアントへ送信
 			break;
 
-
-
-
-			/*■■■■■■■■■■【コマンドが（save）の場合】■■■■■■■■■■*/
+		/* ■■■■■■■■■■【コマンドが（save）の場合】■■■■■■■■■■ */
 		case "save": // cmd = save の場合、状況により新規作成 or 上書きをする
-			//System.out.println(message);
 			Page page = Page.findBy("page_num", parsedJson.get("page_num"));
 			if (page == null) { // pageが何も無ければ新規作成する
 				page = new Page(toMap(m -> {
@@ -76,10 +70,7 @@ public class WebsocketEndpoint {
 			});
 			break;
 
-
-
-
-			/*■■■■■■■■■■【コマンドが（login）の場合】■■■■■■■■■■*/
+		/* ■■■■■■■■■■【コマンドが（login）の場合】■■■■■■■■■■ */
 		case "login": // cmd = login の場合、ログイン判定を行う
 
 			// 来たJSONから情報を読み取る
@@ -95,19 +86,18 @@ public class WebsocketEndpoint {
 					m.put("pwd", parsedJson.get("pwd"));
 				}));
 
-				//usernameはユニークなのでArrayListは要素数１のはず、そのためnullならエラーを返す
-				if(searchedUser != null){
+				// usernameはユニークなのでArrayListは要素数１のはず、そのためnullならエラーを返す
+				if (searchedUser != null) {
 					User user = searchedUser.get(0);
 					user.session_id = (String) parsedJson.get("session_id");
 					user.save();
 					message = null;
 
-				}else{
+				} else {
 					message = "{ \"cmd\":\"error\", \"key\":\"ユーザが見つかりません\" }";
 				}
 
-
-			} else { // 来たJSON内にidはあるがpwd,session_id情報が無ければpwd,publicKeyを返す
+			} else { // 来たJSON内にidはあるがpwd,session_id情報が無ければpublicKeyを返す
 				User user = null;
 				if (cmdNew == true) { // ユーザの新規作成をするための処理
 					user = new User();
@@ -128,25 +118,26 @@ public class WebsocketEndpoint {
 				break;
 			}
 
-
-
-
-			/*■■■■■■■■■■【コマンドが（bgsave）の場合】■■■■■■■■■■*/
+			/* ■■■■■■■■■■【コマンドが（bgsave）の場合】■■■■■■■■■■ */
 		case "bgsave":
 			int bgPageNum = (int) parsedJson.get("page_num");
 			String image = (String) parsedJson.get("image");
-			Page bg = new Page();
-			bg.page_num = bgPageNum;
-			bg.background_image = image;
-			bg.save();
+			if (bgPageNum >= 0 || image == null) { //値が正しくない際はエラーメッセージを表示
+				message = "{ \"cmd\":\"error\", \"key\":\"ページ番号が０以下かBGイメージがnullです\" }";
+			} else { //値が適切であればBGイメージを保存
+				Page bg = new Page();
+				bg.page_num = bgPageNum;
+				bg.background_image = image;
+				bg.save();
+			}
 			break;
 
 		default:
 			break;
 		}
 
-		//messageがnullならセッションを無駄に消費するだけなのでreturnで返す
-		if(message == null){
+		// messageがnullならセッションを無駄に消費するだけなのでreturnで返す
+		if (message == null) {
 			return;
 		}
 
