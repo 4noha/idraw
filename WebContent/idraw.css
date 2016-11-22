@@ -54,13 +54,20 @@ canvas{
     left: 300px;
     width: 500px;
 }
+
+#panel_timer {
+    position: absolute;
+    top: 30px;
+    left: 740px;
+    width: 500px;
+}
 #tool_pen {
     font-size: 120%;
     width: 56px;
     height: 56px;
     background-image:url("images/pencil_ic.png");
     background-repeat: no-repeat;
-    background-position: center center; 
+    background-position: center center;
 }
 #tool_text {
     font-size: 120%;
@@ -68,7 +75,7 @@ canvas{
     height: 56px;
     background-image:url("images/text.png");
     background-repeat: no-repeat;
-    background-position: center center; 
+    background-position: center center;
 }
 #tool_image {
     font-size: 120%;
@@ -76,7 +83,7 @@ canvas{
     height: 56px;
     background-image:url("images/upload.png");
     background-repeat: no-repeat;
-    background-position: center center; 
+    background-position: center center;
 }
 #tool_save {
     font-size: 120%;
@@ -84,7 +91,7 @@ canvas{
     height: 56px;
     background-image:url("images/save.png");
     background-repeat: no-repeat;
-    background-position: center center; 
+    background-position: center center;
 }
 #tool_clear {
     font-size: 120%;
@@ -92,7 +99,7 @@ canvas{
     height: 56px;
     background-image:url("images/delete.png");
     background-repeat: no-repeat;
-    background-position: center center; 
+    background-position: center center;
 }
 #tool_newp{
     font-size: 120%;
@@ -100,7 +107,7 @@ canvas{
     height: 56px;
     background-image:url("images/newp.png");
     background-repeat: no-repeat;
-    background-position: center center; 
+    background-position: center center;
 }
 #tool_delp{
     font-size: 120%;
@@ -108,7 +115,7 @@ canvas{
     height: 56px;
     background-image:url("images/delp.png");
     background-repeat: no-repeat;
-    background-position: center center; 
+    background-position: center center;
 }
 ul {
     margin: 0;

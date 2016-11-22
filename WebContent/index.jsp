@@ -192,6 +192,15 @@
 		<input type="button" id="tool_save" />
 		<input type="button" id="tool_clear"/>
 	</div>
+
+	<div id="panel_timer">
+    	<table>
+    		<tr><td>タイマ</td></tr>
+    		<tr><td><input type="text" id="timer_text"  size="1"/></td></tr>
+    		<tr><td><input type="button" id="timer_button" value="設定"/></td></tr>
+    	</table>
+	</div>
+
 </div>
 <div id="panel_mask">
 </div>
