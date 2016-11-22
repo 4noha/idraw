@@ -81,21 +81,24 @@ public class WebsocketEndpoint {
 
 			// 来たJSONがcmd=login且つ情報内にpwdとsession_idがあればusernameとpwdに合致するユーザにsession_idを付与
 			if (userName != null && pwd != null && session_id != null) {
-				ArrayList<User> searchedUser = User.find(toMap(m -> {
-					m.put("username", parsedJson.get("id"));
-					m.put("pwd", parsedJson.get("pwd"));
-				}));
-
-				// usernameはユニークなのでArrayListは要素数１のはず、そのためnullならエラーを返す
-				if (searchedUser != null) {
-					User user = searchedUser.get(0);
-					user.session_id = (String) parsedJson.get("session_id");
-					user.save();
-					message = null;
-
-				} else {
+				User user = User.findBy("username", parsedJson.get("id"));
+				
+				if (user == null){
 					message = "{ \"cmd\":\"error\", \"key\":\"ユーザが見つかりません\" }";
+					break;
 				}
+				// pwdが空なら新規ユーザーなのでpwdを入れる
+				if (user.pwd.equals("")){
+					// 今は平文だが後で暗号、復号化、ハッシュ化が必要
+					user.pwd = pwd;
+				} else if (!user.pwd.equals(pwd)){
+					message = "{ \"cmd\":\"error\", \"key\":\"ユーザIDとPWの組み合わせが間違っています\" }";
+					break;
+				}
+				
+				user.session_id = (String) parsedJson.get("session_id");
+				user.save();
+				message = null;
 
 			} else { // 来たJSON内にidはあるがpwd,session_id情報が無ければpublicKeyを返す
 				User user = null;
@@ -115,8 +118,8 @@ public class WebsocketEndpoint {
 					m.put("cmd", "pubkey");
 					m.put("key", publicKey);
 				});
-				break;
 			}
+			break;
 
 			/* ■■■■■■■■■■【コマンドが（bgsave）の場合】■■■■■■■■■■ */
 		case "bgsave":
