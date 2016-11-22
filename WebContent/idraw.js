@@ -1,12 +1,17 @@
-$(function() {
+idraw = {}
+// まず実行、mockの場合はこれを実行せず、socketのmockを作成する
+idraw.websocketInit = function() {
+    var host="ws://localhost:8080/idraw/endpoint";
+    socket = new WebSocket(host);
+}
+// 次にこちらを実行
+idraw.eventDefine = function() {
     var offset = 0;
     var fromX;
     var fromY;
     var drawFlag = false;
     var drawFlip = false;
     var context = $("canvas").get(0).getContext('2d');
-    var host="ws://localhost:8080/idraw/endpoint";
-    socket = new WebSocket(host);
     
     // Cookieが使えるかの処理
     if (window.navigator.cookieEnabled) {
@@ -160,4 +165,4 @@ $(function() {
     	};
     	img.src = base64Image;
     }
-});
+}

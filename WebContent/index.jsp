@@ -14,13 +14,8 @@
 		for(Cookie cookie: coockies){
 			if(cookie.getName().equals("JSESSIONID")){
 				//現在のクッキーの値がDBに格納されていないかチェック
-				if(User.findBy("session_id",coockies[0].getValue()).equals(null)){
-					// True:格納されていないので、ログインページに強制リダイレクト
-					response.sendRedirect("./login.jsp");
-				}else{
 					cookie.setHttpOnly(false);
 					response.addCookie(cookie);
-				}
 			}
 		}
 	%>
@@ -181,15 +176,17 @@
 </div>
 </body>
 <script>
-	$(function() {
-	    pagerJson = {
-	    		1: {bg_image: null, image: $("#canvas")[0].toDataURL("image/png")},
-	    		2: {bg_image: null, image: $("#canvas")[0].toDataURL("image/png")}
-	    }
-	    currentPage = 1;
-		socket.onopen = function(){
-	        socket.send(JSON.stringify({cmd:"session", id: sessionId}));
-		}
-	});
+$(function(){
+	idraw.websocketInit();
+	idraw.eventDefine();
+    pagerJson = {
+    		1: {bg_image: null, image: $("#canvas")[0].toDataURL("image/png")},
+    		2: {bg_image: null, image: $("#canvas")[0].toDataURL("image/png")}
+    }
+    currentPage = 1;
+	socket.onopen = function(){
+        socket.send(JSON.stringify({cmd:"session", id: sessionId}));
+	}
+});
 </script>
 </html>

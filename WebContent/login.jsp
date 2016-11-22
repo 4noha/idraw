@@ -191,6 +191,9 @@
 </div>
 </body>
 <script>
+$(function(){
+	idraw.websocketInit();
+	idraw.eventDefine();
 	var ani_speed = 500;
 	$("#loginButton").click(function() {
 		idNew = false;
@@ -247,25 +250,26 @@
 		}
 		location.href = redirect_url;
 	});
-	
-$("#loginButton").mouseover(function() {
-	$("#brush").stop(true,true);
-	$("#brush").animate({top: '300px', left: '220px'},0);
-	$("#brush").animate({width: '200px'},ani_speed/4);
-	
-	});
-$("#loginButton").mouseout(function() {
-	$("#brush").stop(true,true);
-	$("#brush").animate({width: '0px'},ani_speed/4);
-	});
-$("#signUpButton").mouseover(function() {
-	$("#brush").stop(true,true);
-	$("#brush").animate({top: '300px', left: '390px'},0);
-	$("#brush").animate({width: '200px'},ani_speed/4);
-	});
-$("#signUpButton").mouseout(function() {
-	$("#brush").stop(true,true);
-	$("#brush").animate({width: '0px'},ani_speed/4);
-	});
+		
+	$("#loginButton").mouseover(function() {
+		$("#brush").stop(true,true);
+		$("#brush").animate({top: '300px', left: '220px'},0);
+		$("#brush").animate({width: '200px'},ani_speed/4);
+		
+		});
+	$("#loginButton").mouseout(function() {
+		$("#brush").stop(true,true);
+		$("#brush").animate({width: '0px'},ani_speed/4);
+		});
+	$("#signUpButton").mouseover(function() {
+		$("#brush").stop(true,true);
+		$("#brush").animate({top: '300px', left: '390px'},0);
+		$("#brush").animate({width: '200px'},ani_speed/4);
+		});
+	$("#signUpButton").mouseout(function() {
+		$("#brush").stop(true,true);
+		$("#brush").animate({width: '0px'},ani_speed/4);
+		});
+});
 </script>
 </html>
