@@ -4,7 +4,7 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.LinkedHashMap" %>
-<%@page import="java.util.function.Consumer"%>
+<%@ page import="java.util.function.Consumer" %>
 <!doctype html>
 <html>
 <head>
@@ -31,6 +31,7 @@
 				}else{
 					cookie.setHttpOnly(false);
 					response.addCookie(cookie);
+				}
 			}
 		}
 	%>
