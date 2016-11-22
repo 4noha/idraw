@@ -18,13 +18,13 @@
 		Cookie[] coockies = request.getCookies();
 		for(Cookie cookie: coockies){
 			if(cookie.getName().equals("JSESSIONID")){
-				Map dbConfig = new HashMap<String, Object>();
+				Map<String, String> dbConfig = new HashMap<String, String>();
 				dbConfig.put("env", "production");
 				dbConfig.put("host", "127.0.0.1:3306");
 				dbConfig.put("db_name", "idraw");
 				DbUtil.connect(dbConfig);
 				//現在のクッキーの値がDBに格納されていないかチェック
-				if(User.findBy("session_id",cookie.getValue()).equals(null)){
+				if(User.findBy("session_id",cookie.getValue())==null){
 					// True:格納されていないので、ログインページに強制リダイレクト
 					response.sendRedirect("./login.jsp");
 					return;
