@@ -34,7 +34,7 @@ import idraw.orm.DbUtil;
 public class WebsocketEndpoint {
 	static Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
 
-	@OnMessage // クライアントから来たJSON文字列から認識、処理しJSON文字列を返すメソッド
+	@OnMessage // クライアントから来たJSON文字列から処理を認識、実行しJSON文字列を返却するメソッド
 	public void onMessage(String message) throws IOException, InstantiationException, IllegalAccessException,
 			ClassNotFoundException, NoSuchFieldException, SecurityException, SQLException, IllegalArgumentException,
 			NoSuchMethodException, InvocationTargetException, NoSuchAlgorithmException {
@@ -52,7 +52,6 @@ public class WebsocketEndpoint {
 
 		/* ■■■■■■■■■■【コマンドが（save）の場合】■■■■■■■■■■ */
 		case "save": // cmd = save の場合、状況により新規作成 or 上書きをする
-			// System.out.println(message);
 			Page page = Page.findBy("page_num", parsedJson.get("page_num"));
 			if (page == null) { // pageが何も無ければ新規作成する
 				page = new Page(toMap(m -> {
@@ -98,7 +97,7 @@ public class WebsocketEndpoint {
 					message = "{ \"cmd\":\"error\", \"key\":\"ユーザが見つかりません\" }";
 				}
 
-			} else { // 来たJSON内にidはあるがpwd,session_id情報が無ければpwd,publicKeyを返す
+			} else { // 来たJSON内にidはあるがpwd,session_id情報が無ければpublicKeyを返す
 				User user = null;
 				if (cmdNew == true) { // ユーザの新規作成をするための処理
 					user = new User();
