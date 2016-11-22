@@ -40,11 +40,13 @@
 <div id="panel_canvas">
 <canvas width="800" height="600" id="canvas" style="position: absolute;"></canvas>
 </div>
-<div id="panel_console" class="console1">
+<div id="panel_console" class="Paper">
+<div id="panel_theme"><span>テーマ：</span>
 <select id="select_theme">
-	<option>console1</option>
-	<option>console2</option>
+	<option>Paper</option>
+	<option>Modern</option>
 </select>
+</div>
 <table id="palette">
   <tr>
     <td class="palette_cell" style="background-color:hsl(0, 100%, 90%)"></td>
