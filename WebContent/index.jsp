@@ -197,17 +197,17 @@
 		<input type="button" id="tool_clear" class="tool_button" />
 	</div>
 
-	<div id="panel_timer">
-    	<table style="width:50px;">
-    		<tr style="height:25px;"><td><input type="button" id="timer_button" value="設定" style="width:48px;"/></td></tr>
-    		<tr style="height:25px;"><td><input type="text" id="timer_text"  size="1" style="width:44px;" value="タイマー" onClick="Clear_text(this.id);"/></td></tr>
-    		<tr style="height:50px;"><td></td></tr>
-    	</table>
-	</div>
+	<form id="timer_form">
+		<div id="panel_timer">
+    		<table>
+    			<tr><td>タイマ</td></tr>
+    			<tr><td><input type="text" id="timer_text"  size="1"/></td></tr>
+    			<tr><td><input type="button" id="timer_button" value="設定" onclick="onClickTimer(progress)"/></td></tr>
+    		</table>
+		</div>
+	</form>
 
-	<div id="panel_meter">
-		<p></p>
-	</div>
+	<progress id="progress" value="0" max="100"></progress>
 
 </div>
 <div id="panel_mask">
@@ -233,16 +233,21 @@ $(function(){
 		var preview = new Image();
 		var file    = e.target.files[0];
 		var reader  = new FileReader();
-		
+
 		reader.onloadend = function () {
 			$('#panel-canvas').css('background-image', 'url('+reader.result+')');
 	    	console.log("reader.result");
 		}
-		
+
 		if (file) {
 			reader.readAsDataURL(file);
 		}
     });
 });
+
+function onClickTimer(progress) {
+	var sec = document.forms.timer_form.elements.timer_text.value;
+	progress.value = sec;
+}
 </script>
 </html>
