@@ -184,6 +184,8 @@
     	<input type="button" id="tool_pen" />
     	<input type="button" id="tool_text" />
     	<input type="button" id="tool_image" />
+    	<input type="button" id="tool_newp" />
+    	<input type="button" id="tool_delp" />
 		<input type="button" id="tool_save" />
 		<input type="button" id="tool_clear"/>
 	</div>

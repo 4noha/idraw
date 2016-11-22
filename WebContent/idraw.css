@@ -50,7 +50,7 @@ canvas{
     position: absolute;
     top: 35px;
     left: 300px;
-    width: 300px;
+    width: 500px;
 }
 #tool_pen {
     font-size: 120%;
@@ -89,6 +89,22 @@ canvas{
     width: 56px;
     height: 56px;
     background-image:url("images/delete.png");
+    background-repeat: no-repeat;
+    background-position: center center; 
+}
+#tool_newp{
+    font-size: 120%;
+    width: 56px;
+    height: 56px;
+    background-image:url("images/newp.png");
+    background-repeat: no-repeat;
+    background-position: center center; 
+}
+#tool_delp{
+    font-size: 120%;
+    width: 56px;
+    height: 56px;
+    background-image:url("images/delp.png");
     background-repeat: no-repeat;
     background-position: center center; 
 }
