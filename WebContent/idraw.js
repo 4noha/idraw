@@ -47,14 +47,10 @@ idraw.eventDefine = function() {
     	case "ArrowUp":
     	case "w":
     		$("#panel_console").animate({top: '500px'},500);
-    		// 上に移動
-    		//setPositionById("canvas");
     		break;
     	case "ArrowDown":
     	case "s":
     		$("#panel_console").animate({top: '600px'},500);
-    		// 下に移動
-    		//setPositionById("console");
     		break;
     	case "ArrowLeft":
     	case "a":
