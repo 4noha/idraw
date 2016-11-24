@@ -22,7 +22,7 @@ idraw.eventDefine = function() {
     var drawFlip = false;
     var context = $("canvas").get(0).getContext('2d');
     var GCO=context.globalCompositeOperation;
-    var penStyle="rgba(0,0,0,0)";
+    var penStyle="#000000";
     var isEraser=false;
     imageBuffer = {}
 
@@ -137,12 +137,12 @@ idraw.eventDefine = function() {
     $('.palette_cell').click(function() {
     	context.globalCompositeOperation = GCO;
         context.strokeStyle = $(this).css('background-color');
+        penStyle=context.strokeStyle;
         isEraser=false;
         canvas.style.cursor = "url('images/pencil.png'), auto";
     });
     
     $('#tool_eraser').click(function() {
-    	penStyle=context.strokeStyle;
     	context.globalCompositeOperation = "destination-out";
     	context.strokeStyle = "rgba(0,0,0,1)";
     	isEraser=true;
