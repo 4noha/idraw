@@ -86,6 +86,13 @@ canvas{
     height: 100px;
     background-color: #D3D3D3;
 }
+#panel_console.Dark{
+	position: absolute;
+	top: 600px;
+    width: 800px;
+    height: 100px;
+    background-color: black;
+}
 input.tool_button {
 	font-size: 120%;
     width: 56px;
@@ -102,11 +109,17 @@ input.tool_button {
 #panel_timer.Modern{
     background-color: #FFCC00;
 }
+#panel_timer.Dark{
+    background-color: #2f4f4f;
+}
 input.Paper{
 	background-color: buttonface;
 }
 input.Modern{
 	background-color: #FFCC00;
+}
+input.Dark{
+    background-color: #2f4f4f;
 }
 input.Paper#tool_pen{
 	background-image:url("images/pencil_ic.png");
@@ -150,7 +163,27 @@ input.Modern#tool_delp{
 input.Modern#tool_image{ 
 	background-image:url("images/upload_m.png");
 	}
-
+input.Dark#tool_pen{ 
+	background-image:url("images/pen_d.png");
+	}
+input.Dark#tool_text{
+	background-image:url("images/text_d.png");
+	}
+input.Dark#tool_save{
+	background-image:url("images/save_d.png");
+	}
+input.Dark#tool_clear { 
+	background-image:url("images/delete_d.png");
+	}
+input.Dark#tool_newp{ 
+	background-image:url("images/newp_d.png");
+	}
+input.Dark#tool_delp{ 
+	background-image:url("images/delp_d.png");
+	}
+input.Dark#tool_image{ 
+	background-image:url("images/upload_d.png");
+	}
 #tool_image_surface {
 	padding: 0px;
     border-top: 1px solid #DDD;

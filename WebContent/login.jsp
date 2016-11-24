@@ -44,6 +44,7 @@
 <select id="select_theme">
 	<option>Paper</option>
 	<option>Modern</option>
+	<option>Dark</option>
 </select>
 </div>
 <table id="palette">
