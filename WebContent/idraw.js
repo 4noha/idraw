@@ -126,7 +126,15 @@ idraw.eventDefine = function() {
     
     $('select#select_theme').change(function() {
     	var theme=$("option:selected", theme).text();
+    	var string1='tool_button ';
     	$('#panel_console').attr('class', theme);
+    	$('#tool_pen').attr('class', string1.concat(theme));
+    	$('#tool_text').attr('class', string1.concat(theme));
+    	$('#tool_image').attr('class', string1.concat(theme));
+    	$('#tool_save').attr('class', string1.concat(theme));
+    	$('#tool_clear').attr('class', string1.concat(theme));
+    	$('#tool_newp').attr('class', string1.concat(theme));
+    	$('#tool_delp').attr('class', string1.concat(theme));
     });
 
     function draw(e) {

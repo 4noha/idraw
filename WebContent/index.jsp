@@ -186,15 +186,15 @@
 </table>
 
     <div id="panel_button">
-    	<input type="button" id="tool_pen" class="tool_button" />
-    	<input type="button" id="tool_text" class="tool_button" />
-    	<object id="tool_image_surface" class="tool_button" >
+    	<input type="button" id="tool_pen" class="tool_button Paper" />
+    	<input type="button" id="tool_text" class="tool_button Paper" />
+    	<object id="tool_image_surface" class="tool_button Paper" >
     		<input type="file" id="tool_image" style="opacity: 0;width:56px;height: 56px;"/>
     	</object>
-    	<input type="button" id="tool_newp" class="tool_button" />
-    	<input type="button" id="tool_delp" class="tool_button" />
-		<input type="button" id="tool_save" class="tool_button" />
-		<input type="button" id="tool_clear" class="tool_button" />
+    	<input type="button" id="tool_newp" class="tool_button Paper" />
+    	<input type="button" id="tool_delp" class="tool_button Paper" />
+		<input type="button" id="tool_save" class="tool_button Paper" />
+		<input type="button" id="tool_clear" class="tool_button Paper" />
 	</div>
 
 	<form id="timer_form">
