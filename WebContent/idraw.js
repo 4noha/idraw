@@ -41,6 +41,9 @@ idraw.eventDefine = function() {
     	case "chat":
     		$("#chat_window").html($("#chat_window").html()+"<br>"+json.text);
     		break;
+    	case "chatdel":
+    		$("#chat_window").empty();
+    		break;
     	}
     }
 

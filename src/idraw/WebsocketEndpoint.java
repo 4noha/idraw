@@ -150,11 +150,17 @@ public class WebsocketEndpoint {
 			if (user != null) {
 				chatName = ""+user.username;
 			}
-			String chatText = chatName +"さん：" + chatMessage;
-			message = mapToJsonString(m -> {
-				m.put("cmd", "chat");
-				m.put("text", chatText);
-			});
+			String chatText = "　"+chatName +"さん：" + chatMessage;
+			if(chatMessage.equals("#削除")||chatMessage.equals("#del")){
+				message = mapToJsonString(m -> {
+					m.put("cmd", "chatdel");
+				});
+			}else{
+				message = mapToJsonString(m -> {
+					m.put("cmd", "chat");
+					m.put("text", chatText);
+				});
+			}
 			break;
 
 		default:
