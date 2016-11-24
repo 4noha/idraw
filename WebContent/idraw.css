@@ -142,6 +142,9 @@ input.Paper#tool_delp{
 input.Paper#tool_image{ 
 	background-image:url("images/upload.png");
 	}
+input.Paper#tool_eraser{ 
+	background-image:url("images/eraser.png");
+	}
 input.Modern#tool_pen{ 
 	background-image:url("images/pen_m.png");
 	}
@@ -163,6 +166,9 @@ input.Modern#tool_delp{
 input.Modern#tool_image{ 
 	background-image:url("images/upload_m.png");
 	}
+input.Modern#tool_eraser{ 
+	background-image:url("images/eraser.png");
+	}
 input.Dark#tool_pen{ 
 	background-image:url("images/pen_d.png");
 	}
@@ -183,6 +189,9 @@ input.Dark#tool_delp{
 	}
 input.Dark#tool_image{ 
 	background-image:url("images/upload_d.png");
+	}
+input.Dark#tool_eraser{ 
+	background-image:url("images/eraser.png");
 	}
 #tool_image_surface {
 	padding: 0px;

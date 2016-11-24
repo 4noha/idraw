@@ -21,6 +21,9 @@ idraw.eventDefine = function() {
     var drawFlag = false;
     var drawFlip = false;
     var context = $("canvas").get(0).getContext('2d');
+    var GCO=context.globalCompositeOperation;
+    var penStyle="rgba(0,0,0,0)";
+    var isEraser=false;
     imageBuffer = {}
 
     // Websocket受信時の処理
@@ -132,7 +135,25 @@ idraw.eventDefine = function() {
     });
 
     $('.palette_cell').click(function() {
+    	context.globalCompositeOperation = GCO;
         context.strokeStyle = $(this).css('background-color');
+        isEraser=false;
+        canvas.style.cursor = "url('images/pencil.png'), auto";
+    });
+    
+    $('#tool_eraser').click(function() {
+    	penStyle=context.strokeStyle;
+    	context.globalCompositeOperation = "destination-out";
+    	context.strokeStyle = "rgba(0,0,0,1)";
+    	isEraser=true;
+    	canvas.style.cursor = "url('images/eraser_cur.png'), auto";
+    });
+    
+    $('#tool_pen').click(function() {
+    	context.globalCompositeOperation = GCO;
+    	context.strokeStyle=penStyle;
+    	isEraser=false;
+    	canvas.style.cursor = "url('images/pencil.png'), auto";
     });
 
     $('#tool_clear').click(function(e) {
@@ -169,6 +190,9 @@ idraw.eventDefine = function() {
         var toX = e.pageX - $('canvas').offset().left - offset;
         var toY = e.pageY - $('canvas').offset().top - offset;
         context.lineWidth = 2;
+        if(isEraser){
+        	context.lineWidth = 10;
+        }
         context.beginPath();
         context.moveTo(fromX, fromY);
         context.lineTo(toX, toY);

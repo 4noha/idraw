@@ -297,6 +297,7 @@
 				type="button" id="tool_delp" class="tool_button Paper" /> <input
 				type="button" id="tool_save" class="tool_button Paper" /> <input
 				type="button" id="tool_clear" class="tool_button Paper" />
+				<input type="button" id="tool_eraser" class="tool_button Paper" />
 		</div>
 
 			<div id="panel_timer">
