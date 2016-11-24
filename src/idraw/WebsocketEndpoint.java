@@ -200,8 +200,6 @@ public class WebsocketEndpoint {
 			if (sessions.isEmpty()) { // 誰も接続していない状況ならDBへの接続を開始する
 				DbUtil.connect(toMap(m -> {
 					m.put("env", "production");
-					m.put("password", "takuya");
-					m.put("user", "root");
 					m.put("host", "127.0.0.1:3306");
 					m.put("db_name", "idraw");
 				}));
