@@ -300,7 +300,7 @@
 				<input type="button" id="tool_eraser" class="tool_button Paper" />
 		</div>
 
-			<div id="panel_timer">
+			<div id="panel_timer" class="Paper">
 				<table style="width: 50px;">
 					<tr style="height: 25px;">
 						<td><input type="button" id="timer_button" value="設定"

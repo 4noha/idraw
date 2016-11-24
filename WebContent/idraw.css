@@ -167,7 +167,7 @@ input.Modern#tool_image{
 	background-image:url("images/upload_m.png");
 	}
 input.Modern#tool_eraser{ 
-	background-image:url("images/eraser.png");
+	background-image:url("images/eraser_m.png");
 	}
 input.Dark#tool_pen{ 
 	background-image:url("images/pen_d.png");
@@ -191,7 +191,7 @@ input.Dark#tool_image{
 	background-image:url("images/upload_d.png");
 	}
 input.Dark#tool_eraser{ 
-	background-image:url("images/eraser.png");
+	background-image:url("images/eraser_d.png");
 	}
 #tool_image_surface {
 	padding: 0px;
