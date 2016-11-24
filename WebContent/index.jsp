@@ -352,8 +352,8 @@ $(function(){
     });
 
 	onClickTimer = function(nowValue) {
-		progress.value = 0;
 		if ($("#timer_text").val() == "" ||$("#timer_text").val() == 0) return;
+		progress.value = 0;
 		progress.max = $("#timer_text").val(); //最大値を設定
 
 		if(nowValue == 0){
