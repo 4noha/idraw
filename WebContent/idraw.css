@@ -71,6 +71,15 @@ canvas{
     height: 7px;
 	width: 800px;
 }
+
+#point{
+	position: absolute;
+    top: 593px;
+    left: 0px;
+    height: 7px;
+	width: 800px;
+}
+
 #panel_console.Paper{
 	position: absolute;
 	top: 600px;
@@ -130,22 +139,22 @@ input.Paper#tool_text{
 input.Paper#tool_save{
 	background-image:url("images/save.png");
 	}
-input.Paper#tool_clear { 
+input.Paper#tool_clear {
 	background-image:url("images/delete.png");
 	}
-input.Paper#tool_newp{ 
+input.Paper#tool_newp{
 	background-image:url("images/newp.png");
 	}
-input.Paper#tool_delp{ 
+input.Paper#tool_delp{
 	background-image:url("images/delp.png");
 	}
-input.Paper#tool_image{ 
+input.Paper#tool_image{
 	background-image:url("images/upload.png");
 	}
-input.Paper#tool_eraser{ 
+input.Paper#tool_eraser{
 	background-image:url("images/eraser.png");
 	}
-input.Modern#tool_pen{ 
+input.Modern#tool_pen{
 	background-image:url("images/pen_m.png");
 	}
 input.Modern#tool_text{
@@ -154,22 +163,22 @@ input.Modern#tool_text{
 input.Modern#tool_save{
 	background-image:url("images/save_m.png");
 	}
-input.Modern#tool_clear { 
+input.Modern#tool_clear {
 	background-image:url("images/delete_m.png");
 	}
-input.Modern#tool_newp{ 
+input.Modern#tool_newp{
 	background-image:url("images/newp_m.png");
 	}
-input.Modern#tool_delp{ 
+input.Modern#tool_delp{
 	background-image:url("images/delp_m.png");
 	}
-input.Modern#tool_image{ 
+input.Modern#tool_image{
 	background-image:url("images/upload_m.png");
 	}
-input.Modern#tool_eraser{ 
+input.Modern#tool_eraser{
 	background-image:url("images/eraser_m.png");
 	}
-input.Dark#tool_pen{ 
+input.Dark#tool_pen{
 	background-image:url("images/pen_d.png");
 	}
 input.Dark#tool_text{
@@ -178,19 +187,19 @@ input.Dark#tool_text{
 input.Dark#tool_save{
 	background-image:url("images/save_d.png");
 	}
-input.Dark#tool_clear { 
+input.Dark#tool_clear {
 	background-image:url("images/delete_d.png");
 	}
-input.Dark#tool_newp{ 
+input.Dark#tool_newp{
 	background-image:url("images/newp_d.png");
 	}
-input.Dark#tool_delp{ 
+input.Dark#tool_delp{
 	background-image:url("images/delp_d.png");
 	}
-input.Dark#tool_image{ 
+input.Dark#tool_image{
 	background-image:url("images/upload_d.png");
 	}
-input.Dark#tool_eraser{ 
+input.Dark#tool_eraser{
 	background-image:url("images/eraser_d.png");
 	}
 #tool_image_surface {

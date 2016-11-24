@@ -318,6 +318,11 @@
 
 	</div>
 	<progress id="progress" value=0 max=0></progress>
+
+	<div id="point">
+		■
+	</div>
+
 	<div id="panel_mask"></div>
 </body>
 <script>
@@ -326,8 +331,8 @@ $(function(){
 	idraw.loadSessionId();
 	idraw.eventDefine();
     pagerJson = {
-    		1: {bg_image: null, image: $("#canvas")[0].toDataURL("image/png")},
-    		2: {bg_image: null, image: $("#canvas")[0].toDataURL("image/png")}
+    		1: {bg_image: null, image: $("#canvas")[0].toDataURL("image/png"), timerSec: 1},
+    		2: {bg_image: null, image: $("#canvas")[0].toDataURL("image/png"), timerSec: 1}
     }
     currentPage = 1;
 	socket.onopen = function(){
@@ -340,18 +345,36 @@ $(function(){
 		file = this.files[0];
 		var reader  = new FileReader();
 		reader.readAsDataURL(file);
-		
+
 		reader.onloadend = function () {
 			base64ToBase64(reader.result, function(base64Image){
 				slicePushImage("bgsave", currentPage, base64Image, 8000);
 			});
 		}
    	});
-	
+
+	//タイマー数値入力後フォーカスが外れるとpagerJsonにタイマー数値を保存するための関数
+    $("#timer_text").change(function() {
+    	pagerJson[currentPage]["timerSec"] = $("#timer_text").val();
+    });
+
+	//設定ボタンが押された時にタイマーを作動させる処理
 	onClickTimer = function(nowValue) {
 		if ($("#timer_text").val() == "" ||$("#timer_text").val() == 0) return;
+		var sum = 0; //全ページのタイマー値合計を保存する変数
+		for(var pageNum in pagerJson){ //拡張for文 各ページのタイマー値をsumに入れていく
+    		console.log(pagerJson[pageNum]["timerSec"]);
+    		x = parseFloat(pagerJson[pageNum]["timerSec"]);
+    		if(x === x){ //数値以外（NaN）の場合falseが返ってくるので弾く
+				sum += x;
+    		}
+    	}
+
+		$("#point").offset({top:$("#point").offset.top, left:(parseFloat(pagerJson[currentPage]["timerSec"]) * 100)});
+		console.log(sum);
+
 		progress.value = 0;
-		progress.max = $("#timer_text").val(); //最大値を設定
+		progress.max = sum; //最大値を設定
 
 		if(nowValue == 0){
 			timer = setInterval(() => {
@@ -374,6 +397,7 @@ $(function(){
 			//setIntervalは重複して起動させないためにelse文は空
 		}
 	}
+
 });
 
 </script>

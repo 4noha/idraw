@@ -45,11 +45,11 @@ idraw.eventDefine = function() {
     			imageBuffer[json.uuid] = new Array(json.count);
     		}
     		imageBuffer[json.uuid][json.count] = json.image;
-    		
+
     		// バッファがたまったら保存
 			if (!imageBuffer[json.uuid].includes(undefined)){
 				console.log(imageBuffer[json.uuid].join(""));
-				
+
 				delete imageBuffer[json.uuid];
 			}
     		break;
@@ -79,6 +79,7 @@ idraw.eventDefine = function() {
     	case "a":
     		if (!(pagerJson === undefined || currentPage === undefined || pagerJson[currentPage+1] === undefined)){
     			pagerJson[currentPage]["image"] = $("#canvas")[0].toDataURL("image/png");
+    			$("#timer_text").val(pagerJson[currentPage + 1]["timerSec"]);
     			var image = new Image();
     			image.src = pagerJson[currentPage+1]["image"];
     			currentPage += 1;
@@ -95,6 +96,7 @@ idraw.eventDefine = function() {
 		case "d":
     		if (!(pagerJson === undefined || currentPage === undefined || pagerJson[currentPage-1] === undefined)){
     			pagerJson[currentPage]["image"] = $("#canvas")[0].toDataURL("image/png");
+    			$("#timer_text").val(pagerJson[currentPage - 1]["timerSec"]);
     			var image = new Image();
     			image.src = pagerJson[currentPage-1]["image"];
     			currentPage -= 1;
@@ -164,7 +166,7 @@ idraw.eventDefine = function() {
     $('#tool_save').click(function() {
         socket.send(JSON.stringify({ cmd:"save", page_num:1, image: canvasToMinimizeBase64($("#canvas")[0])}));
     });
-    
+
     $('#tool_text').click(function() {
     	var chatMessage = window.prompt("チャット入力","");
     	if(chatMessage!=null && chatMessage.length>0){
@@ -229,7 +231,7 @@ idraw.eventDefine = function() {
     	};
     	img.src = base64Image;
     }
-    
+
     base64ToBase64 = function(base64Image, callback) {
     	var img = new Image();
     	img.onload = function() {
@@ -249,7 +251,7 @@ idraw.eventDefine = function() {
     	};
     	img.src = base64Image;
     }
-    
+
     slicePushImage = function(cmd, page, text, byte) {
     	var count = Math.ceil(text.length/byte)-1;
     	var uuid = getUuid();
@@ -258,7 +260,7 @@ idraw.eventDefine = function() {
     		count--;
     	}
     }
-    
+
     function getUuid() {
     	var uuid = "", i, random;
     	for (i = 0; i < 32; i++) {
@@ -270,9 +272,9 @@ idraw.eventDefine = function() {
     	}
     	return uuid;
 	}
-    
+
     Clear_text=function(str)
-    {    
+    {
     	document.getElementById(str).value= "";
     }
 }
