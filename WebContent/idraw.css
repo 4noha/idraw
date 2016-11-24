@@ -51,7 +51,7 @@ canvas{
 #panel_button {
     position: absolute;
     top: 35px;
-    left: 300px;
+    left: 250px;
     width: 500px;
 }
 #panel_timer {
@@ -238,7 +238,7 @@ li {
 	position: absolute;
 	top:30px;
 	left:15px;
-	width:260px;
+	width:197px;
 	display: table;
     border-collapse:collapse;
     border: 2px ridge;
