@@ -304,7 +304,7 @@
 				<table style="width: 50px;">
 					<tr style="height: 25px;">
 						<td><input type="button" id="timer_button" value="設定"
-							style="width: 48px" onClick="onClickTimer(progress.value)"></td>
+							style="width: 48px" onClick="onClickTimer(progress.value);"></td>
 					</tr>
 					<tr style="height: 25px;">
 						<td><input type="text" id="timer_text" size="1"
@@ -335,6 +335,7 @@ $(function(){
         socket.send(JSON.stringify({cmd:"session", id: sessionId}));
 	}
 
+
 	// 背景アップロードはindexだけの機能
     $('#tool_image').click(function(e) {
     	console.log("aaa");
@@ -352,30 +353,33 @@ $(function(){
 		}
     });
 
-    onClickTimer = function(nowValue) {
-    	progress.value = 0;
-    	progress.max = document.forms.timer_form.elements.timer_text.value; //最大値を設定
-    	if(nowValue == 0){
-    		timer = setInterval(() => {
-    			progress.value += 0.01;
-    			if(progress.value == progress.max){
-    				clearInterval(timer);
-    				progress.value = 0;
-    			}
-    		}, 10);
-    	}else if(nowValue != 0 && nowValue != progress.max){
-    		clearInterval(timer);
-    		timer = setInterval(() => {
-    			progress.value += 0.01;
-    			if(progress.value == progress.max){
-    				clearInterval(timer);
-    				progress.value = 0;
-    			}
-    		}, 10);
-    	}else{
-    		//setIntervalは重複して起動させないためにelse文は空
-    	}
-    }
+	onClickTimer = function(nowValue) {
+		progress.value = 0;
+		if ($("#timer_text").val() == "") return;
+		progress.max = $("#timer_text").val(); //最大値を設定
+
+		if(nowValue == 0){
+			timer = setInterval(() => {
+				progress.value += 0.01;
+				if(progress.value == progress.max){
+					clearInterval(timer);
+					progress.value = 0;
+				}
+			}, 10);
+		}else if(nowValue != 0 && nowValue != progress.max){
+			clearInterval(timer);
+			timer = setInterval(() => {
+			progress.value += 0.01;
+			if(progress.value == progress.max){
+				clearInterval(timer);
+				progress.value = 0;
+			}
+			}, 10);
+		}else{
+			//setIntervalは重複して起動させないためにelse文は空
+		}
+	}
 });
+
 </script>
 </html>
