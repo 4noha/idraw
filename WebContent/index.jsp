@@ -299,7 +299,6 @@
 				type="button" id="tool_clear" class="tool_button Paper" />
 		</div>
 
-		<form id="timer_form">
 			<div id="panel_timer">
 				<table style="width: 50px;">
 					<tr style="height: 25px;">
@@ -315,7 +314,6 @@
 					</tr>
 				</table>
 			</div>
-		</form>
 
 	</div>
 	<progress id="progress" value=0 max=0></progress>
@@ -355,7 +353,7 @@ $(function(){
 
 	onClickTimer = function(nowValue) {
 		progress.value = 0;
-		if ($("#timer_text").val() == "") return;
+		if ($("#timer_text").val() == "" ||$("#timer_text").val() == 0) return;
 		progress.max = $("#timer_text").val(); //最大値を設定
 
 		if(nowValue == 0){
