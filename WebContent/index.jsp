@@ -12,8 +12,7 @@
 <meta charset="utf-8">
 <title>Canvas</title>
 <link rel="stylesheet" type="text/css" href="./idraw.css">
-<script
-	src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 <script src="./jquery.cookie-1.4.1.min.js"></script>
 <script src="./idraw.js"></script>
 <%
@@ -24,6 +23,8 @@
 			dbConfig.put("env", "production");
 			dbConfig.put("host", "127.0.0.1:3306");
 			dbConfig.put("db_name", "idraw");
+			dbConfig.put("user", "root");
+			dbConfig.put("password", "takuya");
 			DbUtil.connect(dbConfig);
 			//現在のクッキーの値がDBに格納されていないかチェック
 			if (User.findBy("session_id", cookie.getValue()) == null) {
@@ -334,24 +335,20 @@ $(function(){
         socket.send(JSON.stringify({cmd:"session", id: sessionId}));
 	}
 
-
 	// 背景アップロードはindexだけの機能
-    $('#tool_image').click(function(e) {
-    	console.log("aaa");
+    $('#tool_image').change(function(){
 		var preview = new Image();
-		var file    = e.target.files[0];
+		file = this.files[0];
 		var reader  = new FileReader();
-
+		reader.readAsDataURL(file);
+		
 		reader.onloadend = function () {
-			$('#panel-canvas').css('background-image', 'url('+reader.result+')');
-	    	console.log("reader.result");
+			base64ToBase64(reader.result, function(base64Image){
+				slicePushImage("bgsave", currentPage, base64Image, 8000);
+			});
 		}
-
-		if (file) {
-			reader.readAsDataURL(file);
-		}
-    });
-
+   	});
+	
 	onClickTimer = function(nowValue) {
 		if ($("#timer_text").val() == "" ||$("#timer_text").val() == 0) return;
 		progress.value = 0;

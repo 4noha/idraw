@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -33,12 +33,14 @@ import idraw.orm.DbUtil;
 @ServerEndpoint("/endpoint")
 public class WebsocketEndpoint {
 	static Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
-
+	static HashMap<String, String[]> imageBuffer = new HashMap<String, String[]>();
+	
 	@OnMessage // クライアントから来たJSON文字列から処理を認識、実行しJSON文字列を返却するメソッド
 	public void onMessage(String message) throws IOException, InstantiationException, IllegalAccessException,
 			ClassNotFoundException, NoSuchFieldException, SecurityException, SQLException, IllegalArgumentException,
 			NoSuchMethodException, InvocationTargetException, NoSuchAlgorithmException {
 
+		System.out.println(message);
 		// JSON（文字列ベースのデータフォーマット）形式の文字列をHashMapインスタンスに＜Command名:値＞にパースする
 		HashMap<String, Object> parsedJson = new ObjectMapper().readValue(message, HashMap.class);
 		String cmd = (String) parsedJson.get("cmd"); // onMessageメソッドを呼び出したコマンドを選択
@@ -51,7 +53,7 @@ public class WebsocketEndpoint {
 			break;
 
 		/* ■■■■■■■■■■【コマンドが（save）の場合】■■■■■■■■■■ */
-		case "save": // cmd = save の場合、状況により新規作成 or 上書きをする
+		case "save":{ // cmd = save の場合、状況により新規作成 or 上書きをする
 			Page page = Page.findBy("page_num", parsedJson.get("page_num"));
 			if (page == null) { // pageが何も無ければ新規作成する
 				page = new Page(toMap(m -> {
@@ -63,13 +65,13 @@ public class WebsocketEndpoint {
 				page.joined_image = (String) parsedJson.get("image");
 			}
 			page.save();
-			final int pageNum = page.page_num;
+			int pageNum = page.page_num;
 			message = mapToJsonString(m -> {
 				m.put("cmd", "save");
 				m.put("page_num", pageNum);
 			});
 			break;
-
+		}
 		/* ■■■■■■■■■■【コマンドが（login）の場合】■■■■■■■■■■ */
 		case "login": // cmd = login の場合、ログイン判定を行う
 
@@ -127,20 +129,31 @@ public class WebsocketEndpoint {
 			break;
 
 		/* ■■■■■■■■■■【コマンドが（bgsave）の場合】■■■■■■■■■■ */
-		case "bgsave":
-			int bgPageNum = (int) parsedJson.get("page_num");
-			String image = (String) parsedJson.get("image");
-			if (bgPageNum >= 0 || image == null) { // 値が正しくない際はエラーメッセージを表示
-				message = "{ \"cmd\":\"error\", \"key\":\"ページ番号が０以下かBGイメージがnullです\" }";
+		case "bgsave":{
+			int pageNum = (int) parsedJson.get("page_num");
+			int count     = (int) parsedJson.get("count");
+			String image  = (String) parsedJson.get("image");
+			String uuid   = (String) parsedJson.get("uuid");
+			if (image == null) { // 値が正しくない際はエラーメッセージを表示
+				message = "{ \"cmd\":\"error\", \"key\":\"BGイメージがnullです\" }";
 			} else { // 値が適切であればBGイメージを保存
-				Page bg = new Page();
-				bg.page_num = bgPageNum;
-				bg.background_image = image;
-				bg.save();
+				// 画像は分割されて届くのでバッファにためる
+				if (!imageBuffer.containsKey(uuid)){
+					imageBuffer.put(uuid, new String[count+1]);
+				}
+				String[] splittedImages = imageBuffer.get(uuid);
+				splittedImages[count] = image;
+				
+				// バッファがたまったら保存
+				if (!Arrays.asList(splittedImages).contains(null)){
+					Page bg = Page.findBy("page_num", pageNum);
+					bg.background_image = String.join("", splittedImages);
+					bg.save();
+					imageBuffer.remove(uuid);
+				}
 			}
 			break;
-
-
+		}
 		/* ■■■■■■■■■■【コマンドが（chat）の場合】■■■■■■■■■■ */
 		case "chat":
 			String chatName = "匿名";
@@ -162,7 +175,6 @@ public class WebsocketEndpoint {
 				});
 			}
 			break;
-
 		default:
 			break;
 		}
@@ -188,6 +200,8 @@ public class WebsocketEndpoint {
 			if (sessions.isEmpty()) { // 誰も接続していない状況ならDBへの接続を開始する
 				DbUtil.connect(toMap(m -> {
 					m.put("env", "production");
+					m.put("password", "takuya");
+					m.put("user", "root");
 					m.put("host", "127.0.0.1:3306");
 					m.put("db_name", "idraw");
 				}));

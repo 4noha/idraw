@@ -21,6 +21,7 @@ idraw.eventDefine = function() {
     var drawFlag = false;
     var drawFlip = false;
     var context = $("canvas").get(0).getContext('2d');
+    imageBuffer = {}
 
     // Websocket受信時の処理
     socket.onmessage = function(msg){
@@ -35,6 +36,19 @@ idraw.eventDefine = function() {
             context.lineTo(json.tx, json.ty);
             context.stroke();
             context.closePath();
+    		break;
+    	case "bgsave":
+    		if (imageBuffer[json.uuid] === undefined){
+    			imageBuffer[json.uuid] = new Array(json.count);
+    		}
+    		imageBuffer[json.uuid][json.count] = json.image;
+    		
+    		// バッファがたまったら保存
+			if (!imageBuffer[json.uuid].includes(undefined)){
+				console.log(imageBuffer[json.uuid].join(""));
+				
+				delete imageBuffer[json.uuid];
+			}
     		break;
     	case "save":
     		break;
@@ -190,6 +204,48 @@ idraw.eventDefine = function() {
     	};
     	img.src = base64Image;
     }
+    
+    base64ToBase64 = function(base64Image, callback) {
+    	var img = new Image();
+    	img.onload = function() {
+    		// 画像読み込み
+        	var canvas = document.createElement('canvas');
+            canvas.width = 800;
+            canvas.height = 600;
+			var context = canvas.getContext("2d");
+			context.drawImage(img, 0, 0);
+			// 縮小コピー
+        	var canvas2 = document.createElement('canvas');
+            canvas2.width = 576;
+            canvas2.height = 432;
+			var ctx2 = canvas2.getContext('2d');
+			ctx2.drawImage(canvas, 0, 0, canvas2.width, canvas2.height);
+			callback(canvas2.toDataURL("image/png"));
+    	};
+    	img.src = base64Image;
+    }
+    
+    slicePushImage = function(cmd, page, text, byte) {
+    	var count = Math.ceil(text.length/byte)-1;
+    	var uuid = getUuid();
+    	for (var i=(count)*byte; i > -1; i-=byte){
+	        socket.send(JSON.stringify({cmd: cmd, page_num: page, uuid: uuid, count: count, image: text.slice(i, i+byte)}));
+    		count--;
+    	}
+    }
+    
+    function getUuid() {
+    	var uuid = "", i, random;
+    	for (i = 0; i < 32; i++) {
+    		random = Math.random() * 16 | 0;
+    		if (i == 8 || i == 12 || i == 16 || i == 20) {
+    			uuid += "-"
+    		}
+    		uuid += (i == 12 ? 4 : (i == 16 ? (random & 3 | 8) : random)).toString(16);
+    	}
+    	return uuid;
+	}
+    
     Clear_text=function(str)
     {    
     	document.getElementById(str).value= "";
