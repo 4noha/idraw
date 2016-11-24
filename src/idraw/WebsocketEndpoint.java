@@ -140,6 +140,23 @@ public class WebsocketEndpoint {
 			}
 			break;
 
+
+		/* ■■■■■■■■■■【コマンドが（chat）の場合】■■■■■■■■■■ */
+		case "chat":
+			String chatName = "匿名";
+			String sessionId = (String) parsedJson.get("session");
+			String chatMessage = (String) parsedJson.get("message");
+			User user = User.findBy("session_id", sessionId);
+			if (user != null) {
+				chatName = ""+user.username;
+			}
+			String chatText = chatName +"さん：" + chatMessage;
+			message = mapToJsonString(m -> {
+				m.put("cmd", "chat");
+				m.put("text", chatText);
+			});
+			break;
+
 		default:
 			break;
 		}

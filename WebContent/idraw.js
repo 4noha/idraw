@@ -38,6 +38,9 @@ idraw.eventDefine = function() {
     		break;
     	case "save":
     		break;
+    	case "chat":
+    		$("#chat_window").html($("#chat_window").html()+"<br>"+json.text);
+    		break;
     	}
     }
 
@@ -124,6 +127,13 @@ idraw.eventDefine = function() {
         socket.send(JSON.stringify({ cmd:"save", page_num:1, image: canvasToMinimizeBase64($("#canvas")[0])}));
     });
     
+    $('#tool_text').click(function() {
+    	var chatMessage = window.prompt("チャット入力","");
+    	if(chatMessage!=null && chatMessage.length>0){
+    		socket.send(JSON.stringify({ cmd:"chat", session: sessionId, message:chatMessage }));
+    	}else{}
+    });
+
     $('select#select_theme').change(function() {
     	var theme=$("option:selected", theme).text();
     	var string1='tool_button ';
