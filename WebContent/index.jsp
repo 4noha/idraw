@@ -290,21 +290,29 @@
 		</table>
 
 		<div id="panel_button">
-			<input type="button" id="tool_pen" class="tool_button Paper"/> 
-			<input type="button" id="tool_text" class="tool_button Paper"/>
-			<input type="button" id="tool_image" class="tool_button Paper"/>
-			<input type="button" id="tool_newp" class="tool_button Paper"/>
-			<input type="button" id="tool_delp" class="tool_button Paper"/>
-			<input type="button" id="tool_save" class="tool_button Paper"/>
-			<input type="button" id="tool_clear" class="tool_button Paper"/>
+			<input type="button" id="tool_pen" class="tool_button Paper" /> <input
+				type="button" id="tool_text" class="tool_button Paper" /> <input
+				type="button" id="tool_image" class="tool_button Paper" /> <input
+				type="button" id="tool_newp" class="tool_button Paper" /> <input
+				type="button" id="tool_delp" class="tool_button Paper" /> <input
+				type="button" id="tool_save" class="tool_button Paper" /> <input
+				type="button" id="tool_clear" class="tool_button Paper" />
 		</div>
 
 		<form id="timer_form">
 			<div id="panel_timer">
-				<table style="width:50px;">
-					<tr style="height:25px;"><td><input type="button" id="timer_button" value="設定" style="width:48px" onClick="onClickTimer(progress.value)"></td></tr>
-					<tr style="height:25px;"><td><input type="text" id="timer_text"  size="1" style="width:44px;" value="タイマー" onClick="Clear_text(this.id);"/></td></tr>
-					<tr style="height:50px;"><td></td></tr>
+				<table style="width: 50px;">
+					<tr style="height: 25px;">
+						<td><input type="button" id="timer_button" value="設定"
+							style="width: 48px" onClick="onClickTimer(progress.value)"></td>
+					</tr>
+					<tr style="height: 25px;">
+						<td><input type="text" id="timer_text" size="1"
+							style="width: 44px;" value="タイマー" onClick="Clear_text(this.id);" /></td>
+					</tr>
+					<tr style="height: 50px;">
+						<td></td>
+					</tr>
 				</table>
 			</div>
 		</form>
@@ -345,8 +353,18 @@ $(function(){
     });
 
     onClickTimer = function(nowValue) {
+    	progress.value = 0;
     	progress.max = document.forms.timer_form.elements.timer_text.value; //最大値を設定
     	if(nowValue == 0){
+    		timer = setInterval(() => {
+    			progress.value += 0.01;
+    			if(progress.value == progress.max){
+    				clearInterval(timer);
+    				progress.value = 0;
+    			}
+    		}, 10);
+    	}else if(nowValue != 0 && nowValue != progress.max){
+    		clearInterval(timer);
     		timer = setInterval(() => {
     			progress.value += 0.01;
     			if(progress.value == progress.max){
