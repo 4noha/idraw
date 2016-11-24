@@ -23,8 +23,6 @@
 			dbConfig.put("env", "production");
 			dbConfig.put("host", "127.0.0.1:3306");
 			dbConfig.put("db_name", "idraw");
-			dbConfig.put("user", "root");
-			dbConfig.put("password", "takuya");
 			DbUtil.connect(dbConfig);
 			//現在のクッキーの値がDBに格納されていないかチェック
 			if (User.findBy("session_id", cookie.getValue()) == null) {
