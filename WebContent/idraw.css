@@ -59,7 +59,6 @@ canvas{
     border-style: solid;
     border-width: 1px;
     border-color: hsl(330, 0%, 20%);
-    background-color: buttonface;
     height:54px;
     width:54px;
     top: 35px;
@@ -72,7 +71,7 @@ canvas{
     height: 7px;
 	width: 800px;
 }
-div.Paper{
+#panel_console.Paper{
 	position: absolute;
 	top: 600px;
     width: 800px;
@@ -80,7 +79,7 @@ div.Paper{
     background-image:url("images/torn.png");
     background-repeat: no-repeat;
 }
-div.Modern{
+#panel_console.Modern{
 	position: absolute;
 	top: 600px;
     width: 800px;
@@ -97,11 +96,17 @@ input.tool_button {
     background-repeat: no-repeat;
     background-position: center center;
 }
+#panel_timer.Paper{
+    background-color: buttonface;
+}
+#panel_timer.Modern{
+    background-color: #FFCC00;
+}
 input.Paper{
 	background-color: buttonface;
 }
 input.Modern{
-	background-color: orange;
+	background-color: #FFCC00;
 }
 input.Paper#tool_pen{
 	background-image:url("images/pencil_ic.png");
@@ -121,24 +126,29 @@ input.Paper#tool_newp{
 input.Paper#tool_delp{ 
 	background-image:url("images/delp.png");
 	}
-	
+input.Paper#tool_image{ 
+	background-image:url("images/upload.png");
+	}
 input.Modern#tool_pen{ 
-	background-image:url("images/pencil_ic.png");
+	background-image:url("images/pen_m.png");
 	}
 input.Modern#tool_text{
-	background-image:url("images/text.png");
+	background-image:url("images/text_m.png");
 	}
 input.Modern#tool_save{
-	background-image:url("images/save.png");
+	background-image:url("images/save_m.png");
 	}
 input.Modern#tool_clear { 
-	background-image:url("images/delete.png");
+	background-image:url("images/delete_m.png");
 	}
 input.Modern#tool_newp{ 
-	background-image:url("images/newp.png");
+	background-image:url("images/newp_m.png");
 	}
 input.Modern#tool_delp{ 
-	background-image:url("images/delp.png");
+	background-image:url("images/delp_m.png");
+	}
+input.Modern#tool_image{ 
+	background-image:url("images/upload_m.png");
 	}
 
 #tool_image_surface {

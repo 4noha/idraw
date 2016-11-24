@@ -135,6 +135,7 @@ idraw.eventDefine = function() {
     	$('#tool_clear').attr('class', string1.concat(theme));
     	$('#tool_newp').attr('class', string1.concat(theme));
     	$('#tool_delp').attr('class', string1.concat(theme));
+    	$('#panel_timer').attr('class', theme);
     });
 
     function draw(e) {
