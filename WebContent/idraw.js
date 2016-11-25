@@ -255,26 +255,6 @@ idraw.eventDefine = function() {
     	img.src = base64Image;
     }
 
-    base64ToBase64 = function(base64Image, callback) {
-    	var img = new Image();
-    	img.onload = function() {
-    		// 画像読み込み
-        	var canvas = document.createElement('canvas');
-            canvas.width = 800;
-            canvas.height = 600;
-			var context = canvas.getContext("2d");
-			context.drawImage(img, 0, 0);
-			// 縮小コピー
-        	var canvas2 = document.createElement('canvas');
-            canvas2.width = 576;
-            canvas2.height = 432;
-			var ctx2 = canvas2.getContext('2d');
-			ctx2.drawImage(canvas, 0, 0, canvas2.width, canvas2.height);
-			callback(canvas2.toDataURL("image/png"));
-    	};
-    	img.src = base64Image;
-    }
-
     slicePushImage = function(cmd, page, text, byte) {
     	var count = Math.ceil(text.length/byte)-1;
     	var uuid = getUuid();

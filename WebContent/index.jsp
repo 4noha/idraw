@@ -349,9 +349,7 @@ $(function(){
 		reader.readAsDataURL(file);
 
 		reader.onloadend = function () {
-			base64ToBase64(reader.result, function(base64Image){
-				slicePushImage("bgsave", currentPage, base64Image, 8000);
-			});
+				slicePushImage("bgsave", currentPage, reader.result, 8000);
 		}
    	});
 
