@@ -342,8 +342,8 @@ $(function(){
 				if (pages != null){
 					for(Page pagePct: pages){ %>
 	    				<%= pagePct.page_num %>:{
-	    					bg_image:<%= pagePct.background_image %>,
-	    					image:<%= pagePct.joined_image %>,
+	    					bg_image:"<%= pagePct.background_image %>",
+	    					image:"<%= pagePct.joined_image %>",
 	    					timerSec: "タイマー"
 	    				},
 	   		 		<% }
