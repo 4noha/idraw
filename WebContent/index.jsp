@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="idraw.model.User"%>
+<%@ page import="idraw.model.Page"%>
 <%@ page import="idraw.orm.DbUtil"%>
+<%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.Map"%>
 <%@ page import="java.util.HashMap"%>
 <%@ page import="java.util.LinkedHashMap"%>
@@ -336,8 +338,19 @@ $(function(){
 	idraw.loadSessionId();
 	idraw.eventDefine();
     pagerJson = {
-    		1: {bg_image: null, image: $("#canvas")[0].toDataURL("image/png"), timerSec: 1},
-    		2: {bg_image: null, image: $("#canvas")[0].toDataURL("image/png"), timerSec: 1}
+    		<% ArrayList<Page> pages = Page.all();
+				if (pages != null){
+					for(Page pagePct: pages){ %>
+	    				<%= pagePct.page_num - 1 %>:{
+	    					bg_image:<%= pagePct.background_image %>,
+	    					image:<%= pagePct.joined_image %>,
+	    					timerSec: 1
+	    				},
+	    			}
+	   		 <% }} %>
+    	}
+    if (Object.keys(pagerJson).length == 0){
+    	pagerJson = {0:{bg_image: null, image: null, timerSec: "Timer"}};
     }
     currentPage = 1;
 	socket.onopen = function(){
