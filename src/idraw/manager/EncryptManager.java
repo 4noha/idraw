@@ -2,7 +2,6 @@ package idraw.manager;
 
 import java.lang.reflect.InvocationTargetException;
 import java.security.InvalidKeyException;
-import java.security.Key;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -49,11 +48,11 @@ public class EncryptManager {
 		RSAPublicKey publicKey = (RSAPublicKey)keyPair.getPublic();
 
 		// 秘密キーと公開キーを16進数文字列に変換
-		Key[] keys = new Key[] {privateKey, publicKey};
-		byte[] binPrivate = keys[0].getEncoded();
-		byte[] binPublic = keys[1].getEncoded();
+		byte[] binPrivate = privateKey.getEncoded();
 		String encodedPrivate = toHexString(binPrivate);
-		String encodedPublic = toHexString(binPublic);
+		String PublicModulus = publicKey.getModulus().toString();
+		String PublicExponent = publicKey.getPublicExponent().toString();
+		String encodedPublic = PublicModulus + ":" + PublicExponent;
 
 		// Userテーブルへ秘密鍵を書き出す
 		user.secret_key = encodedPrivate;

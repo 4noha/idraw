@@ -2,7 +2,7 @@
 <!doctype html>
 <html>
 <head>
-	<meta charset="utf-8"> 
+	<meta charset="utf-8">
 	<title>Login</title>
 	<link rel="stylesheet" type="text/css" href="./idraw.css">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
@@ -51,7 +51,7 @@
 <table id="palette">
   <tr>
     <td class="palette_cell" style="background-color:hsl(0, 100%, 90%)"></td>
-    <td class="palette_cell" style="background-color:hsl(30, 100%, 90%)"></td> 
+    <td class="palette_cell" style="background-color:hsl(30, 100%, 90%)"></td>
     <td class="palette_cell" style="background-color:hsl(60, 100%, 90%)"></td>
     <td class="palette_cell" style="background-color:hsl(90, 100%, 90%)"></td>
     <td class="palette_cell" style="background-color:hsl(120, 100%, 90%)"></td>
@@ -66,7 +66,7 @@
   </tr>
   <tr>
     <td class="palette_cell" style="background-color:hsl(0, 100%, 80%)"></td>
-    <td class="palette_cell" style="background-color:hsl(30, 100%, 80%)"></td> 
+    <td class="palette_cell" style="background-color:hsl(30, 100%, 80%)"></td>
     <td class="palette_cell" style="background-color:hsl(60, 100%, 80%)"></td>
     <td class="palette_cell" style="background-color:hsl(90, 100%, 80%)"></td>
     <td class="palette_cell" style="background-color:hsl(120, 100%, 80%)"></td>
@@ -81,7 +81,7 @@
   </tr>
   <tr>
     <td class="palette_cell" style="background-color:hsl(0, 100%, 70%)"></td>
-    <td class="palette_cell" style="background-color:hsl(30, 100%, 70%)"></td> 
+    <td class="palette_cell" style="background-color:hsl(30, 100%, 70%)"></td>
     <td class="palette_cell" style="background-color:hsl(60, 100%, 70%)"></td>
     <td class="palette_cell" style="background-color:hsl(90, 100%, 70%)"></td>
     <td class="palette_cell" style="background-color:hsl(120, 100%, 70%)"></td>
@@ -96,7 +96,7 @@
   </tr>
   <tr>
     <td class="palette_cell" style="background-color:hsl(0, 100%, 60%)"></td>
-    <td class="palette_cell" style="background-color:hsl(30, 100%, 60%)"></td> 
+    <td class="palette_cell" style="background-color:hsl(30, 100%, 60%)"></td>
     <td class="palette_cell" style="background-color:hsl(60, 100%, 60%)"></td>
     <td class="palette_cell" style="background-color:hsl(90, 100%, 60%)"></td>
     <td class="palette_cell" style="background-color:hsl(120, 100%, 60%)"></td>
@@ -111,7 +111,7 @@
   </tr>
   <tr>
     <td class="palette_cell" style="background-color:hsl(0, 100%, 50%)"></td>
-    <td class="palette_cell" style="background-color:hsl(30, 100%, 50%)"></td> 
+    <td class="palette_cell" style="background-color:hsl(30, 100%, 50%)"></td>
     <td class="palette_cell" style="background-color:hsl(60, 100%, 50%)"></td>
     <td class="palette_cell" style="background-color:hsl(90, 100%, 50%)"></td>
     <td class="palette_cell" style="background-color:hsl(120, 100%, 50%)"></td>
@@ -126,7 +126,7 @@
   </tr>
   <tr>
     <td class="palette_cell" style="background-color:hsl(0, 100%, 40%)"></td>
-    <td class="palette_cell" style="background-color:hsl(30, 100%, 40%)"></td> 
+    <td class="palette_cell" style="background-color:hsl(30, 100%, 40%)"></td>
     <td class="palette_cell" style="background-color:hsl(60, 100%, 40%)"></td>
     <td class="palette_cell" style="background-color:hsl(90, 100%, 40%)"></td>
     <td class="palette_cell" style="background-color:hsl(120, 100%, 40%)"></td>
@@ -141,7 +141,7 @@
   </tr>
   <tr>
     <td class="palette_cell" style="background-color:hsl(0, 100%, 30%)"></td>
-    <td class="palette_cell" style="background-color:hsl(30, 100%, 30%)"></td> 
+    <td class="palette_cell" style="background-color:hsl(30, 100%, 30%)"></td>
     <td class="palette_cell" style="background-color:hsl(60, 100%, 30%)"></td>
     <td class="palette_cell" style="background-color:hsl(90, 100%, 30%)"></td>
     <td class="palette_cell" style="background-color:hsl(120, 100%, 30%)"></td>
@@ -156,7 +156,7 @@
   </tr>
   <tr>
     <td class="palette_cell" style="background-color:hsl(0, 100%, 20%)"></td>
-    <td class="palette_cell" style="background-color:hsl(30, 100%, 20%)"></td> 
+    <td class="palette_cell" style="background-color:hsl(30, 100%, 20%)"></td>
     <td class="palette_cell" style="background-color:hsl(60, 100%, 20%)"></td>
     <td class="palette_cell" style="background-color:hsl(90, 100%, 20%)"></td>
     <td class="palette_cell" style="background-color:hsl(120, 100%, 20%)"></td>
@@ -171,7 +171,7 @@
   </tr>
   <tr>
     <td class="palette_cell" style="background-color:hsl(0, 100%, 10%)"></td>
-    <td class="palette_cell" style="background-color:hsl(30, 100%, 10%)"></td> 
+    <td class="palette_cell" style="background-color:hsl(30, 100%, 10%)"></td>
     <td class="palette_cell" style="background-color:hsl(60, 100%, 10%)"></td>
     <td class="palette_cell" style="background-color:hsl(90, 100%, 10%)"></td>
     <td class="palette_cell" style="background-color:hsl(120, 100%, 10%)"></td>
@@ -184,7 +184,7 @@
     <td class="palette_cell" style="background-color:hsl(330, 100%, 10%)"></td>
     <td class="palette_cell" style="background-color:hsl(330, 0%, 0%)"></td>
   </tr>
-</table>	
+</table>
 
     <div id="panel_button">
     	<input type="button" id="tool_pen" class="tool_button Paper" />
@@ -213,23 +213,23 @@ $(function(){
 		$("#loginButton").animate({opacity: '0'},ani_speed);
 		$("#signUpButton").animate({opacity: '0'},ani_speed);
 		$("#brush").animate({opacity: '0'},ani_speed);
-		
+
 		$("#infoTitle").show(ani_speed);
 		$("#subInfo").show(ani_speed);
 		$("#idField").show(ani_speed);
 		$("#idSubmitButton").show(ani_speed);
 		$("#brush").hide(0);
 	});
-	
+
 	$("#signUpButton").click(function() {
 		idNew = true;
 		$("#title").animate({top: '-100px', opacity: '0.2'},ani_speed);
 		$("#loginButton").animate({opacity: '0'},ani_speed);
 		$("#signUpButton").animate({opacity: '0'},ani_speed);
 		$("#brush").animate({opacity: '0'},ani_speed);
-		
+
 		$("#infoTitle").text("サインアップ");
-		
+
 		$("#infoTitle").show(ani_speed);
 		$("#subInfo").show(ani_speed);
 		$("#idField").show(ani_speed);
@@ -244,7 +244,7 @@ $(function(){
 		// subinfoをしまい終わってから全部出す
 		$("#subInfo").animate({opacity: '0'},ani_speed, function() {
 			$("#subInfo").text("パスワードを入力");
-			
+
 			$("#subInfo").animate({opacity: '1'},ani_speed);
 			$("#pwField").show(ani_speed);
 			$("#pwSubmitButton").show(ani_speed);
@@ -252,8 +252,19 @@ $(function(){
 	});
 
 	$("#pwSubmitButton").click(function() {
+		// 鍵作成
+		var getKey = pubkey; // javaで作成した公開鍵情報
+		var pkey = getKey.split(":");
+		var modules = new BigInteger(pkey[0]);
+		var publicExponent = new BigInteger(pkey[1]);
+		var rsa = new RSAKey();
+		rsa.setPublic(modules.toString(16), publicExponent.toString(16));
+
+		// 暗号化
+		var pwEncrypt = rsa.encrypt($("#pwField").val());
+
 		// id, pwd, sessionid送信
-		socket.send(JSON.stringify({ cmd:"login", id:$("#idField").val(), pwd: $("#pwField").val(), session_id: sessionId}));
+		socket.send(JSON.stringify({ cmd:"login", id:$("#idField").val(), pwd: pwEncrypt, session_id: sessionId}));
 		var redirect_url = "index.jsp" + location.search;
 		if (document.referrer) {
 			var referrer = "referrer=" + encodeURIComponent(document.referrer);
@@ -261,12 +272,12 @@ $(function(){
 		}
 		location.href = redirect_url;
 	});
-		
+
 	$("#loginButton").mouseover(function() {
 		$("#brush").stop(true,true);
 		$("#brush").animate({top: '300px', left: '220px'},0);
 		$("#brush").animate({width: '200px'},ani_speed/4);
-		
+
 		});
 	$("#loginButton").mouseout(function() {
 		$("#brush").stop(true,true);

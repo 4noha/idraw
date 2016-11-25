@@ -67,6 +67,9 @@ idraw.eventDefine = function() {
     			alert("キャンセルしました");
     		}
     		break;
+    	case "pubkey":
+    		pubkey = json.key;
+    		break;
     	}
     }
 
@@ -149,14 +152,14 @@ idraw.eventDefine = function() {
         isEraser=false;
         canvas.style.cursor = "url('images/pencil.png'), auto";
     });
-    
+
     $('#tool_eraser').click(function() {
     	context.globalCompositeOperation = "destination-out";
     	context.strokeStyle = "rgba(0,0,0,1)";
     	isEraser=true;
     	canvas.style.cursor = "url('images/eraser_cur.png'), auto";
     });
-    
+
     $('#tool_pen').click(function() {
     	context.globalCompositeOperation = GCO;
     	context.strokeStyle=penStyle;
