@@ -159,9 +159,13 @@ idraw.eventDefine = function() {
     });
 
     $('#tool_text').click(function() {
-    	var chatMessage = window.prompt("チャット入力　　\"#del\",\"#削除\"で現在のチャット内容を削除します","");
+    	var chatMessage = window.prompt("チャット入力（40文字まで）　\n\"#del\",\"#削除\"で現在のチャット内容を削除します","");
     	if(chatMessage!=null && chatMessage.length>0){
-    		socket.send(JSON.stringify({ cmd:"chat", session: sessionId, message:chatMessage }));
+    		if(chatMessage.length > 40){
+    			alert("入力できる文字は40文字までです！");
+    		}else{
+    			socket.send(JSON.stringify({ cmd:"chat", session: sessionId, message:chatMessage }));
+    		}
     	}else{}
     });
 
