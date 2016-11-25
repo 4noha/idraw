@@ -105,7 +105,8 @@ public class EncryptManager {
 	 * @throws InvalidKeySpecException
 	 */
 	public static String getHashPwd(String pass, byte[] salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
-		char[] passCharAry = pass.toCharArray();
+		String passPepper = pass + "qwertyuiop"; // ペッパーとして固定値をプラスする
+		char[] passCharAry = passPepper.toCharArray();
 
 		PBEKeySpec keySpec = new PBEKeySpec(passCharAry, salt, 10000, 256);
 
