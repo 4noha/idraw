@@ -319,9 +319,7 @@
 	</div>
 	<progress id="progress" value=0 max=0></progress>
 
-	<div id="point">
-		■
-	</div>
+	<div id="point"></div>
 
 	<div id="panel_mask"></div>
 	<input type="file" id="image_uploader" style="opacity:0;" />
