@@ -450,7 +450,7 @@ $(function(){
 		console.log(sum);
 
 		var tmpSum = 0;
-		for(var i = 1; i < Object.keys(pagerJson).length + 1; i++){
+		for(var i = 0; i < Object.keys(pagerJson).length; i++){
 			if(/^[0-9]+$/.test(pagerJson[i]["timerSec"]) && pagerJson[i]["timerSec"] != 0){
 				var autoPoint = $("<div></div>");
 				tmpSum += pagerJson[i]["timerSec"];
