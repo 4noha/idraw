@@ -324,6 +324,7 @@
 	</div>
 
 	<div id="panel_mask"></div>
+	<input type="file" id="image_uploader" style="opacity:0;" />
 </body>
 <script>
 $(function(){
@@ -340,7 +341,10 @@ $(function(){
 	}
 
 	// 背景アップロードはindexだけの機能
-    $('#tool_image').change(function(){
+    $('#tool_image').click(function(){
+    	$('#image_uploader').click();
+    });
+    $('#image_uploader').change(function(){
 		var preview = new Image();
 		file = this.files[0];
 		var reader  = new FileReader();
