@@ -372,8 +372,18 @@ $(function(){
     		}
     	}
 
-		$("#point").offset({top:$("#point").offset.top, left:(parseFloat(pagerJson[currentPage]["timerSec"]) * 100)});
-		console.log(sum);
+		var tmpSum = 0;
+		for(var i = 1; i < Object.keys(pagerJson).length + 1; i++){
+			var autoPoint = $("<div></div>");
+			tmpSum += pagerJson[i]["timerSec"];
+			autoPoint.attr("id","point" + i);
+			autoPoint.attr("class","point");
+			autoPoint.text("■");
+			var pointSet = 800 * tmpSum / sum;
+			$("body").append(autoPoint);
+			$("#point" + i).attr("style", "left:" + pointSet + "px");
+		}
+
 
 		progress.value = 0;
 		progress.max = sum; //最大値を設定
