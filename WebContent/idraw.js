@@ -299,4 +299,9 @@ idraw.eventDefine = function() {
     {
     	document.getElementById(str).value= "";
     }
+    write_timer=function(str){
+    	if(document.getElementById(str).value==""){
+    		document.getElementById(str).value= "タイマー";
+    	}
+    }
 }
