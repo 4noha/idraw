@@ -338,19 +338,20 @@ $(function(){
 	idraw.loadSessionId();
 	idraw.eventDefine();
     pagerJson = {
+<<<<<<< HEAD
     		<% ArrayList<Page> pages = Page.all();
 				if (pages != null){
 					for(Page pagePct: pages){ %>
 	    				<%= pagePct.page_num - 1 %>:{
 	    					bg_image:<%= pagePct.background_image %>,
 	    					image:<%= pagePct.joined_image %>,
-	    					timerSec: 1
+	    					timerSec: "タイマー"
 	    				},
 	    			}
 	   		 <% }} %>
     	}
     if (Object.keys(pagerJson).length == 0){
-    	pagerJson = {0:{bg_image: null, image: null, timerSec: "Timer"}};
+    	pagerJson = {0:{bg_image: null, image: null, timerSec: "タイマー"}};
     }
     currentPage = 1;
 	socket.onopen = function(){
@@ -427,26 +428,30 @@ $(function(){
 
 	//設定ボタンが押された時にタイマーを作動させる処理
 	onClickTimer = function(nowValue) {
-		if ($("#timer_text").val() == "" ||$("#timer_text").val() == 0) return;
+		$(".point").remove(); //前回このfunctionで生成したしたHTML,CSSを削除する
+
+		if (/\D/.test($("#timer_text").val()) || $("#timer_text").val() == 0) return;
 		var sum = 0; //全ページのタイマー値合計を保存する変数
 		for(var pageNum in pagerJson){ //拡張for文 各ページのタイマー値をsumに入れていく
-    		console.log(pagerJson[pageNum]["timerSec"]);
     		x = parseFloat(pagerJson[pageNum]["timerSec"]);
-    		if(x === x){ //数値以外（NaN）の場合falseが返ってくるので弾く
+    		if(x === x && /^[0-9]+$/.test(x) ){ //数値以外（NaN）の場合falseが返ってくるので弾く
 				sum += x;
     		}
     	}
+		console.log(sum);
 
 		var tmpSum = 0;
 		for(var i = 1; i < Object.keys(pagerJson).length + 1; i++){
-			var autoPoint = $("<div></div>");
-			tmpSum += pagerJson[i]["timerSec"];
-			autoPoint.attr("id","point" + i);
-			autoPoint.attr("class","point");
-			autoPoint.text("■");
-			var pointSet = 800 * tmpSum / sum;
-			$("body").append(autoPoint);
-			$("#point" + i).attr("style", "left:" + pointSet + "px");
+			if(/^[0-9]+$/.test(pagerJson[i]["timerSec"]) && pagerJson[i]["timerSec"] != 0){
+				var autoPoint = $("<div></div>");
+				tmpSum += pagerJson[i]["timerSec"];
+				autoPoint.attr("id","point" + i);
+				autoPoint.attr("class","point");
+				autoPoint.text("■");
+				var pointSet = 800 * tmpSum / sum;
+				$("body").append(autoPoint);
+				$("#point" + i).attr("style", "left:" + pointSet + "px");
+			}
 		}
 
 
