@@ -308,7 +308,7 @@
 					</tr>
 					<tr style="height: 25px;">
 						<td><input type="text" id="timer_text" size="1"
-							value="タイマー" onClick="Clear_text(this.id);" /></td>
+							value="タイマー" onClick="Clear_text(this.id);" onblur="write_timer(this.id);"/></td>
 					</tr>
 					<tr style="height: 50px;">
 						<td></td>
