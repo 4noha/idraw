@@ -16,24 +16,30 @@
 <script src="./jquery.cookie-1.4.1.min.js"></script>
 <script src="./idraw.js"></script>
 <%
-	Cookie[] coockies = request.getCookies();
-	for (Cookie cookie : coockies) {
-		if (cookie.getName().equals("JSESSIONID")) {
-			Map<String, String> dbConfig = new HashMap<String, String>();
-			dbConfig.put("env", "production");
-			dbConfig.put("host", "127.0.0.1:3306");
-			dbConfig.put("db_name", "idraw");
-			DbUtil.connect(dbConfig);
-			//現在のクッキーの値がDBに格納されていないかチェック
-			if (User.findBy("session_id", cookie.getValue()) == null) {
-				// True:格納されていないので、ログインページに強制リダイレクト
-				response.sendRedirect("./login.jsp");
-				return;
-			} else {
-				cookie.setHttpOnly(false);
-				response.addCookie(cookie);
+	Cookie[] cookies = request.getCookies();
+	if (cookies != null){
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals("JSESSIONID")) {
+				Map<String, String> dbConfig = new HashMap<String, String>();
+				dbConfig.put("env", "production");
+				dbConfig.put("host", "127.0.0.1:3306");
+				dbConfig.put("db_name", "idraw");
+				DbUtil.connect(dbConfig);
+				//現在のクッキーの値がDBに格納されていないかチェック
+				if (User.findBy("session_id", cookie.getValue()) == null) {
+					// True:格納されていないので、ログインページに強制リダイレクト
+					response.sendRedirect("./login.jsp");
+					return;
+				} else {
+					cookie.setHttpOnly(false);
+					response.addCookie(cookie);
+				}
 			}
 		}
+	}else{
+		// 	クッキーが格納されていないので、ログインページに強制リダイレクト
+		response.sendRedirect("./login.jsp");
+		return;
 	}
 %>
 </head>
