@@ -196,6 +196,19 @@ idraw.eventDefine = function() {
     	$('#tool_delp').attr('class', string1.concat(theme));
     	$('#tool_eraser').attr('class', string1.concat(theme));
     	$('#panel_timer').attr('class', theme);
+    	if(theme=='Dark'){
+    		$('#select_theme').attr('style','background-color:grey;');
+    		$('.options').attr('style','background-color:grey;');
+    		$('#timer_text').attr('style','background-color:grey;');
+    		$('#timer_button').attr('style','background-color:grey;');
+    		$('#theme_text').attr('style','color:grey;');
+    	}else{
+    		$('#select_theme').attr('style','background-color:auto;');
+    		$('.options').attr('style','background-color:auto;');
+    		$('#timer_text').attr('style','background-color:auto;');
+    		$('#timer_button').attr('style','background-color:auto;');
+    		$('#theme_text').attr('style','color:auto;');
+    	}
     });
 
     function draw(e) {

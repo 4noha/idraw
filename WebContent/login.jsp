@@ -41,7 +41,7 @@
 <input id="pwSubmitButton" type="submit" value="Submit" class="button" style="position:absolute;margin-left: 440px;margin-top: 330px;display:none;">
 </div>
 <div id="panel_console" class="Paper">
-<div id="panel_theme"><span>テーマ：</span>
+<div id="panel_theme"><span id="theme_text">テーマ：</span>
 <select id="select_theme">
 	<option>Paper</option>
 	<option>Modern</option>

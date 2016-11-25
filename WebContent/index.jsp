@@ -45,10 +45,10 @@
 	</div>
 	<div id="panel_console" class="Paper">
 		<div id="panel_theme">
-			<span>テーマ：</span> <select id="select_theme">
-				<option>Paper</option>
-				<option>Modern</option>
-				<option>Dark</option>
+			<span id="theme_text">テーマ：</span> <select id="select_theme">
+				<option class="options">Paper</option>
+				<option class="options">Modern</option>
+				<option class="options">Dark</option>
 			</select>
 		</div>
 		<table id="palette">
@@ -304,11 +304,11 @@
 				<table style="width: 50px;">
 					<tr style="height: 25px;">
 						<td><input type="button" id="timer_button" value="設定"
-							style="width: 48px" onClick="onClickTimer(progress.value);"></td>
+							onClick="onClickTimer(progress.value);"></td>
 					</tr>
 					<tr style="height: 25px;">
 						<td><input type="text" id="timer_text" size="1"
-							style="width: 44px;" value="タイマー" onClick="Clear_text(this.id);" /></td>
+							value="タイマー" onClick="Clear_text(this.id);" /></td>
 					</tr>
 					<tr style="height: 50px;">
 						<td></td>

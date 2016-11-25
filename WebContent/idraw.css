@@ -235,7 +235,7 @@ li {
 }
 #panel_theme{
 	position: absolute;
-	top:10px;
+	top:5px;
 	left:15px;
 }
 #select_theme{
@@ -245,7 +245,7 @@ li {
 }
 #palette{
 	position: absolute;
-	top:30px;
+	top:25px;
 	left:15px;
 	width:197px;
 	display: table;
@@ -268,4 +268,16 @@ li {
     width: 800px;
     height: 100px;
     background-color: #000;
+}
+.options{
+	background-color: default;
+}
+#select_theme{
+	background-color: default;
+}
+#timer_text{
+	width: 44px;
+}
+#timer_button{
+	width: 48px;
 }
