@@ -6,6 +6,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -201,8 +202,35 @@ public class WebsocketEndpoint {
 			break;
 		/* ■■■■■■■■■■【コマンドが（new_page）の場合】■■■■■■■■■■ */
 		case "new_page":{
-			Page page = new Page();
-			page.page_num = (int) parsedJson.get("page_num");
+			int pageNum = (int) parsedJson.get("page_num");
+			Page page = Page.findBy("page_num", pageNum);
+			if (page != null){
+				ArrayList<Page> pages = Page.all();
+				HashMap<Integer, Page> pageMap = new HashMap<Integer, Page>();
+				int maxPageNum = -255;
+				for(Page page_: pages){
+					if (maxPageNum < page_.page_num){
+						maxPageNum = page_.page_num;
+					}
+					pageMap.put(page_.page_num, page_);
+				}
+				Page lastPage = pageMap.get(maxPageNum);
+				lastPage.page_num = maxPageNum+1;
+				lastPage.newFlag = true;
+				lastPage.save();
+				for(int i = maxPageNum-1; pageMap.get(i) != null; i--){
+					Page page_ = pageMap.get(i);
+					if (page.page_num <= page_.page_num){
+						page_.page_num += 1;
+						page_.save();
+					}
+				}
+				page.background_image = null;
+				page.joined_image = null;
+			}else{
+				page = new Page();
+				page.page_num = pageNum;
+			}
 			page.save();
 			break;
 		}

@@ -75,7 +75,7 @@ idraw.eventDefine = function() {
         	var newPager = {}
         	for (var pageNum in pagerJson){
         		if (pageNum > json.page_num-1){
-        			newPager[pageNum+1] = pagerJson[pageNum];
+        			newPager[Number(pageNum)+1] = pagerJson[pageNum];
         		}else{
         			newPager[pageNum] = pagerJson[pageNum];
         		}
