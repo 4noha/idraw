@@ -48,8 +48,9 @@ idraw.eventDefine = function() {
 
     		// バッファがたまったら保存
 			if (!imageBuffer[json.uuid].includes(undefined)){
-				console.log(imageBuffer[json.uuid].join(""));
-
+				//console.log(imageBuffer[json.uuid].join(""));
+				var url=imageBuffer[json.uuid].join("");
+				$("#panel_canvas").css("background-image", "url('" + url.replace(/(\r\n|\n|\r)/gm, "") + "')");
 				delete imageBuffer[json.uuid];
 			}
     		break;
