@@ -81,7 +81,7 @@ public class User extends DbInstanceDao<User> {
 	}
 
 	// ユーザーネームのバリデータ(英数字20字まで)
-	public boolean AcceptableName(String userName) {
+	public static boolean AcceptableName(String userName) {
 		int uNameLength = userName.length();
 		if (uNameLength <= 20 && userName.matches("[0-9a-zA-Z]+$")) {
 			return true;
@@ -91,7 +91,7 @@ public class User extends DbInstanceDao<User> {
 	}
 
 	// パスワードのバリデータ(英数字混合8字以上)
-	public boolean AcceptablePass(String userPass) {
+	public static boolean AcceptablePass(String userPass) {
 		int uPassLength = userPass.length();
 		if (uPassLength >= 8 && userPass.matches("^[0-9a-zA-Z]+$") && !(userPass.matches("^[0-9]+$"))
 				&& !(userPass.matches("^[a-zA-Z]+$"))) {
