@@ -338,22 +338,26 @@ $(function(){
 	idraw.loadSessionId();
 	idraw.eventDefine();
     pagerJson = {
-<<<<<<< HEAD
     		<% ArrayList<Page> pages = Page.all();
 				if (pages != null){
 					for(Page pagePct: pages){ %>
-	    				<%= pagePct.page_num - 1 %>:{
+	    				<%= pagePct.page_num %>:{
 	    					bg_image:<%= pagePct.background_image %>,
 	    					image:<%= pagePct.joined_image %>,
 	    					timerSec: "タイマー"
 	    				},
-	    			}
-	   		 <% }} %>
+	   		 		<% }
+				}else{
+					Page pager = new Page();
+					pager.page_num = 0;
+					pager.save();
+				}
+			%>
     	}
     if (Object.keys(pagerJson).length == 0){
     	pagerJson = {0:{bg_image: null, image: null, timerSec: "タイマー"}};
     }
-    currentPage = 1;
+    currentPage = 0;
 	socket.onopen = function(){
         socket.send(JSON.stringify({cmd:"session", id: sessionId}));
 	}
@@ -372,8 +376,13 @@ $(function(){
 				slicePushImage("bgsave", currentPage, reader.result, 8000);
 		}
    	});
+    
+	// ページ追加
+    $('#tool_newp').click(function(){
+    	idraw.newPage();
+    });
 
- // キー入力時の処理
+ 	// キー入力時の処理
     document.onkeydown = function (e){
     	switch (e.key){
     	case "ArrowUp":

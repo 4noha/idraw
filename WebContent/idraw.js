@@ -71,6 +71,21 @@ idraw.eventDefine = function() {
     	case "pubkey":
     		pubkey = json.key;
     		break;
+    	case "new_page":{
+        	var newPager = {}
+        	for (var pageNum in pagerJson){
+        		if (pageNum > json.page_num-1){
+        			newPager[pageNum+1] = pagerJson[pageNum];
+        		}else{
+        			newPager[pageNum] = pagerJson[pageNum];
+        		}
+        	}
+        	pagerJson = newPager;
+        	pagerJson[json.page_num] = {bg_image: null, image: null, timerSec: "Timer"};
+        	if(json.page_num <= currentPage){
+            	currentPage += 1;
+        	}
+    	}
     	}
     }
 
@@ -241,6 +256,25 @@ idraw.eventDefine = function() {
     	}
     	return uuid;
 	}
+    
+    idraw.newPage = function() {
+    	socket.send(JSON.stringify({cmd: "new_page", page_num: currentPage+1}));
+    }
+    
+    idraw.changePage = function(pageNum) {
+		pagerJson[currentPage]["image"] = $("#canvas")[0].toDataURL("image/png");
+		$("#timer_text").val(pagerJson[pageNum]["timerSec"]);
+		var image = new Image();
+		image.src = pagerJson[pageNum]["image"] != null ? pagerJson[pageNum]["image"] : "";
+		currentPage = pageNum;
+		image.onload = function(){
+			// 画像の読み込みが終わったら、Canvasに画像を反映する。
+			var ctx = $("#canvas")[0].getContext("2d");
+			ctx.clearRect(0, 0, 800, 600);
+			ctx.drawImage(image, 0, 0);
+			console.log(currentPage);
+		}
+    }
 
     Clear_text=function(str)
     {

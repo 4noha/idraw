@@ -46,6 +46,12 @@ public class Page extends DbInstanceDao<Page>{
 		return dbStaticAdapter.findPartial(column_name, value);
 	}
 	
+	// 全部出す
+	public static ArrayList<Page> all() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchFieldException, SecurityException{
+		adapterStandby();
+		return dbStaticAdapter.all();
+	}
+	
 	// クラスの設定が初期化されていないときに呼ばれる
 	private static void adapterStandby() throws SQLException{
 		if (dbStaticAdapter == null || dbAdapter == null){

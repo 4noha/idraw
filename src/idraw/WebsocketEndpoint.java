@@ -199,8 +199,13 @@ public class WebsocketEndpoint {
 				});
 			}
 			break;
-		default:
+		/* ■■■■■■■■■■【コマンドが（new_page）の場合】■■■■■■■■■■ */
+		case "new_page":{
+			Page page = new Page();
+			page.page_num = (int) parsedJson.get("page_num");
+			page.save();
 			break;
+		}
 		}
 
 		// messageがnullならセッションを無駄に消費するだけなのでreturnで返す
