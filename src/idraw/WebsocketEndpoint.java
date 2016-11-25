@@ -2,7 +2,9 @@ package idraw;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collections;
@@ -13,11 +15,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+import javax.xml.bind.DatatypeConverter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,11 +40,12 @@ import idraw.orm.DbUtil;
 public class WebsocketEndpoint {
 	static Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
 	static HashMap<String, String[]> imageBuffer = new HashMap<String, String[]>();
-	
+
 	@OnMessage // クライアントから来たJSON文字列から処理を認識、実行しJSON文字列を返却するメソッド
 	public void onMessage(String message) throws IOException, InstantiationException, IllegalAccessException,
 			ClassNotFoundException, NoSuchFieldException, SecurityException, SQLException, IllegalArgumentException,
-			NoSuchMethodException, InvocationTargetException, NoSuchAlgorithmException {
+			NoSuchMethodException, InvocationTargetException, NoSuchAlgorithmException, InvalidKeySpecException,
+			InvalidKeyException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
 
 		System.out.println(message);
 		// JSON（文字列ベースのデータフォーマット）形式の文字列をHashMapインスタンスに＜Command名:値＞にパースする
@@ -81,24 +88,41 @@ public class WebsocketEndpoint {
 			String session_id = (String) parsedJson.get("session_id");
 			Boolean cmdNew = (Boolean) parsedJson.get("new");
 
+			// ハッシュ化パスワード保存用
+			String hashPwd;
+
 			// 来たJSONがcmd=login且つ情報内にpwdとsession_idがあればusernameとpwdに合致するユーザにsession_idを付与
 			if (userName != null && pwd != null && session_id != null) {
 				User user = User.findBy("username", parsedJson.get("id"));
-				
+
 				if (user == null){
 					message = "{ \"cmd\":\"error\", \"key\":\"ユーザが見つかりません\" }";
 					break;
 				}
 				// pwdが空なら新規ユーザーなのでpwdを入れる
 				if (user.pwd == null){
-					// 今は平文だが後で暗号、復号化、ハッシュ化が必要
-					user.pwd = pwd;
+					// 復号化
+					String tDecryptPwd = EncryptManager.getDecryptPwd(user, pwd);
+
+					// ソルトを自動生成し、復号化したパスワードをハッシュ化
+					byte[] hashSalt = EncryptManager.createSalt();
+					hashPwd = EncryptManager.getHashPwd(tDecryptPwd, hashSalt);
+
+					user.pwd = hashPwd;
+					user.salt = EncryptManager.toHexString(hashSalt);
+				} else { // 既存ユーザの場合ハッシュ化に使用するソルトはDB内のものを使用する
+					// 復号化
+					String tDecryptPwd = EncryptManager.getDecryptPwd(user, pwd);
+
+					// 復号化したパスワードをハッシュ化
+					byte[] hashSalt = DatatypeConverter.parseHexBinary(user.salt);
+					hashPwd = EncryptManager.getHashPwd(tDecryptPwd, hashSalt);
 				}
-				if (!user.pwd.equals(pwd)){
+				if (!user.pwd.equals(hashPwd)){
 					message = "{ \"cmd\":\"error\", \"key\":\"ユーザIDとPWの組み合わせが間違っています\" }";
 					break;
 				}
-				
+
 				user.session_id = (String) parsedJson.get("session_id");
 				user.save();
 				message = null;
@@ -111,13 +135,13 @@ public class WebsocketEndpoint {
 						message = "{ \"cmd\":\"error\", \"key\":\"ユーザIDが見つかりません\" }";
 						break;
 					}
-					
+
 					// ユーザの新規作成をするための処理
 					user = new User();
 					user.username = userName;
 					user.save();
 				}
-				
+
 				// newでもnewじゃなくてもPublicKeyを作成し”key”として返却するための処理
 				String publicKey = EncryptManager.generateKeyPair(user);
 				message = mapToJsonString(m -> {
@@ -143,7 +167,7 @@ public class WebsocketEndpoint {
 				}
 				String[] splittedImages = imageBuffer.get(uuid);
 				splittedImages[count] = image;
-				
+
 				// バッファがたまったら保存
 				if (!Arrays.asList(splittedImages).contains(null)){
 					Page bg = Page.findBy("page_num", pageNum);
