@@ -85,40 +85,6 @@ idraw.eventDefine = function() {
     	case "s":
     		$("#panel_console").animate({top: '600px'},500);
     		break;
-    	case "ArrowLeft":
-    	case "a":
-    		if (!(pagerJson === undefined || currentPage === undefined || pagerJson[currentPage+1] === undefined)){
-    			pagerJson[currentPage]["image"] = $("#canvas")[0].toDataURL("image/png");
-    			$("#timer_text").val(pagerJson[currentPage + 1]["timerSec"]);
-    			var image = new Image();
-    			image.src = pagerJson[currentPage+1]["image"];
-    			currentPage += 1;
-    			image.onload = function(){
-    			  // 画像の読み込みが終わったら、Canvasに画像を反映する。
-    				var ctx = $("#canvas")[0].getContext("2d");
-    				ctx.clearRect(0, 0, 800, 600);
-    				ctx.drawImage(image, 0, 0);
-    				console.log(currentPage);
-    			}
-    		}
-    		break;
-		case "ArrowRight":
-		case "d":
-    		if (!(pagerJson === undefined || currentPage === undefined || pagerJson[currentPage-1] === undefined)){
-    			pagerJson[currentPage]["image"] = $("#canvas")[0].toDataURL("image/png");
-    			$("#timer_text").val(pagerJson[currentPage - 1]["timerSec"]);
-    			var image = new Image();
-    			image.src = pagerJson[currentPage-1]["image"];
-    			currentPage -= 1;
-    			image.onload = function(){
-    				// 画像の読み込みが終わったら、Canvasに画像を反映する。
-    				var ctx = $("#canvas")[0].getContext("2d");
-    				ctx.clearRect(0, 0, 800, 600);
-    				ctx.drawImage(image, 0, 0);
-    				console.log(currentPage);
-    			}
-    		}
-			break;
 		}
     };
 
