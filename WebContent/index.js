@@ -30,6 +30,49 @@ $(function(){
     $('#tool_newp').click(function(){
     	idraw.newPage();
     });
+    
+    // indexしか使わないコマンド
+    commands.push(function (json){
+    	switch (json.cmd){
+    	case "bgsave":
+    		if (imageBuffer[json.uuid] === undefined){
+    			imageBuffer[json.uuid] = new Array(json.count);
+    		}
+    		imageBuffer[json.uuid][json.count] = json.image;
+
+    		// バッファがたまったら保存
+			if (!imageBuffer[json.uuid].includes(undefined)){
+				//console.log(imageBuffer[json.uuid].join(""));
+				var url=imageBuffer[json.uuid].join("");
+				$("#panel_canvas").css("background-image", "url('" + url.replace(/(\r\n|\n|\r)/gm, "") + "')");
+				delete imageBuffer[json.uuid];
+			}
+    		break;
+    	case "save":
+    		break;
+    	case "new_page":{
+        	var newPager = {};
+        	for (var pageNum in pagerJson){
+        		if (pageNum > json.page_num-1){
+        			newPager[Number(pageNum)+1] = pagerJson[pageNum];
+        		}else{
+        			newPager[pageNum] = pagerJson[pageNum];
+        		}
+        	}
+            var canvas = $("<canvas/>")[0];
+            canvas.width = 800;
+            canvas.height = 600;
+        	newPager[json.page_num] = {
+        			bg_image: canvas.toDataURL("image/png"),
+        			image: canvas.toDataURL("image/png"), timerSec: "タイマー"
+        	}
+        	if (json.page_num <= currentPage){
+        		currentPage +=1;
+        	}
+        	pagerJson = newPager;
+    	}
+    	}
+    });
 
  	// キー入力時の処理
     keyHookers.push(function (e){
