@@ -85,7 +85,7 @@ idraw.eventDefine = function() {
             canvas.height = 600;
         	newPager[json.page_num] = {
         			bg_image: canvas.toDataURL("image/png"),
-        			image: canvas.toDataURL("image/png"), timerSec: "Timer"
+        			image: canvas.toDataURL("image/png"), timerSec: "タイマー"
         	}
         	if (json.page_num <= currentPage){
         		currentPage +=1;
