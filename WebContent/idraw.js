@@ -274,16 +274,21 @@ idraw.eventDefine = function() {
     idraw.changePage = function(pageNum) {
 		pagerJson[currentPage]["image"] = $("#canvas")[0].toDataURL("image/png");
 		$("#timer_text").val(pagerJson[pageNum]["timerSec"]);
-		var image = new Image();
-		image.src = pagerJson[pageNum]["image"] != null ? pagerJson[pageNum]["image"] : "";
-		currentPage = pageNum;
-		image.onload = function(){
-			// 画像の読み込みが終わったら、Canvasに画像を反映する。
+		if (pagerJson[pageNum]["image"] != "null") {
+			var image = new Image();
+			image.src = pagerJson[pageNum]["image"];
+			image.onload = function(){
+				// 画像の読み込みが終わったら、Canvasに画像を反映する。
+				var ctx = $("#canvas")[0].getContext("2d");
+				ctx.clearRect(0, 0, 800, 600);
+				ctx.drawImage(image, 0, 0);
+			}
+		}else{
 			var ctx = $("#canvas")[0].getContext("2d");
 			ctx.clearRect(0, 0, 800, 600);
-			ctx.drawImage(image, 0, 0);
-			console.log(currentPage);
 		}
+		currentPage = pageNum;
+		console.log(currentPage);
     }
 
     Clear_text=function(str)
