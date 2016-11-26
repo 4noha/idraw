@@ -227,7 +227,7 @@ idraw.eventDefine = function() {
         // 小さいキャンバスを作成
         // 800x600の解像度だとJavascriptのWebsocketで送れるデータ量上限に引っかかって送れない
 		// 苦肉の策として同じ4:3の576x432にした
-        var canvas2 = document.createElement('canvas');
+        var canvas2 = $("<canvas/>")[0];
         canvas2.width = 576;
         canvas2.height = 432;
         var ctx2 = canvas2.getContext('2d');
