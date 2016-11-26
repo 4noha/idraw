@@ -74,13 +74,12 @@ $(function(){
 				sum += x;
     		}
     	}
-		console.log(sum);
 
 		var tmpSum = 0;
 		for(var i = 0; i < Object.keys(pagerJson).length; i++){
-			if(/^[0-9]+$/.test(pagerJson[i]["timerSec"]) && pagerJson[i]["timerSec"] != 0){
+			if(/^[1-9]+$/.test(pagerJson[i]["timerSec"])){
 				var autoPoint = $("<div></div>");
-				tmpSum += pagerJson[i]["timerSec"];
+				tmpSum += parseFloat(pagerJson[i]["timerSec"]);
 				autoPoint.attr("id","point" + i);
 				autoPoint.attr("class","point");
 				autoPoint.text("■");
