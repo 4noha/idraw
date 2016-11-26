@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DbStaticDao {
+public class DbUtilTest {
 
 	@Before
 	public void setUp() throws Exception {

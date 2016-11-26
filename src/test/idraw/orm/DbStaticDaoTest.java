@@ -1,11 +1,11 @@
-package test.idraw.manager;
+package test.idraw.orm;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-public class ImageManager {
+public class DbStaticDaoTest {
 
 	@Before
 	public void setUp() throws Exception {

@@ -1,11 +1,11 @@
-package test.idraw.orm;
+package test.idraw;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
-public class DbUtil {
+public class WebSocketEndpointTest {
 
 	@Before
 	public void setUp() throws Exception {
