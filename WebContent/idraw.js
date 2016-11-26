@@ -25,19 +25,22 @@ idraw.eventDefine = function() {
     var penStyle="#000000";
     var isEraser=false;
     imageBuffer = {}
+    currentPage = "-1";
 
     // Websocket受信時の処理
     commands = [
     	function(json){
 	    	switch (json.cmd){
 	    	case "pen":
-	            context.strokeStyle = json.color;
-	            context.lineWidth = 2;
-	            context.beginPath();
-	            context.moveTo(json.fx, json.fy);
-	            context.lineTo(json.tx, json.ty);
-	            context.stroke();
-	            context.closePath();
+	    		if (currentPage == json.page) {
+		            context.strokeStyle = json.color;
+		            context.lineWidth = 2;
+		            context.beginPath();
+		            context.moveTo(json.fx, json.fy);
+		            context.lineTo(json.tx, json.ty);
+		            context.stroke();
+		            context.closePath();
+	    		}
 	    		break;
 	    	case "chat":
 	    		$("#chat_window").html($("#chat_window").html()+"<br>"+json.text);
@@ -190,7 +193,7 @@ idraw.eventDefine = function() {
         context.closePath();
 
         // サーバへメッセージ送信
-        socket.send(JSON.stringify({ cmd:"pen", page: 1, fx:fromX, fy:fromY, tx:toX, ty:toY, color:context.strokeStyle }));
+        socket.send(JSON.stringify({ cmd:"pen", page: currentPage, fx:fromX, fy:fromY, tx:toX, ty:toY, color:context.strokeStyle }));
         fromX = toX;
         fromY = toY;
     }
