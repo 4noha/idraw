@@ -32,16 +32,8 @@ $(function(){
     });
 
  	// キー入力時の処理
-    document.onkeydown = function (e){
+    keyHookers.push(function (e){
     	switch (e.key){
-    	case "ArrowUp":
-    	case "w":
-    		$("#panel_console").animate({top: '500px'},500);
-    		break;
-    	case "ArrowDown":
-    	case "s":
-    		$("#panel_console").animate({top: '600px'},500);
-    		break;
     	case "ArrowLeft":
     	case "a":
     		if (!(pagerJson === undefined || currentPage === undefined || pagerJson[currentPage+1] === undefined)){
@@ -55,7 +47,7 @@ $(function(){
     		}
 			break;
 		}
-    };
+    });
 
 	//タイマー数値入力後フォーカスが外れるとpagerJsonにタイマー数値を保存するための関数
     $("#timer_text").change(function() {

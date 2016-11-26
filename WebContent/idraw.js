@@ -96,18 +96,25 @@ idraw.eventDefine = function() {
     }
 
     // キー入力時の処理
-    document.onkeydown = function (e){
-    	switch (e.key){
-    	case "ArrowUp":
-    	case "w":
-    		$("#panel_console").animate({top: '500px'},500);
-    		break;
-    	case "ArrowDown":
-    	case "s":
-    		$("#panel_console").animate({top: '600px'},500);
-    		break;
-		}
-    };
+    keyHookers = [
+    	function (e){
+	    	switch (e.key){
+	    	case "ArrowUp":
+	    	case "w":
+	    		$("#panel_console").animate({top: '500px'},500);
+	    		break;
+	    	case "ArrowDown":
+	    	case "s":
+	    		$("#panel_console").animate({top: '600px'},500);
+	    		break;
+			}
+	    }
+    ];
+    window.onkeydown = function(e){
+    	for(var i=0; i<keyHookers.length; i++){
+    		keyHookers[i](e);
+    	}
+    }
 
     $('canvas').mousedown(function(e) {
         drawFlag = true;
