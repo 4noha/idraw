@@ -248,8 +248,11 @@ idraw.eventDefine = function() {
     }
     
     idraw.changePage = function(pageNum) {
+    	// 絵を保存
 		pagerJson[currentPage]["image"] = $("#canvas")[0].toDataURL("image/png");
+		// タイマー保存
 		$("#timer_text").val(pagerJson[pageNum]["timerSec"] != null ? pagerJson[pageNum]["timerSec"] : "タイマー");
+		// 絵を読み込み
 		if (pagerJson[pageNum]["image"] != null) {
 			var image = new Image();
 			image.src = pagerJson[pageNum]["image"];
@@ -262,6 +265,12 @@ idraw.eventDefine = function() {
 		}else{
 			var ctx = $("#canvas")[0].getContext("2d");
 			ctx.clearRect(0, 0, 800, 600);
+		}
+		// 背景を読み込み
+		if (pagerJson[pageNum]["bg_image"] != null) {
+			$("#panel_canvas").css("background-image", "url('" + pagerJson[pageNum]["bg_image"] + "')");
+		}else{
+			$("#panel_canvas").css("background-image", "");
 		}
 		currentPage = pageNum;
 		console.log(currentPage);
