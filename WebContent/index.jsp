@@ -334,6 +334,10 @@
 	<input type="file" id="image_uploader" style="opacity:0;" />
 </body>
 <script>
+	// この部分はコードを$();で囲っていないのでidrawの定義の次に呼ばれる
+	// JSは3ファイルに分かれているが、jsの実行順は囲っていないidraw, index, jsp
+	// 次に囲っているidraw, index, jspの順に実行されるので注意
+	// この順番はidrawの読み込み、indexの読み込みをしてから<script>を定義しているため
 	pagerJson = {
 			<% ArrayList<Page> pages = Page.all();
 				if (pages != null){

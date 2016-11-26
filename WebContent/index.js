@@ -1,3 +1,4 @@
+// $();にコードが入っているのでページが読み込まれてから呼ばれる
 $(function(){
 	idraw.websocketInit();
 	idraw.loadSessionId();
