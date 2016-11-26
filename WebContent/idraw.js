@@ -268,13 +268,13 @@ idraw.eventDefine = function() {
 		console.log(currentPage);
     }
 
-    Clear_text=function(str)
-    {
-    	document.getElementById(str).value= "";
+    clearText = function(str){
+    	$("#"+str).val("");
     }
-    write_timer=function(str){
-    	if(document.getElementById(str).value==""){
-    		document.getElementById(str).value= "タイマー";
+    
+    writeTimer = function(str){
+    	if($("#"+str).val() == ""){
+    		$("#"+str).val("タイマー");
     	}
     }
 }
