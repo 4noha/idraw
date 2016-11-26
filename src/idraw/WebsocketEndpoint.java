@@ -62,22 +62,31 @@ public class WebsocketEndpoint {
 
 		/* ■■■■■■■■■■【コマンドが（save）の場合】■■■■■■■■■■ */
 		case "save":{ // cmd = save の場合、状況により新規作成 or 上書きをする
-			Page page = Page.findBy("page_num", parsedJson.get("page_num"));
-			if (page == null) { // pageが何も無ければ新規作成する
-				page = new Page(toMap(m -> {
-					m.put("page_num", parsedJson.get("page_num"));
-					m.put("page", parsedJson.get("page"));
-					m.put("joined_image", parsedJson.get("image"));
-				}));
-			} else { // pageが既にあれば上書保存する
-				page.joined_image = (String) parsedJson.get("image");
+			int pageNum = (int) parsedJson.get("page_num");
+			if (parsedJson.containsKey("timer")){
+				Page page = Page.findBy("page_num", pageNum);
+				page.timer = (String) parsedJson.get("timer");
+				page.save();
+			} else if (parsedJson.containsKey("count")){
+				int count     = (int) parsedJson.get("count");
+				String image  = (String) parsedJson.get("image");
+				String uuid   = (String) parsedJson.get("uuid");
+
+				// 画像は分割されて届くのでバッファにためる
+				if (!imageBuffer.containsKey(uuid)){
+					imageBuffer.put(uuid, new String[count+1]);
+				}
+				String[] splittedImages = imageBuffer.get(uuid);
+				splittedImages[count] = image;
+	
+				// バッファがたまったら保存
+				if (!Arrays.asList(splittedImages).contains(null)){
+					Page page = Page.findBy("page_num", pageNum);
+					page.joined_image = String.join("", splittedImages);
+					page.save();
+					imageBuffer.remove(uuid);
+				}
 			}
-			page.save();
-			int pageNum = page.page_num;
-			message = mapToJsonString(m -> {
-				m.put("cmd", "save");
-				m.put("page_num", pageNum);
-			});
 			break;
 		}
 		/* ■■■■■■■■■■【コマンドが（login）の場合】■■■■■■■■■■ */

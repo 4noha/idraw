@@ -343,9 +343,9 @@
 				if (pages != null){
 					for(Page pagePct: pages){ %>
 	    				<%= pagePct.page_num %>:{
-	    					bg_image:"<%= pagePct.background_image %>",
-	    					image:"<%= pagePct.joined_image %>",
-	    					timerSec: "タイマー"
+	    					bg_image:<%= pagePct.background_image != null ? "\""+pagePct.background_image+"\"" : null %>,
+	    					image: <%= pagePct.joined_image != null ? "\""+pagePct.joined_image+"\"" : null %>,
+	    					timerSec: <%= pagePct.timer != null ? "\""+pagePct.timer+"\"" : null %>
 	    				},
 	   		 		<% }
 				}else{

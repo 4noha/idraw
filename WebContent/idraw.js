@@ -137,10 +137,6 @@ idraw.eventDefine = function() {
         context.clearRect(0, 0, $('canvas').width(), $('canvas').height());
     });
 
-    $('#tool_save').click(function() {
-        socket.send(JSON.stringify({ cmd:"save", page_num:1, image: canvasToMinimizeBase64($("#canvas")[0])}));
-    });
-
     $('#tool_text').click(function() {
     	var chatMessage = window.prompt("チャット入力（40文字まで）　\n\"#del\",\"#削除\"で現在のチャット内容を削除します","");
     	if(chatMessage!=null && chatMessage.length>0){
@@ -250,8 +246,8 @@ idraw.eventDefine = function() {
     
     idraw.changePage = function(pageNum) {
 		pagerJson[currentPage]["image"] = $("#canvas")[0].toDataURL("image/png");
-		$("#timer_text").val(pagerJson[pageNum]["timerSec"]);
-		if (pagerJson[pageNum]["image"] != "null") {
+		$("#timer_text").val(pagerJson[pageNum]["timerSec"] != null ? pagerJson[pageNum]["timerSec"] : "タイマー");
+		if (pagerJson[pageNum]["image"] != null) {
 			var image = new Image();
 			image.src = pagerJson[pageNum]["image"];
 			image.onload = function(){

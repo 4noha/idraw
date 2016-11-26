@@ -18,9 +18,10 @@ public class Page extends DbInstanceDao<Page>{
 	private static DbInstanceDao<Page> dbAdapter = null;
 	
 	// 同名のカラムと対応
-	public int page_num;
+	public int	  page_num;
 	public String joined_image;
 	public String background_image;
+	public String timer;
 	
 	//newしてsaveするとcreateが走る
 	public Page() throws SQLException {
@@ -30,9 +31,10 @@ public class Page extends DbInstanceDao<Page>{
 	public Page(Map<String, Object> params) throws SQLException {
 		super(THIS_CLASS, TABLE_NAME);
 		adapterStandby();
-		this.page_num   = (int) params.get("page_num");
-		this.joined_image   = (String) params.get("joined_image");
-		this.background_image   = (String) params.get("background_image");
+		this.page_num		  = (int) params.get("page_num");
+		this.joined_image	  = (String) params.get("joined_image");
+		this.background_image = (String) params.get("background_image");
+		this.timer			  = (String) params.get("timer");
 		newFlag = true;
 	}
 	

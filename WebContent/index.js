@@ -4,13 +4,27 @@ $(function(){
 	idraw.loadSessionId();
 	idraw.eventDefine();
     if (Object.keys(pagerJson).length == 0){
-    	pagerJson = {0:{bg_image: null, image: null, timerSec: "タイマー"}};
+    	pagerJson = {0:{bg_image: null, image: null, timerSec: null}};
     }
     currentPage = 0;
 	socket.onopen = function(){
         socket.send(JSON.stringify({cmd:"session", id: sessionId}));
 	}
-
+	// タイマーとイメージをロード
+	$("#timer_text").val(pagerJson[currentPage]["timerSec"] != null ? pagerJson[currentPage]["timerSec"] : "タイマー");
+	if (pagerJson[currentPage]["image"] != null) {
+		var image = new Image();
+		image.src = pagerJson[currentPage]["image"];
+		image.onload = function(){
+			// 画像の読み込みが終わったら、Canvasに画像を反映する。
+			var ctx = $("#canvas")[0].getContext("2d");
+			ctx.drawImage(image, 0, 0);
+		}
+	}
+	if (pagerJson[currentPage]["bg_image"] != null) {
+		$("#panel_canvas").css("background-image", "url('" + pagerJson[currentPage]["bg_image"] + "')");
+	}
+	
 	// 背景アップロードはindexだけの機能
     $('#tool_image').click(function(){
     	$('#image_uploader').click();
@@ -30,6 +44,12 @@ $(function(){
     $('#tool_newp').click(function(){
     	idraw.newPage();
     });
+
+    // 絵のセーブ機能
+    $('#tool_save').click(function() {
+        socket.send(JSON.stringify({cmd:"save", page_num: currentPage, timer: pagerJson[currentPage]["timerSec"]}));
+    	slicePushImage("save", currentPage, $("#canvas")[0].toDataURL("image/png"), 8000);
+    });
     
     // indexしか使わないコマンド
     commands.push(function (json){
@@ -42,7 +62,6 @@ $(function(){
 
     		// バッファがたまったら保存
 			if (!imageBuffer[json.uuid].includes(undefined)){
-				//console.log(imageBuffer[json.uuid].join(""));
 				var url=imageBuffer[json.uuid].join("");
 				$("#panel_canvas").css("background-image", "url('" + url.replace(/(\r\n|\n|\r)/gm, "") + "')");
 				delete imageBuffer[json.uuid];
@@ -64,7 +83,7 @@ $(function(){
             canvas.height = 600;
         	newPager[json.page_num] = {
         			bg_image: canvas.toDataURL("image/png"),
-        			image: canvas.toDataURL("image/png"), timerSec: "タイマー"
+        			image: canvas.toDataURL("image/png"), timerSec: null
         	}
         	if (json.page_num <= currentPage){
         		currentPage +=1;
@@ -94,7 +113,7 @@ $(function(){
 
 	//タイマー数値入力後フォーカスが外れるとpagerJsonにタイマー数値を保存するための関数
     $("#timer_text").change(function() {
-    	pagerJson[currentPage]["timerSec"] = $("#timer_text").val();
+    	pagerJson[currentPage]["timerSec"] = $("#timer_text").val() != "タイマー" ? $("#timer_text").val() : null;
     });
 
 	//設定ボタンが押された時にタイマーを作動させる処理
@@ -124,7 +143,6 @@ $(function(){
 			}
 		}
 
-
 		progress.value = 0;
 		progress.max = sum; //最大値を設定
 
@@ -149,5 +167,4 @@ $(function(){
 			//setIntervalは重複して起動させないためにelse文は空
 		}
 	}
-
 });
