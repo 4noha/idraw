@@ -72,7 +72,7 @@ idraw.eventDefine = function() {
     		pubkey = json.key;
     		break;
     	case "new_page":{
-        	var newPager = {}
+        	var newPager = {};
         	for (var pageNum in pagerJson){
         		if (pageNum > json.page_num-1){
         			newPager[Number(pageNum)+1] = pagerJson[pageNum];
@@ -80,11 +80,17 @@ idraw.eventDefine = function() {
         			newPager[pageNum] = pagerJson[pageNum];
         		}
         	}
-        	pagerJson = newPager;
-        	pagerJson[json.page_num] = {bg_image: null, image: null, timerSec: "Timer"};
-        	if(json.page_num <= currentPage){
-            	currentPage += 1;
+            var canvas = $("<canvas/>")[0];
+            canvas.width = 800;
+            canvas.height = 600;
+        	newPager[json.page_num] = {
+        			bg_image: canvas.toDataURL("image/png"),
+        			image: canvas.toDataURL("image/png"), timerSec: "Timer"
         	}
+        	if (json.page_num <= currentPage){
+        		currentPage +=1;
+        	}
+        	pagerJson = newPager;
     	}
     	}
     }
