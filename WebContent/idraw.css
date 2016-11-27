@@ -297,3 +297,11 @@ li {
 	top: 0px;
     left: 430px;
 }
+#page_num{
+    font-size: 40px;
+    color:#777;
+    opacity: 0.4;
+    position:absolute;
+	top: 0px;
+    left: 10px;
+}

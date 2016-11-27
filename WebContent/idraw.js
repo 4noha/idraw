@@ -280,7 +280,11 @@ idraw.eventDefine = function() {
 			$("#panel_canvas").css("background-image", "");
 		}
 		currentPage = pageNum;
-		console.log(currentPage);
+		if (currentPage > 0) {
+			$("#page_num").text(currentPage);
+		} else {
+			$("#page_num").text("");
+		}
     }
 
     clearText = function(str){

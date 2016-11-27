@@ -49,6 +49,7 @@
 <body>
 	<div id="chat_window" style="width=100;height=800; position: absolute;"></div>
 	<div id="modified">modified</div>
+	<div id="page_num">0</div>
 	<div id="panel_canvas">
 		<canvas width="800" height="600" id="canvas"
 			style="position: absolute;"></canvas>

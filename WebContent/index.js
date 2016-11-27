@@ -97,7 +97,7 @@ $(function(){
         			timerSec: null, modified: false
         	}
         	if (json.page_num <= currentPage){
-        		currentPage +=1;
+    			idraw.changePage(currentPage+1);
         	}
         	pagerJson = newPager;
         	break;
