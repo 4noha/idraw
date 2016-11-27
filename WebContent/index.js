@@ -95,8 +95,10 @@
     			presenMode = !presenMode;
     			if (presenMode) {
     				$("#modified").css("visibility", "hidden");
+    				$("#chat_window").css("visibility", "hidden");
     			} else {
     				$("#modified").css("visibility", "visible");
+    				$("#chat_window").css("visibility", "visible");
     			}
     		}
     		break;
