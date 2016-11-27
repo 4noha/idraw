@@ -356,7 +356,7 @@
 					pager.save();
 				}
 			%>
-		}
+		};
 	$(function(){
 		idraw.index();
 		idraw.indexWebsocketCommands();
