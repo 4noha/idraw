@@ -15,7 +15,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import idraw.model.Page;
 import idraw.orm.DbUtil;
 
 public class DbStaticDaoTest {
@@ -40,27 +39,27 @@ public class DbStaticDaoTest {
 	
 	@Test
 	public void レコードの生成削除() throws SQLException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException, ClassNotFoundException {
-		Page page = new Page();
+		Model page = new Model();
 		page.page_num = 1;
 		page.save();
-		page = Page.findBy("page_num", 1);
+		page = Model.findBy("page_num", 1);
 		assertEquals(page.page_num, 1);
 		page.destroy();
 		
-		page = Page.findBy("page_num", 1);
+		page = Model.findBy("page_num", 1);
 		assertEquals(page, null);
 	}
 	
 	@Test
 	public void 全レコード出力() throws SQLException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException, ClassNotFoundException {
-		Page page = new Page();
+		Model page = new Model();
 		page.page_num = 1;
 		page.save();
-		page = new Page();
+		page = new Model();
 		page.page_num = 2;
 		page.save();
 		
-		assertEquals(Page.all().size(), 2);
+		assertEquals(Model.all().size(), 2);
 		page.destroy();
 		page.page_num = 1;
 		page.destroy();
@@ -68,14 +67,16 @@ public class DbStaticDaoTest {
 	
 	@Test
 	public void テーブルのカラム名一覧の取得() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, SQLException {
-		Method pageMethod = Page.class.getDeclaredMethod("getColumnNames", null);
+		Method pageMethod = Model.class.getDeclaredMethod("getColumnNames", null);
 		ArrayList<String> answerColumnNames = new ArrayList<String>(Arrays.asList("page_num", "joined_image", "background_image", "timer"));
-		ArrayList<String> columnNames = (ArrayList<String>) pageMethod.invoke(new Page(), null);
+		ArrayList<String> columnNames = (ArrayList<String>) pageMethod.invoke(new Model(), null);
 		for (int i=0; i < columnNames.size(); i++){
 			assertEquals(answerColumnNames.get(i), columnNames.get(i));
 		}
 	}
 
-	// TODO:FindParsialとかをテストできる独自クラスをつくること
-	// TODO:主キー判定とかも見る
+	// TODO:find
+	// TODO:find
+	// TODO:findPartial
+	// TODO:setValue
 }
