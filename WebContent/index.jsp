@@ -48,6 +48,7 @@
 </head>
 <body>
 	<div id="chat_window" style="width=100;height=800; position: absolute;"></div>
+	<div id="modified">modified</div>
 	<div id="panel_canvas">
 		<canvas width="800" height="600" id="canvas"
 			style="position: absolute;"></canvas>
@@ -327,9 +328,7 @@
 
 	</div>
 	<progress id="progress" value=0 max=0></progress>
-
 	<div id="point"></div>
-
 	<div id="panel_mask"></div>
 	<input type="file" id="image_uploader" style="opacity:0;" />
 </body>
@@ -345,7 +344,8 @@
 	    				<%= pagePct.page_num %>:{
 	    					bg_image:<%= pagePct.background_image != null ? "\""+pagePct.background_image+"\"" : null %>,
 	    					image: <%= pagePct.joined_image != null ? "\""+pagePct.joined_image+"\"" : null %>,
-	    					timerSec: <%= pagePct.timer != null ? "\""+pagePct.timer+"\"" : null %>
+	    					timerSec: <%= pagePct.timer != null ? "\""+pagePct.timer+"\"" : null %>,
+	    					modified: false
 	    				},
 	   		 		<% }
 				}else{

@@ -4,7 +4,7 @@ $(function(){
 	idraw.loadSessionId();
 	idraw.eventDefine();
     if (Object.keys(pagerJson).length == 0){
-    	pagerJson = {0:{bg_image: null, image: null, timerSec: null}};
+    	pagerJson = {0:{bg_image: null, image: null, timerSec: null, modified: false}};
     }
     currentPage = 0;
 	socket.onopen = function(){
@@ -48,12 +48,19 @@ $(function(){
     // 絵のセーブ機能
     $('#tool_save').click(function() {
         socket.send(JSON.stringify({cmd:"save", page_num: currentPage, timer: pagerJson[currentPage]["timerSec"]}));
+        pagerJson[currentPage]["modified"] = false;
     	slicePushImage("save", currentPage, $("#canvas")[0].toDataURL("image/png"), 8000);
     });
     
     // indexしか使わないコマンド
     commands.push(function (json){
     	switch (json.cmd){
+    	case "pen":
+    		pagerJson[currentPage]["modified"] = true;
+    		if (currentPage == json.page) {
+        		$("#modified").css("opacity", 0.2);
+    		}
+    		break;
     	case "bgsave":
     		if (imageBuffer[json.uuid] === undefined){
     			imageBuffer[json.uuid] = new Array(json.count);
@@ -68,6 +75,10 @@ $(function(){
 			}
     		break;
     	case "save":
+    		pagerJson[json.page_num]["modified"] = false;
+    		if (currentPage == json.page_num) {
+    			$("#modified").css("opacity", 0);
+    		}
     		break;
     	case "new_page":{
         	var newPager = {};
@@ -83,7 +94,8 @@ $(function(){
             canvas.height = 600;
         	newPager[json.page_num] = {
         			bg_image: canvas.toDataURL("image/png"),
-        			image: canvas.toDataURL("image/png"), timerSec: null
+        			image: canvas.toDataURL("image/png"),
+        			timerSec: null, modified: false
         	}
         	if (json.page_num <= currentPage){
         		currentPage +=1;

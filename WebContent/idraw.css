@@ -289,3 +289,11 @@ li {
 #timer_button{
 	width: 48px;
 }
+#modified{
+    font-size: 100px;
+    color:#777;
+    opacity: 0;
+    position:absolute;
+	top: 0px;
+    left: 430px;
+}
