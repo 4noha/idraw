@@ -242,9 +242,16 @@ idraw.eventDefine = function() {
     	}
     	return uuid;
 	}
-    
+
     idraw.newPage = function() {
     	socket.send(JSON.stringify({cmd: "new_page", page_num: currentPage+1}));
+    }
+    idraw.delPage = function() {
+    	if (currentPage > 0) {
+        	if(window.confirm('ページを削除しますか？(削除はすぐに他のユーザに影響します)')){
+        		socket.send(JSON.stringify({cmd: "del_page", page_num: currentPage}));
+        	}
+    	}
     }
     
     idraw.changePage = function(pageNum) {

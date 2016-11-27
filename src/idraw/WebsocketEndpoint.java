@@ -243,6 +243,32 @@ public class WebsocketEndpoint {
 			page.save();
 			break;
 		}
+		/* ■■■■■■■■■■【コマンドが（del_page）の場合】■■■■■■■■■■ */
+		case "del_page":{
+			int pageNum = (int) parsedJson.get("page_num");
+			Page page = Page.findBy("page_num", pageNum);
+			if (page != null){
+				ArrayList<Page> pages = Page.all();
+				HashMap<Integer, Page> pageMap = new HashMap<Integer, Page>();
+				int maxPageNum = -255;
+				for(Page page_: pages){
+					if (maxPageNum < page_.page_num){
+						maxPageNum = page_.page_num;
+					}
+					pageMap.put(page_.page_num, page_);
+				}
+				for(int i = pageNum+1; pageMap.get(i) != null; i++){
+					Page page_ = pageMap.get(i);
+					if (page.page_num <= page_.page_num){
+						page_.page_num -= 1;
+						page_.save();
+					}
+				}
+				page.page_num = maxPageNum;
+				page.destroy();
+			}
+			break;
+		}
 		}
 
 		// messageがnullならセッションを無駄に消費するだけなのでreturnで返す

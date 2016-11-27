@@ -40,10 +40,9 @@ $(function(){
 		}
    	});
     
-	// ページ追加
-    $('#tool_newp').click(function(){
-    	idraw.newPage();
-    });
+	// ページ追加、削除
+    $('#tool_newp').click(function() { idraw.newPage(); });
+    $('#tool_delp').click(function() { idraw.delPage(); });
 
     // 絵のセーブ機能
     $('#tool_save').click(function() {
@@ -101,6 +100,22 @@ $(function(){
         		currentPage +=1;
         	}
         	pagerJson = newPager;
+        	break;
+    	}
+    	case "del_page":{
+        	var newPager = {};
+        	for (var pageNum in pagerJson){
+        		if (pageNum > json.page_num){
+        			newPager[Number(pageNum)-1] = pagerJson[pageNum];
+        		}else{
+        			newPager[pageNum] = pagerJson[pageNum];
+        		}
+        	}
+        	if (currentPage == json.page_num) {
+    			idraw.changePage(currentPage-1);
+        	}
+        	pagerJson = newPager;
+    		break;
     	}
     	}
     });
