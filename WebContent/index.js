@@ -85,6 +85,9 @@ $(function(){
     	case "chat":
     		$("#chat_window").html($("#chat_window").html()+"<br>"+json.text);
     		break;
+    	case "page_shift":
+			idraw.changePage(json.page_num);
+    		break;
     	case "bgsave":
     		if (imageBuffer[json.uuid] === undefined){
     			imageBuffer[json.uuid] = new Array(json.count);
@@ -152,12 +155,14 @@ $(function(){
     	case "a":
     		if (pagerJson[currentPage+1] !== undefined){
     			idraw.changePage(currentPage+1);
+    			socket.send(JSON.stringify({ cmd:"page_shift", page_num: currentPage }));
     		}
     		break;
 		case "ArrowRight":
 		case "d":
     		if (pagerJson[currentPage-1] !== undefined){
     			idraw.changePage(currentPage-1);
+    			socket.send(JSON.stringify({ cmd:"page_shift", page_num: currentPage }));
     		}
 			break;
 		}
