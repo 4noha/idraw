@@ -6,6 +6,7 @@
     	pagerJson = {0:{bg_image: null, image: null, timerSec: null, modified: false}};
     }
     currentPage = 0;
+    presenMode = false;
 	socket.onopen = function(){
         socket.send(JSON.stringify({cmd:"session", id: sessionId}));
 	}
@@ -89,6 +90,16 @@
     			socket.send(JSON.stringify({ cmd:"page_shift", page_num: currentPage }));
     		}
 			break;
+    	case "p":
+    		if (e.altKey) {
+    			presenMode = !presenMode;
+    			if (presenMode) {
+    				$("#modified").css("visibility", "hidden");
+    			} else {
+    				$("#modified").css("visibility", "visible");
+    			}
+    		}
+    		break;
 		}
     });
 

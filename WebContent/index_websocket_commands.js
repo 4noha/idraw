@@ -12,7 +12,9 @@ idraw.indexWebsocketCommands = function(){
     		$("#chat_window").html($("#chat_window").html()+"<br>"+json.text);
     		break;
     	case "page_shift":
-			idraw.changePage(json.page_num);
+    		if (presenMode) {
+    			idraw.changePage(json.page_num);
+    		}
     		break;
     	case "bgsave":
     		if (imageBuffer[json.uuid] === undefined){
