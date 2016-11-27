@@ -50,7 +50,7 @@ canvas{
 }
 #panel_button {
     position: absolute;
-    top: 35px;
+    top: 55px;
     left: 250px;
     width: 500px;
 }
@@ -61,7 +61,7 @@ canvas{
     border-color: hsl(330, 0%, 20%);
     height:54px;
     width:54px;
-    top: 35px;
+    top: 55px;
     left: 740px;
 }
 #progress{
@@ -92,7 +92,7 @@ canvas{
 	position: absolute;
 	top: 600px;
     width: 800px;
-    height: 100px;
+    height: 120px;
     background-image:url("images/torn.png");
     background-repeat: no-repeat;
 }
@@ -100,14 +100,14 @@ canvas{
 	position: absolute;
 	top: 600px;
     width: 800px;
-    height: 100px;
+    height: 120px;
     background-color: #D3D3D3;
 }
 #panel_console.Dark{
 	position: absolute;
 	top: 600px;
     width: 800px;
-    height: 100px;
+    height: 120px;
     background-color: black;
 }
 input.tool_button {
@@ -243,7 +243,7 @@ li {
 }
 #panel_theme{
 	position: absolute;
-	top:5px;
+	top:35px;
 	left:15px;
 }
 #select_theme{
@@ -253,7 +253,7 @@ li {
 }
 #palette{
 	position: absolute;
-	top:25px;
+	top:55px;
 	left:15px;
 	width:197px;
 	display: table;

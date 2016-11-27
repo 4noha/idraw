@@ -74,7 +74,7 @@ idraw.eventDefine = function() {
 	    	switch (e.key){
 	    	case "ArrowUp":
 	    	case "w":
-	    		$("#panel_console").animate({top: '500px'},500);
+	    		$("#panel_console").animate({top: '480px'},500);
 	    		break;
 	    	case "ArrowDown":
 	    	case "s":
