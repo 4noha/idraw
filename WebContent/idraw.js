@@ -26,6 +26,7 @@ idraw.eventDefine = function() {
     var isEraser=false;
     imageBuffer = {}
     currentPage = "-1";
+    cmdAccept = true;
 
     // Websocket受信時の処理
     commands = [
@@ -84,10 +85,16 @@ idraw.eventDefine = function() {
 	    }
     ];
     window.onkeydown = function(e){
-    	for(var i=0; i<keyHookers.length; i++){
-    		keyHookers[i](e);
+    	if (cmdAccept) {
+        	for(var i=0; i<keyHookers.length; i++){
+        		keyHookers[i](e);
+        	}
     	}
     }
+
+    // textFieldフォーカス中にコマンドが効かないようにする
+    $('.text_field').focusin(  function(e) { cmdAccept = false; });
+    $('.text_field').focusout( function(e) { cmdAccept = true;  });
 
     $('canvas').mousedown(function(e) {
         drawFlag = true;
