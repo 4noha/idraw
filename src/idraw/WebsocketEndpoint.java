@@ -156,6 +156,7 @@ public class WebsocketEndpoint {
 				String publicKey = EncryptManager.generateKeyPair(user);
 				message = mapToJsonString(m -> {
 					m.put("cmd", "pubkey");
+					m.put("id",  userName);
 					m.put("key", publicKey);
 				});
 				break;

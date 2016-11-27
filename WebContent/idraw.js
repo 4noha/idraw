@@ -43,9 +43,6 @@ idraw.eventDefine = function() {
 		            context.closePath();
 	    		}
 	    		break;
-	    	case "pubkey":
-	    		pubkey = json.key;
-	    		break;
 	    	}
 	    }
     ];

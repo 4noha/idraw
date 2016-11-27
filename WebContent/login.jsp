@@ -201,6 +201,16 @@ $(function(){
 	idraw.loadSessionId();
 	idraw.eventDefine();
 	var ani_speed = 500;
+	
+    commands.push(function (json){
+    	switch (json.cmd){
+    	case "pubkey":
+			if ($("#idField").val() == json.id) {
+	    		pubkey = json.key;
+			}
+    		break;
+    	}
+    });
 	$("#loginButton").click(function() {
 		idNew = false;
 		$("#brush").animate({top: '300px',opacity: '1'},0);
