@@ -125,13 +125,13 @@ $(function(){
     	switch (e.key){
     	case "ArrowLeft":
     	case "a":
-    		if (!(pagerJson === undefined || currentPage === undefined || pagerJson[currentPage+1] === undefined)){
+    		if (pagerJson[currentPage+1] !== undefined){
     			idraw.changePage(currentPage+1);
     		}
     		break;
 		case "ArrowRight":
 		case "d":
-    		if (!(pagerJson === undefined || currentPage === undefined || pagerJson[currentPage-1] === undefined)){
+    		if (pagerJson[currentPage-1] !== undefined){
     			idraw.changePage(currentPage-1);
     		}
 			break;
