@@ -11,7 +11,7 @@ public class DbUtil {
     public static final String HOST = "127.0.0.1:3306";
     public static final String USER = "rezouser";
     public static final String PASSWORD = "Rezo_0000";
-    public static final String DB_NAME = "rezodb";
+    public static final String DB_NAME = "idraw";
     public static Connection con;
 
     public static void connect() throws SQLException, ClassNotFoundException {

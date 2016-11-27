@@ -285,11 +285,7 @@ public class WebsocketEndpoint {
 	public void open(Session sess) throws ClassNotFoundException, SQLException {
 		synchronized (sessions) {
 			if (sessions.isEmpty()) { // 誰も接続していない状況ならDBへの接続を開始する
-				DbUtil.connect(toMap(m -> {
-					m.put("env", "production");
-					m.put("host", "127.0.0.1:3306");
-					m.put("db_name", "idraw");
-				}));
+				DbUtil.connect(toMap(m -> { m.put("env", "production"); }));
 			}
 			sessions.add(sess);
 		}
