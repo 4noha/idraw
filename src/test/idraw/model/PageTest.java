@@ -57,4 +57,19 @@ public class PageTest {
 			assertEquals(answerColumnNames.get(i), columnNames.get(i));
 		}
 	}
+	
+	// 他の機能はテストされているので生成の際の型変換ができれば十分
+	// TODO:キャストの動きを見るコードが必要
+	@Test
+	public void レコードの生成削除() throws SQLException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException, ClassNotFoundException {
+		Page page = new Page();
+		page.page_num = 1;
+		page.save();
+		page = Page.findBy("page_num", 1);
+		assertEquals(page.page_num, 1);
+		page.destroy();
+		
+		page = Page.findBy("page_num", 1);
+		assertEquals(page, null);
+	}
 }

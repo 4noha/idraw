@@ -43,10 +43,6 @@ public class Page extends DbInstanceDao<Page>{
 		adapterStandby();
 		return dbStaticAdapter.findBy(column_name, value);
 	}
-	public static ArrayList<Page> findPartial(String column_name, String value) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchFieldException, SecurityException{
-		adapterStandby();
-		return dbStaticAdapter.findPartial(column_name, value);
-	}
 	
 	// 全部出す
 	public static ArrayList<Page> all() throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchFieldException, SecurityException{
