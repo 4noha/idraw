@@ -198,16 +198,10 @@ public class WebsocketEndpoint {
 				chatName = ""+user.username;
 			}
 			String chatText = "　"+chatName +"さん：" + chatMessage;
-			if(chatMessage.equals("#削除")||chatMessage.equals("#del")){
-				message = mapToJsonString(m -> {
-					m.put("cmd", "chatdel");
-				});
-			}else{
-				message = mapToJsonString(m -> {
-					m.put("cmd", "chat");
-					m.put("text", chatText);
-				});
-			}
+			message = mapToJsonString(m -> {
+				m.put("cmd", "chat");
+				m.put("text", chatText);
+			});
 			break;
 		/* ■■■■■■■■■■【コマンドが（new_page）の場合】■■■■■■■■■■ */
 		case "new_page":{

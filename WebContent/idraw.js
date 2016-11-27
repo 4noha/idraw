@@ -43,18 +43,6 @@ idraw.eventDefine = function() {
 		            context.closePath();
 	    		}
 	    		break;
-	    	case "chat":
-	    		$("#chat_window").html($("#chat_window").html()+"<br>"+json.text);
-	    		break;
-	    	case "chatdel":
-	    		var select = confirm("チャット内容を全て削除します。よろしいですか？");
-	    		if(select == true){
-	    			$("#chat_window").empty();
-	        		alert("削除しました");
-	    		}else{
-	    			alert("キャンセルしました");
-	    		}
-	    		break;
 	    	case "pubkey":
 	    		pubkey = json.key;
 	    		break;
@@ -145,17 +133,6 @@ idraw.eventDefine = function() {
     $('#tool_clear').click(function(e) {
         e.preventDefault();
         context.clearRect(0, 0, $('canvas').width(), $('canvas').height());
-    });
-
-    $('#tool_text').click(function() {
-    	var chatMessage = window.prompt("チャット入力（40文字まで）　\n\"#del\",\"#削除\"で現在のチャット内容を削除します","");
-    	if(chatMessage!=null && chatMessage.length>0){
-    		if(chatMessage.length > 40){
-    			alert("入力できる文字は40文字までです！");
-    		}else{
-    			socket.send(JSON.stringify({ cmd:"chat", session: sessionId, message:chatMessage }));
-    		}
-    	}else{}
     });
 
     $('select#select_theme').change(function() {
