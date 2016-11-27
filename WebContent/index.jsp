@@ -17,6 +17,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 <script src="./jquery.cookie-1.4.1.min.js"></script>
 <script src="./idraw.js"></script>
+<script src="./index_websocket_commands.js"></script>
 <script src="./index.js"></script>
 <%
 	Cookie[] cookies = request.getCookies();
@@ -356,5 +357,9 @@
 				}
 			%>
 		}
+	$(function(){
+		idraw.index();
+		idraw.indexWebsocketCommands();
+	});
 </script>
 </html>
