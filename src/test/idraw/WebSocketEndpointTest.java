@@ -40,12 +40,21 @@ public class WebSocketEndpointTest {
 	public void close() throws Exception {
 		socket.close(WebSocketSessionMock.session);
 	}
-	
+
 	// Websocket受信処理のテストの例
 	@Test
-	public void なんかのケース毎のメッセージ処理() throws InvalidKeyException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchFieldException, SecurityException, IllegalArgumentException, NoSuchMethodException, InvocationTargetException, NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, IOException, SQLException {
-		socket.onMessage("{\"cmd\": \"pen\"}");
-		assertEquals(WebSocketSessionMock.result.get(0), "{\"cmd\": \"pen\"}");
+	public void コマンドがpenの時に期待値が返ってくるかの確認() throws InvalidKeyException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchFieldException, SecurityException, IllegalArgumentException, NoSuchMethodException, InvocationTargetException, NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, IOException, SQLException {
+		String penExpect = "{\"cmd\":\"pen\",\"page\":0,\"fx\":652,\"fy\":363,\"tx\":653,\"ty\":364,\"color\":\"#000000\"}";
+		socket.onMessage(penExpect);
+		assertEquals(WebSocketSessionMock.result.get(0), penExpect);
+		WebSocketSessionMock.result.clear();
+	}
+
+	@Test
+	public void コマンドがimageの時に期待値が返ってくるかの確認() throws InvalidKeyException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchFieldException, SecurityException, IllegalArgumentException, NoSuchMethodException, InvocationTargetException, NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, IOException, SQLException {
+		String imageExpect = "{\"cmd\":\"image\", \"x\": 10, \"y\":20, \"image\":\"dsakfldsklajflkjfgl;dsl;fg=\"}";
+		socket.onMessage(imageExpect);
+		assertEquals(WebSocketSessionMock.result.get(0), imageExpect);
 		WebSocketSessionMock.result.clear();
 	}
 
