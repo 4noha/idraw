@@ -10,12 +10,13 @@ import idraw.model.Ngwords;
 public class NgwordsTest {
 
 	@Test
-	public void test() {
+	public void isTabooメソッドのTF判定テスト() {
 		String text = "ahou";
 		boolean expected = true;
 		boolean actual = Ngwords.isTaboo(text);
 		assertThat(actual, is(expected));
 
+		//ここからTrue判定テスト
 		text = "アホ";
 		actual = Ngwords.isTaboo(text);
 		assertThat(actual, is(expected));
@@ -36,6 +37,7 @@ public class NgwordsTest {
 		actual = Ngwords.isTaboo(text);
 		assertThat(actual, is(expected));
 
+		//ここからfalse判定テスト
 		text = "ア";
 		expected = false;
 		actual = Ngwords.isTaboo(text);
