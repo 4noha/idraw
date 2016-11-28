@@ -305,3 +305,9 @@ li {
 	top: 0px;
     left: 10px;
 }
+#chat_window{
+	width:800px;
+	height:100px;
+	position:absolute;
+	left:50px;
+}
