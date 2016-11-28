@@ -1,7 +1,4 @@
 ﻿idraw.index = function(){
-	idraw.websocketInit();
-	idraw.loadSessionId();
-	idraw.eventDefine();
     if (Object.keys(pagerJson).length == 0){
     	pagerJson = {0:{bg_image: null, image: null, timerSec: null, modified: false}};
     }

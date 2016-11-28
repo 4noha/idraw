@@ -199,7 +199,7 @@
 $(function(){
 	idraw.websocketInit();
 	idraw.loadSessionId();
-	idraw.eventDefine();
+	idraw.eventDefine(false);
 	var ani_speed = 500;
 	
     commands.push(function (json){

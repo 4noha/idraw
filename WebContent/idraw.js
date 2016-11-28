@@ -14,7 +14,7 @@ idraw.loadSessionId = function() {
     }
 }
 // 次にこちらを実行
-idraw.eventDefine = function() {
+idraw.eventDefine = function(isMock) {
     var offset = 0;
     var fromX;
     var fromY;
@@ -110,21 +110,21 @@ idraw.eventDefine = function() {
         context.strokeStyle = $(this).css('background-color');
         penStyle=context.strokeStyle;
         isEraser=false;
-        canvas.style.cursor = "url('images/pencil.png'), auto";
+        canvas.style.cursor = "url('"+(isMock ?"../":"")+"images/pencil.png'), auto";
     });
 
     $('#tool_eraser').click(function() {
     	context.globalCompositeOperation = "destination-out";
     	context.strokeStyle = "rgba(0,0,0,1)";
     	isEraser=true;
-    	canvas.style.cursor = "url('images/eraser_cur.png'), auto";
+    	canvas.style.cursor = "url('"+(isMock ?"../":"")+"images/eraser_cur.png'), auto";
     });
 
     $('#tool_pen').click(function() {
     	context.globalCompositeOperation = GCO;
     	context.strokeStyle=penStyle;
     	isEraser=false;
-    	canvas.style.cursor = "url('images/pencil.png'), auto";
+    	canvas.style.cursor = "url('"+(isMock ?"../":"")+"images/pencil.png'), auto";
     });
 
     $('#tool_clear').click(function(e) {
@@ -177,20 +177,6 @@ idraw.eventDefine = function() {
         socket.send(JSON.stringify({ cmd:"pen", page: currentPage, fx:fromX, fy:fromY, tx:toX, ty:toY, color:context.strokeStyle }));
         fromX = toX;
         fromY = toY;
-    }
-
-    canvasToMinimizeBase64 = function(canvas) {
-        var ctx = canvas.getContext('2d');
-        // 小さいキャンバスを作成
-        // 800x600の解像度だとJavascriptのWebsocketで送れるデータ量上限に引っかかって送れない
-		// 苦肉の策として同じ4:3の576x432にした
-        var canvas2 = $("<canvas/>")[0];
-        canvas2.width = 576;
-        canvas2.height = 432;
-        var ctx2 = canvas2.getContext('2d');
-        // 元のキャンバスを縮小コピー
-        ctx2.drawImage(canvas, 0, 0, canvas2.width, canvas2.height);
-        return canvas2.toDataURL("image/png");
     }
 
     pasteBase64 = function(canvas, x, y, base64Image) {

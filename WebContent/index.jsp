@@ -356,6 +356,9 @@
 			%>
 		};
 	$(function(){
+		idraw.websocketInit();
+		idraw.loadSessionId();
+		idraw.eventDefine(false);
 		idraw.index();
 		idraw.indexWebsocketCommands();
 	});
