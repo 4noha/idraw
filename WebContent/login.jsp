@@ -32,13 +32,13 @@
 <% // ブラッシュの画像  %>
 <img id="brush" src="images/brush.png" style="height:130px;width:0px;position:absolute">
 <% // タイトルのオブジェクト  %>
-<input id="loginButton" type="submit" value="ログイン" class="button" style="position:absolute;margin-left: 280px;margin-top: 350px;">
-<input id="signUpButton" type="submit" value="サインアップ" class="button" style="position:absolute;margin-left: 440px;margin-top: 350px;">
+<input id="loginButton" type="submit" value="ログイン" class="button">
+<input id="signUpButton" type="submit" value="サインアップ" class="button">
 <% // ID入力のオブジェクト  %>
 <input id="idField" type="text" value="" class="button text_field" style="position:absolute;margin-left: 280px;margin-top: 330px;display:none;">
-<input id="idSubmitButton" type="submit" value="Submit" class="button" style="position:absolute;margin-left: 440px;margin-top: 330px;display:none;">
+<input id="idSubmitButton" type="submit" value="OK" class="button" style="position:absolute;margin-left: 440px;margin-top: 330px;display:none;">
 <input id="pwField" type="text" value="" class="button text_field" style="position:absolute;margin-left: 280px;margin-top: 330px;display:none;">
-<input id="pwSubmitButton" type="submit" value="Submit" class="button" style="position:absolute;margin-left: 440px;margin-top: 330px;display:none;">
+<input id="pwSubmitButton" type="submit" value="OK" class="button" style="position:absolute;margin-left: 440px;margin-top: 330px;display:none;">
 </div>
 <div id="panel_console" class="Paper">
 <div id="panel_theme"><span id="theme_text">テーマ：</span>
