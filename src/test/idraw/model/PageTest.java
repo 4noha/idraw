@@ -8,30 +8,27 @@ import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.function.Consumer;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import idraw.model.Page;
+import idraw.orm.DbStaticDao;
 import idraw.orm.DbUtil;
 
 public class PageTest {
 	@Before
 	public void setUp() throws Exception {
-		DbUtil.connect(toMap(m -> {
+		DbUtil.connect(DbStaticDao.toMap(m -> {
 			m.put("env", "test");
 			m.put("host", "127.0.0.1:3306");
 			m.put("db_name", "idraw");
 		}));
 	}
-	// 簡単にMapを作る用メソッド
-	public static <K, V> Map<K, V> toMap(Consumer<Map<K, V>> initializer) {
-		Map<K, V> map = new LinkedHashMap<>();
-		initializer.accept(map);
-		return map;
+	@After
+	public void close() throws Exception {
+		DbUtil.close();
 	}
 
 	@Test
