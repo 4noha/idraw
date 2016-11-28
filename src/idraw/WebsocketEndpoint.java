@@ -32,6 +32,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import idraw.manager.EncryptManager;
 import idraw.model.Page;
 import idraw.model.User;
+import idraw.orm.DbStaticDao;
 import idraw.orm.DbUtil;
 
 /**
@@ -285,7 +286,7 @@ public class WebsocketEndpoint {
 	public void open(Session sess) throws ClassNotFoundException, SQLException {
 		synchronized (sessions) {
 			if (sessions.isEmpty()) { // 誰も接続していない状況ならDBへの接続を開始する
-				DbUtil.connect(toMap(m -> { m.put("env", "production"); }));
+				DbUtil.connect(DbStaticDao.toMap(m -> { m.put("env", "production"); }));
 			}
 			sessions.add(sess);
 		}
@@ -299,13 +300,6 @@ public class WebsocketEndpoint {
 				DbUtil.close();
 			}
 		}
-	}
-
-	// 簡単にMapを作る用メソッド
-	public static <K, V> Map<K, V> toMap(Consumer<Map<K, V>> initializer) {
-		Map<K, V> map = new LinkedHashMap<>();
-		initializer.accept(map);
-		return map;
 	}
 
 	// JSON(map)を与えることでJSON(String)を返却するメソッド

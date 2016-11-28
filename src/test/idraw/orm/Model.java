@@ -2,7 +2,6 @@ package test.idraw.orm;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import idraw.orm.DbInstanceDao;
@@ -50,7 +49,7 @@ public class Model extends DbInstanceDao<Model>{
 		return dbStaticAdapter.find(column_name, value);
 	}
 	
-	public static ArrayList<Model> find(HashMap<String, Object> columnValueMap) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchFieldException, SecurityException{
+	public static ArrayList<Model> find(Map<String, Object> columnValueMap) throws SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchFieldException, SecurityException{
 		adapterStandby();
 		return dbStaticAdapter.find(columnValueMap);
 	}

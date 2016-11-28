@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.function.Consumer;
 
 public class DbStaticDao<T> {
 	private Class<T> modelClass;
@@ -69,17 +71,12 @@ public class DbStaticDao<T> {
 	}
 
 	// 条件でたくさん引くときに使う
-	@SuppressWarnings("serial")
 	public ArrayList<T> find(String column_name, Object value) throws InstantiationException, IllegalAccessException,
 			NoSuchFieldException, SecurityException, SQLException {
-		return find(new HashMap<String, Object>() {
-			{
-				put(column_name, value);
-			}
-		});
+		return find(toMap(m -> { m.put(column_name, value); }));
 	}
 
-	public ArrayList<T> find(HashMap<String, Object> columnValueMap) throws SQLException, InstantiationException,
+	public ArrayList<T> find(Map<String, Object> columnValueMap) throws SQLException, InstantiationException,
 			IllegalAccessException, NoSuchFieldException, SecurityException {
 		String sql = "SELECT * FROM " + tableName + " WHERE ";
 		String[] keyArray = columnValueMap.keySet().toArray(new String[columnValueMap.size()]);
@@ -162,5 +159,12 @@ public class DbStaticDao<T> {
 		} else {
 			stmt.setInt(index, (int) value);
 		}
+	}
+
+	// 簡単にMapを作る用メソッド
+	public static <K, V> Map<String, V> toMap(Consumer<Map<String, V>> initializer) {
+		Map<String, V> map = new LinkedHashMap<>();
+		initializer.accept(map);
+		return map;
 	}
 }
