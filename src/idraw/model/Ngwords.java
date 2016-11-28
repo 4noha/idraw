@@ -1,7 +1,5 @@
 package idraw.model;
 
-import java.util.Arrays;
-
 public class Ngwords {
 	public static boolean isTaboo(String text) {
 		String[] array={
@@ -19,10 +17,11 @@ public class Ngwords {
 			,"マヌケ"
 			,"たわけ"
 			};
-		if(text.matches(".*"+Arrays.asList(array).toString()+".*")){
-			return true;
-		} else {
-			return false;
+		for(String a:array){
+			if(text.indexOf(a) != -1){
+				return true;
+			}
 		}
+		return false;
 	}
 }
