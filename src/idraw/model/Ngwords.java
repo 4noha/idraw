@@ -17,8 +17,8 @@ public class Ngwords {
 			,"マヌケ"
 			,"たわけ"
 			};
-		for(String a:array){
-			if(text.indexOf(a) != -1){
+		for(String ngWord:array){
+			if(text.indexOf(ngWord) != -1){
 				return true;
 			}
 		}
