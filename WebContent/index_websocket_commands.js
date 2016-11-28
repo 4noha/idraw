@@ -9,7 +9,14 @@ idraw.indexWebsocketCommands = function(){
     		}
     		break;
     	case "chat":
-    		$("#chat_window").html($("#chat_window").html()+"<br>"+json.text);
+    		var chat_table = document.getElementById("chat_table");
+    		var chat_row = chat_table.insertRow(-1);
+    		var chat_cell1 = chat_row.insertCell(0);
+    		var message_num = document.getElementById("chat_table").rows.length;
+    		if(message_num>5){
+    			chat_table.deleteRow(0)
+    		}
+    		chat_cell1.innerHTML = json.text;
     		break;
     	case "page_shift":
     		if (presenMode) {

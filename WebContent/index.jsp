@@ -46,7 +46,7 @@
 %>
 </head>
 <body>
-	<div id="chat_window"></div>
+	<div id="chat_window"><table id="chat_table"></table></div>
 	<div id="page_num">0</div>
 	<div id="modified">modified</div>
 	<div id="panel_canvas">
