@@ -210,37 +210,6 @@ input.Dark#tool_image{
 input.Dark#tool_eraser{
 	background-image:url("images/eraser_d.png");
 	}
-#tool_image_surface {
-	padding: 0px;
-    border-top: 1px solid #DDD;
-    border-left: 1px solid #DDD;
-    border-right: 1px solid #888;
-    border-bottom: 1px solid #888;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-image:url("images/pencil_ic.png");
-}
-#panel_meter {
-    position: absolute;
-    top: 22px;
-    left: 0px;
-    height: 5px;
-    width: 800px;
-    background-color:blue;
-}
-ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-li {
-    cursor:pointer;
-    cursor:hand;
-    display:inline-block;
-    border: 1px solid #fff;
-    width: 50px;
-    height: 50px;
-}
 #panel_theme{
 	position: absolute;
 	top:5px;
@@ -250,6 +219,7 @@ li {
 	position: absolute;
 	top:0px;
 	left:50px;
+	background-color: default;
 }
 #palette{
 	position: absolute;
@@ -278,9 +248,6 @@ li {
     background-color: #000;
 }
 .options{
-	background-color: default;
-}
-#select_theme{
 	background-color: default;
 }
 #timer_text{
