@@ -64,7 +64,9 @@ idraw.indexWebsocketCommands = function(){
         		if (pageNum > json.page_num){
         			newPager[Number(pageNum)-1] = pagerJson[pageNum];
         		}else{
-        			newPager[pageNum] = pagerJson[pageNum];
+        			if(pageNum != json.page_num){
+        				newPager[pageNum] = pagerJson[pageNum];
+        			}
         		}
         	}
         	if (currentPage == json.page_num) {
