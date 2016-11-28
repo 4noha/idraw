@@ -49,7 +49,7 @@ public class User extends DbInstanceDao<User> {
 		return dbStaticAdapter.findBy(column_name, value);
 	}
 
-	//複数の条件で検索するためのメソッド
+	// 複数の条件で検索するためのメソッド
 	public static ArrayList<User> find(Map<String, Object> columnObjectMap) throws SQLException, InstantiationException,
 			IllegalAccessException, ClassNotFoundException, NoSuchFieldException, SecurityException {
 		adapterStandby();
@@ -80,21 +80,23 @@ public class User extends DbInstanceDao<User> {
 		return columnNames;
 	}
 
-	// ユーザーネームのバリデータ(英数字20字まで)
-	public static boolean AcceptableName(String userName) {
+	//ユーザーネームのsetter(バリデータ(英数字20字まで)を含む)
+	public boolean setName(String userName) {
 		int uNameLength = userName.length();
 		if (uNameLength <= 20 && userName.matches("[0-9a-zA-Z]+$")) {
+			this.username = userName;
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	// パスワードのバリデータ(英数字混合8字以上)
-	public static boolean AcceptablePass(String userPass) {
+	// パスワードのsetter(バリデータ(英数字混合8字以上)を含む)
+	public boolean setPass(String userPass) {
 		int uPassLength = userPass.length();
 		if (uPassLength >= 8 && userPass.matches("^[0-9a-zA-Z]+$") && !(userPass.matches("^[0-9]+$"))
 				&& !(userPass.matches("^[a-zA-Z]+$"))) {
+			this.pwd = userPass;
 			return true;
 		} else {
 			return false;

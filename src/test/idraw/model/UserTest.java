@@ -14,7 +14,7 @@ import org.junit.Test;
 import idraw.model.User;
 import idraw.orm.DbUtil;
 
-public class Usertest{
+public class UserTest{
 
 	@Before
 	public void setUp() throws ClassNotFoundException, SQLException {
