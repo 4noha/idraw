@@ -3,35 +3,67 @@ package test.idraw.model;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.SQLException;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.function.Consumer;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import idraw.model.User;
+import idraw.orm.DbStaticDao;
 import idraw.orm.DbUtil;
 
 public class UserTest {
 
 	@Before
 	public void setUp() throws ClassNotFoundException, SQLException {
-		DbUtil.connect(toMap(m -> {
+		DbUtil.connect(DbStaticDao.toMap(m -> {
 			m.put("env", "test");
-			m.put("password", "s551107t");
-			m.put("user", "root");
-			m.put("host", "127.0.0.1:3306");
 			m.put("db_name", "idraw");
 		}));
 	}
 
-	// 簡単にMapを作る用メソッド
-	public static <K, V> Map<K, V> toMap(Consumer<Map<K, V>> initializer) {
-		Map<K, V> map = new LinkedHashMap<>();
-		initializer.accept(map);
-		return map;
+	@Test
+	public void ORMの書式が正しいかチェック_テーブル設定() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		Field userField = User.class.getDeclaredField("TABLE_NAME");
+		userField.setAccessible(true);
+		assertEquals(userField.get(null), "user");
+	}
+
+	@Test
+	public void ORMの書式が正しいかチェック_クラス指定() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		Field userField = User.class.getDeclaredField("THIS_CLASS");
+		userField.setAccessible(true);
+		assertEquals(userField.get(null), User.class);
+	}
+
+	@Test
+	public void テーブルのカラム名一覧の取得() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, SQLException {
+		Method userMethod = User.class.getDeclaredMethod("getColumnNames", null);
+		ArrayList<String> answerColumnNames = new ArrayList<String>(Arrays.asList("username", "pwd", "salt", "secret_key", "session_id"));
+		ArrayList<String> columnNames = (ArrayList<String>) userMethod.invoke(new User(), null);
+		for (int i=0; i < columnNames.size(); i++){
+			assertEquals(answerColumnNames.get(i), columnNames.get(i));
+		}
+	}
+	
+	// 他の機能はテストされているので生成の際の型変換ができれば十分
+	// TODO:キャストの動きを見るコードが必要
+	@Test
+	public void レコードの生成削除() throws SQLException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException, ClassNotFoundException {
+		User user = new User();
+		user.username = "aaa";
+		user.save();
+		user = User.findBy("username", "aaa");
+		assertEquals(user.username, "aaa");
+		user.destroy();
+		
+		user = User.findBy("username", "aaa");
+		assertEquals(user, null);
 	}
 
 	@Test
