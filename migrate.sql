@@ -36,8 +36,8 @@ CREATE TABLE user(
 
 CREATE TABLE page(
     page_num		 INT PRIMARY KEY,
-    joined_image	 TEXT, #NOT NULL,
-    background_image TEXT,
+    joined_image	 MEDIUMTEXT, #NOT NULL,
+    background_image MEDIUMTEXT,
     timer            varchar(255),
     INDEX idx_pnum(page_num)
 );
