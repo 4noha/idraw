@@ -36,9 +36,9 @@
 <input id="signUpButton" type="submit" value="サインアップ" class="button">
 <% // ID入力のオブジェクト  %>
 <input id="idField" type="text" value="" class="button text_field" style="position:absolute;margin-left: 280px;margin-top: 330px;display:none;">
-<input id="idSubmitButton" type="submit" value="OK" class="button" style="position:absolute;margin-left: 440px;margin-top: 330px;display:none;">
+<input id="idSubmitButton" type="submit" value="送信" class="button" style="position:absolute;margin-left: 440px;margin-top: 330px;display:none;">
 <input id="pwField" type="text" value="" class="button text_field" style="position:absolute;margin-left: 280px;margin-top: 330px;display:none;">
-<input id="pwSubmitButton" type="submit" value="OK" class="button" style="position:absolute;margin-left: 440px;margin-top: 330px;display:none;">
+<input id="pwSubmitButton" type="submit" value="送信" class="button" style="position:absolute;margin-left: 440px;margin-top: 330px;display:none;">
 </div>
 <div id="panel_console" class="Paper">
 <div id="panel_theme"><span id="theme_text">テーマ：</span>
