@@ -199,6 +199,9 @@ public class WebsocketEndpoint {
 			if (user != null) {
 				chatName = ""+user.username;
 			}
+			if(idraw.model.Ngwords.isTaboo(chatMessage)){
+				chatMessage = "## NGワードを検出した為、発言の表示不可 ##";
+			}
 			String chatText = "　"+chatName +"さん：" + chatMessage;
 			message = mapToJsonString(m -> {
 				m.put("cmd", "chat");
