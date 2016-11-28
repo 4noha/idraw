@@ -2,6 +2,8 @@ package test.idraw;
 
 import static org.junit.Assert.*;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.security.InvalidKeyException;
@@ -12,6 +14,7 @@ import java.sql.SQLException;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import javax.imageio.ImageIO;
 
 import org.junit.After;
 import org.junit.Before;
@@ -20,6 +23,7 @@ import org.junit.Test;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import idraw.WebsocketEndpoint;
+import idraw.manager.ImageManager;
 import idraw.orm.DbStaticDao;
 import idraw.orm.DbUtil;
 import test.idraw.orm.WebSocketSessionMock;
@@ -55,6 +59,17 @@ public class WebSocketEndpointTest {
 		String imageExpect = "{\"cmd\":\"image\", \"x\": 10, \"y\":20, \"image\":\"dsakfldsklajflkjfgl;dsl;fg=\"}";
 		socket.onMessage(imageExpect);
 		assertEquals(WebSocketSessionMock.result.get(0), imageExpect);
+		WebSocketSessionMock.result.clear();
+	}
+
+	@Test
+	public void コマンドがsaveの時に期待値が返ってくるかの確認() throws InvalidKeyException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchFieldException, SecurityException, IllegalArgumentException, NoSuchMethodException, InvocationTargetException, NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, IOException, SQLException {
+		BufferedImage bi = ImageIO.read(new File("WebContent\\images\\brush.png"));
+		String png64 = ImageManager.png2string(bi);
+		String repPng64 = png64.replaceAll("\n|\r|\r\n", "");
+		String saveExpect = "{\"cmd\": \"save\", \"page_num\": 0, \"uuid\": \"4c397895-5914-4c45-b893-803c1c7cca0d\", \"count\": 2, \"image\": \"" + repPng64 + "\"}";
+		socket.onMessage(saveExpect);
+		assertEquals(WebSocketSessionMock.result.get(0), saveExpect);
 		WebSocketSessionMock.result.clear();
 	}
 
