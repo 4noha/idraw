@@ -37,7 +37,18 @@ public class Usertest{
 		// fail("まだ実装されていません");
 		try {
 			User user = new User();// インスタンスuserを作成Userコンストラクタ呼び出し
-			String userName = "a";// userNameをaで初期化
+			String userName = "a";// userNameを半角英字で初期化
+			boolean expected = true;
+			boolean actual;
+			actual = user.setName(userName);
+			assertThat(actual, is(expected));
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			User user = new User();// インスタンスuserを作成Userコンストラクタ呼び出し
+			String userName = "1";// userNameを半角数字で初期化
 			boolean expected = true;
 			boolean actual;
 			actual = user.setName(userName);
@@ -59,7 +70,29 @@ public class Usertest{
 		}
 		try {
 			User user = new User();// インスタンスuserを作成Userコンストラクタ呼び出し
-			String userName = "aaaaaaaaaaaaaaaaaaaaa";// userNameを20文字以上で初期化
+			String userName = "ｱ";// userNameを半角カタカナで初期化
+			boolean expected = false;
+			boolean actual;
+			actual = user.setName(userName);
+			assertThat(actual, is(expected));
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			User user = new User();// インスタンスuserを作成Userコンストラクタ呼び出し
+			String userName = "１";// userNameを全角数字で初期化
+			boolean expected = false;
+			boolean actual;
+			actual = user.setName(userName);
+			assertThat(actual, is(expected));
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			User user = new User();// インスタンスuserを作成Userコンストラクタ呼び出し
+			String userName = "aaaaaaaaaaaaaaaaaaaaa";// userNameを半角20文字以上で初期化
 			boolean expected = false;
 			boolean actual;
 			actual = user.setName(userName);
