@@ -108,14 +108,11 @@
 	//タイマー数値入力後フォーカスが外れるとpagerJsonにタイマー数値を保存するための関数
     $("#timer_text").change(function() {
     	pagerJson[currentPage]["timerSec"] = $("#timer_text").val() != "タイマー" ? $("#timer_text").val() : null;
-    });
 
-	//設定ボタンが押された時にタイマーを作動させる処理
-	onClickTimer = function(nowValue) {
 		$(".point").remove(); //前回このfunctionで生成したしたHTML,CSSを削除する
 
 		if (/\D/.test($("#timer_text").val()) || $("#timer_text").val() == 0) return;
-		var sum = 0; //全ページのタイマー値合計を保存する変数
+		sum = 0; //全ページのタイマー値合計を保存する変数
 		for(var pageNum in pagerJson){ //拡張for文 各ページのタイマー値をsumに入れていく
     		x = parseFloat(pagerJson[pageNum]["timerSec"]);
     		if(x === x && /^[0-9]+$/.test(x) ){ //数値以外（NaN）の場合falseが返ってくるので弾く
@@ -136,7 +133,10 @@
 				$("#point" + i).attr("style", "left:" + pointSet + "px");
 			}
 		}
+    });
 
+	//設定ボタンが押された時にタイマーを作動させる処理
+	onClickTimer = function(nowValue) {
 		progress.value = 0;
 		progress.max = sum; //最大値を設定
 
