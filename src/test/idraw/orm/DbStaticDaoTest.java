@@ -4,23 +4,23 @@ import static org.junit.Assert.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.function.Consumer;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import idraw.orm.DbStaticDao;
 import idraw.orm.DbUtil;
 
 public class DbStaticDaoTest {
 	@Before
 	public void setUp() throws Exception {
-		DbUtil.connect(toMap(m -> {
+		DbUtil.connect(DbStaticDao.toMap(m -> {
 			m.put("env", "test");
 			m.put("host", "127.0.0.1:3306");
 			m.put("db_name", "idraw");

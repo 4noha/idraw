@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -72,7 +71,6 @@ public class DbStaticDao<T> {
 	}
 
 	// 条件でたくさん引くときに使う
-	@SuppressWarnings("serial")
 	public ArrayList<T> find(String column_name, Object value) throws InstantiationException, IllegalAccessException,
 			NoSuchFieldException, SecurityException, SQLException {
 		return find(toMap(m -> { m.put(column_name, value); }));
