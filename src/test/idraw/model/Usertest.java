@@ -33,14 +33,14 @@ public class Usertest{
 		return map;
 	}
 	@Test
-	public void AcceptableNameでユーザー名が半角英数字20文字以内あること() {
+	public void setNameでユーザー名が半角英数字20文字以内かどうかの判定() {
 		// fail("まだ実装されていません");
 		try {
 			User user = new User();// インスタンスuserを作成Userコンストラクタ呼び出し
 			String userName = "a";// userNameをaで初期化
 			boolean expected = true;
 			boolean actual;
-			actual = user.AcceptableName(userName);
+			actual = user.setName(userName);
 			assertThat(actual, is(expected));
 		}
 		catch (Exception e) {
@@ -48,10 +48,21 @@ public class Usertest{
 		}
 		try {
 			User user = new User();// インスタンスuserを作成Userコンストラクタ呼び出し
-			String userName = "あ";// userNameをあで初期化
+			String userName = "あ";// userNameを全角ひらがなで初期化
 			boolean expected = false;
 			boolean actual;
-			actual = user.AcceptableName(userName);
+			actual = user.setName(userName);
+			assertThat(actual, is(expected));
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			User user = new User();// インスタンスuserを作成Userコンストラクタ呼び出し
+			String userName = "aaaaaaaaaaaaaaaaaaaaa";// userNameを20文字以上で初期化
+			boolean expected = false;
+			boolean actual;
+			actual = user.setName(userName);
 			assertThat(actual, is(expected));
 		}
 		catch (Exception e) {
