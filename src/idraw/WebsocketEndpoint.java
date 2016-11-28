@@ -79,7 +79,7 @@ public class WebsocketEndpoint {
 				}
 				String[] splittedImages = imageBuffer.get(uuid);
 				splittedImages[count] = image;
-	
+
 				// バッファがたまったら保存
 				if (!Arrays.asList(splittedImages).contains(null)){
 					Page page = Page.findBy("page_num", pageNum);
@@ -101,6 +101,15 @@ public class WebsocketEndpoint {
 
 			// ハッシュ化パスワード保存用
 			String hashPwd;
+
+			// 設定予定のsession_idが存在する場合session_idの内容を削除する(項目がユニークのため)
+			if (session_id != null){ // レコードが存在する場合session_idを削除する
+				User session_User = User.findBy("session_id", session_id);
+				if (session_User != null) {
+					session_User.session_id = null;
+					session_User.save();
+				}
+			}
 
 			// 来たJSONがcmd=login且つ情報内にpwdとsession_idがあればusernameとpwdに合致するユーザにsession_idを付与
 			if (userName != null && pwd != null && session_id != null) {
