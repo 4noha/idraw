@@ -273,10 +273,10 @@ input.Dark#tool_eraser{
     left: 10px;
 }
 #chat_window{
-	width:800px;
-	height:100px;
+	width:500px;
 	position:absolute;
 	left:50px;
+	background-color: rgba(255,255,255,0.7);
 }
 #loginButton{
 	width:100px;
