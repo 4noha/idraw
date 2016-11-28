@@ -30,12 +30,6 @@ public class DbStaticDaoTest {
 	public void close() throws Exception {
 		DbUtil.close();
 	}
-	// 簡単にMapを作る用メソッド
-	public static <K, V> Map<K, V> toMap(Consumer<Map<K, V>> initializer) {
-		Map<K, V> map = new LinkedHashMap<>();
-		initializer.accept(map);
-		return map;
-	}
 	
 	@Test
 	public void レコードの生成削除() throws SQLException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException, ClassNotFoundException {
@@ -75,8 +69,71 @@ public class DbStaticDaoTest {
 		}
 	}
 
-	// TODO:find
-	// TODO:find
-	// TODO:findPartial
-	// TODO:setValue
+	public void 一カラムを検索するのときのfind() throws SQLException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException, ClassNotFoundException {
+		Model page = new Model();
+		page.page_num = 1;
+		page.joined_image = "aaa";
+		page.save();
+		page = new Model();
+		page.page_num = 2;
+		page.joined_image = "aaa";
+		page.save();
+		
+		assertEquals(Model.find("joined_image", "aaa").size(), 2);
+		page.destroy();
+		page.page_num = 1;
+		page.destroy();
+	}
+	
+	public void 複数カラムを検索するのときのfind() throws SQLException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException, ClassNotFoundException {
+		Model page = new Model();
+		page.page_num = 1;
+		page.joined_image = "aaa";
+		page.background_image = "eee";
+		page.save();
+		page = new Model();
+		page.page_num = 2;
+		page.joined_image = "aaa";
+		page.background_image = "eee";
+		page.save();
+		
+		assertEquals(
+			Model.find(DbStaticDao.toMap(m -> {
+						m.put("joined_image", "aaa");
+						m.put("background_image", "eee");
+					})).size(), 2);
+		page.destroy();
+		page.page_num = 1;
+		page.destroy();
+	}
+	
+	public void 部分一致検索() throws SQLException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException, ClassNotFoundException {
+		Model page = new Model();
+		page.page_num = 1;
+		page.joined_image = "aaa";
+		page.save();
+		page = new Model();
+		page.page_num = 2;
+		page.joined_image = "abc";
+		page.save();
+		
+		assertEquals(Model.findPartial("joined_image", "a").size(), 2);
+		page.destroy();
+		page.page_num = 1;
+		page.destroy();
+	}
+	
+	@Test
+	public void valueのセットを行うsetValue() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, SQLException {
+		String sql = "?";
+		PreparedStatement stmt = DbUtil.con.prepareStatement(sql);
+		// String型
+		DbStaticDao.setValue(stmt, 1, "aaa");
+		// int型
+		DbStaticDao.setValue(stmt, 1, 1);
+		// null
+		DbStaticDao.setValue(stmt, 1, null);
+		// TimeStamp型
+		DbStaticDao.setValue(stmt, 1, new Timestamp(System.currentTimeMillis()));
+	}
 }
