@@ -59,6 +59,22 @@ public class WebSocketEndpointTest {
 	}
 
 	@Test
+	public void コマンドがchatの時に期待値が返ってくるかの確認() throws InvalidKeyException, InstantiationException, IllegalAccessException, ClassNotFoundException, NoSuchFieldException, SecurityException, IllegalArgumentException, NoSuchMethodException, InvocationTargetException, NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, IOException, SQLException {
+		String chatInput = "{\"cmd\":\"chat\", \"session\": \"9990F2C3BE9DC57B39B136726C3A45D9\", \"message\": \"aaaaaa\"}";
+		socket.onMessage(chatInput);
+		String chatExpect = "{\"cmd\":\"chat\",\"text\":\"　匿名さん：aaaaaa\"}";
+		assertEquals((Object)WebSocketSessionMock.result.get(0), chatExpect);
+		WebSocketSessionMock.result.clear();
+
+		//NGワードが入っている場合
+		chatInput = "{\"cmd\":\"chat\", \"session\": \"9990F2C3BE9DC57B39B136726C3A45D9\", \"message\": \"aaaahouaa\"}";
+		socket.onMessage(chatInput);
+		chatExpect = "{\"cmd\":\"chat\",\"text\":\"　匿名さん：## NGワードを検出した為、発言の表示不可 ##\"}";
+		assertEquals((Object)WebSocketSessionMock.result.get(0), chatExpect);
+		WebSocketSessionMock.result.clear();
+	}
+
+	@Test
 	public void Mapを作ってjsonを吐くmapToJsonString() throws JsonProcessingException {
 		String message = WebsocketEndpoint.mapToJsonString(m -> {
 			m.put("a", 1);
