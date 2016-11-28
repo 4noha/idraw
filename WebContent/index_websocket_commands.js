@@ -25,7 +25,8 @@ idraw.indexWebsocketCommands = function(){
     		// バッファがたまったら保存
 			if (!imageBuffer[json.uuid].includes(undefined)){
 				var url=imageBuffer[json.uuid].join("");
-				$("#panel_canvas").css("background-image", "url('" + url.replace(/(\r\n|\n|\r)/gm, "") + "')");
+				pagerJson[currentPage]["bg_image"] = url.replace(/(\r\n|\n|\r)/gm, "")
+				$("#panel_canvas").css("background-image", "url('" + pagerJson[currentPage]["bg_image"] + "')");
 				delete imageBuffer[json.uuid];
 			}
     		break;
