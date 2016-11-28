@@ -47,12 +47,12 @@
 </head>
 <body>
 	<div id="chat_window"></div>
-	<div id="modified">modified</div>
 	<div id="page_num">0</div>
 	<div id="panel_canvas">
 		<canvas width="800" height="600" id="canvas"
 			style="position: absolute;"></canvas>
 	</div>
+	<div id="modified">modified</div>
 	<div id="panel_console" class="Paper">
 		<div id="panel_theme">
 			<span id="theme_text">テーマ：</span> <select id="select_theme">
