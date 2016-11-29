@@ -1,8 +1,35 @@
 idraw = {}
 // まず実行、mockの場合はこれを実行せず、socketのmockを作成する
 idraw.websocketInit = function() {
-    var host="ws://localhost:8080/idraw/endpoint";
-    socket = new WebSocket(host);
+	// 家のIP
+    host="ws://126.15.139.167:8080/idraw/endpoint";
+    try{
+        realSocket = new WebSocket(host);
+    	realSocket.send(JSON.stringify({ cmd:"ping" }));
+    }catch(e){
+        try{
+        	// 本番のIP
+            host="ws://192.168.1.21:8080/idraw/endpoint";
+            realSocket = new WebSocket(host);
+        	realSocket.send(JSON.stringify({ cmd:"ping" }));
+        }catch(e){
+        	// ローカルのIP
+	        host="ws://127.0.0.1:8080/idraw/endpoint";
+	        realSocket = new WebSocket(host);
+        }
+    }
+    // 再接続機能付きsocketにする
+	socket = {
+		send: function(msg) {
+		    try{
+		    	realSocket.send(msg);
+		    }catch(e){
+	            realSocket = new WebSocket(host);
+	        	realSocket.send(msg);
+		    }
+		}
+	}
+    socket = realSocket;
 }
 // 次にこちらを実行
 idraw.loadSessionId = function() {
