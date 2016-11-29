@@ -53,7 +53,7 @@ idraw.eventDefine = function(isMock) {
 		            context.lineTo(json.tx, json.ty);
 		            context.stroke();
 		            context.closePath();
-		            context.strokeStyle = json.strokeStyle;
+		            context.strokeStyle = strokeStyle;
 		            context.lineWidth = lineWidth;
 		            context.globalCompositeOperation = globalCompositeOperation;
 	    		}
