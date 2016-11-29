@@ -24,6 +24,9 @@ canvas{
 	background-image:url("images/login_back.jpg");
     background-repeat: no-repeat;
 }
+#pwField{
+	letter-spacing: 3px;	
+}
 #title {
     font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
     font-size: 140px;
