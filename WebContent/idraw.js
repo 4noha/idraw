@@ -1,23 +1,33 @@
 idraw = {}
 // まず実行、mockの場合はこれを実行せず、socketのmockを作成する
 idraw.websocketInit = function() {
-	// 家のIP
-    host="ws://126.15.139.167:8080/idraw/endpoint";
-    try{
-        realSocket = new WebSocket(host);
-    	realSocket.send(JSON.stringify({ cmd:"ping" }));
-    }catch(e){
+	// 本番のIP
+    host="ws://192.168.1.21:8080/idraw/endpoint";
+    realSocket = new WebSocket(host);
+    realSocket.onmessage = function(){};
+    setTimeout(function(){
         try{
-        	// 本番のIP
-            host="ws://192.168.1.21:8080/idraw/endpoint";
-            realSocket = new WebSocket(host);
         	realSocket.send(JSON.stringify({ cmd:"ping" }));
         }catch(e){
-        	// ローカルのIP
-	        host="ws://127.0.0.1:8080/idraw/endpoint";
-	        realSocket = new WebSocket(host);
-        }
-    }
+        	console.log("aaa");
+        	// 家のIP
+            host="ws://126.15.139.167:8080/idraw/endpoint";
+            realSocket = new WebSocket(host);
+            realSocket.onmessage = function(){};
+            setTimeout(function(){
+                try{
+                	realSocket.send(JSON.stringify({ cmd:"ping" }));
+                }catch(e){
+                	// ローカルのIP
+        	        host="ws://localhost:8080/idraw/endpoint";
+                    realSocket = new WebSocket(host);
+                    realSocket.onmessage = function(){};
+                    setTimeout(function(){　realSocket.send(JSON.stringify({ cmd:"ping" }));　}, 500);
+                }
+            }, 500);
+        };
+    }, 500);
+        
     // 再接続機能付きsocketにする
 	socket = {
 		send: function(msg) {
@@ -25,11 +35,10 @@ idraw.websocketInit = function() {
 		    	realSocket.send(msg);
 		    }catch(e){
 	            realSocket = new WebSocket(host);
-	        	realSocket.send(msg);
+	            setTimeout(function(){　realSocket.send(msg);　}, 500);
 		    }
 		}
-	}
-    socket = realSocket;
+	};
 }
 // 次にこちらを実行
 idraw.loadSessionId = function() {
@@ -88,7 +97,7 @@ idraw.eventDefine = function(isMock) {
 	    	}
 	    }
     ];
-    socket.onmessage = function(msg){
+    realSocket.onmessage = function(msg){
         var json = $.parseJSON(msg.data);
     	console.log(json);
     	for(var i=0; i<commands.length; i++){
