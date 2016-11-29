@@ -215,7 +215,7 @@ input.Dark#tool_eraser{
 	}
 #panel_theme{
 	position: absolute;
-	top:5px;
+	top:13px;
 	left:15px;
 }
 #select_theme{
@@ -226,7 +226,7 @@ input.Dark#tool_eraser{
 }
 #palette{
 	position: absolute;
-	top:25px;
+	top:31px;
 	left:15px;
 	width:197px;
 	display: table;

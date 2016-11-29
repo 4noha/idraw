@@ -113,7 +113,7 @@ idraw.eventDefine = function(isMock) {
 	    	switch (e.key){
 	    	case "ArrowUp":
 	    	case "w":
-	    		$("#panel_console").animate({top: '500px'},500);
+	    		$("#panel_console").animate({top: '495px'},500);
 	    		break;
 	    	case "ArrowDown":
 	    	case "s":
