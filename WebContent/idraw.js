@@ -9,7 +9,6 @@ idraw.websocketInit = function() {
         try{
         	realSocket.send(JSON.stringify({ cmd:"ping" }));
         }catch(e){
-        	console.log("aaa");
         	// 家のIP
             host="ws://126.15.139.167:8080/idraw/endpoint";
             realSocket = new WebSocket(host);
