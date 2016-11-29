@@ -34,13 +34,28 @@ idraw.eventDefine = function(isMock) {
 	    	switch (json.cmd){
 	    	case "pen":
 	    		if (currentPage == json.page) {
+	    			var globalCompositeOperation = context.globalCompositeOperation;
+	    			var strokeStyle = context.strokeStyle;
+	    			var lineWidth = isEraser ? 10 : 2;
+	    			if (json.erase) {
+	    		    	context.globalCompositeOperation = "destination-out";
+	    		    	context.strokeStyle = "rgba(0,0,0,1)";
+			            context.lineWidth = 10;
+	    		    } else {
+	    		    	context.globalCompositeOperation = GCO;
+	    		    	context.strokeStyle = penStyle;
+	    		    	context.strokeStyle = "rgba(0,0,0,1)";
+			            context.lineWidth = 2;
+	    		    }
 		            context.strokeStyle = json.color;
-		            context.lineWidth = 2;
 		            context.beginPath();
 		            context.moveTo(json.fx, json.fy);
 		            context.lineTo(json.tx, json.ty);
 		            context.stroke();
 		            context.closePath();
+		            context.strokeStyle = json.strokeStyle;
+		            context.lineWidth = lineWidth;
+		            context.globalCompositeOperation = globalCompositeOperation;
 	    		}
 	    		break;
 	    	}
@@ -163,9 +178,10 @@ idraw.eventDefine = function(isMock) {
     function draw(e) {
         var toX = e.pageX - $('canvas').offset().left - offset;
         var toY = e.pageY - $('canvas').offset().top - offset;
-        context.lineWidth = 2;
         if(isEraser){
         	context.lineWidth = 10;
+        } else {
+            context.lineWidth = 2;
         }
         context.beginPath();
         context.moveTo(fromX, fromY);
@@ -174,7 +190,7 @@ idraw.eventDefine = function(isMock) {
         context.closePath();
 
         // サーバへメッセージ送信
-        socket.send(JSON.stringify({ cmd:"pen", page: currentPage, fx:fromX, fy:fromY, tx:toX, ty:toY, color:context.strokeStyle }));
+        socket.send(JSON.stringify({ cmd:"pen", page: currentPage, fx:fromX, fy:fromY, tx:toX, ty:toY, color:context.strokeStyle, erase: (isEraser ? true:false) }));
         fromX = toX;
         fromY = toY;
     }
