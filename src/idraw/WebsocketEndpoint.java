@@ -145,7 +145,10 @@ public class WebsocketEndpoint {
 
 				user.session_id = (String) parsedJson.get("session_id");
 				user.save();
-				message = null;
+				message = mapToJsonString(m -> {
+					m.put("cmd", "login_done");
+					m.put("id",  userName);
+				});
 
 			} else { // 来たJSON内にidはあるがpwd,session_id情報が無ければpublicKeyを返す
 				User user = User.findBy("username", parsedJson.get("id"));

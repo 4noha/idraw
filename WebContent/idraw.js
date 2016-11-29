@@ -2,42 +2,51 @@ idraw = {}
 // まず実行、mockの場合はこれを実行せず、socketのmockを作成する
 idraw.websocketInit = function() {
 	// 本番のIP
-    host="ws://192.168.1.21:8080/idraw/endpoint";
-    realSocket = new WebSocket(host);
-    realSocket.onmessage = function(){};
-    setTimeout(function(){
-        try{
-        	realSocket.send(JSON.stringify({ cmd:"ping" }));
-        }catch(e){
-        	// 家のIP
-            host="ws://126.15.139.167:8080/idraw/endpoint";
-            realSocket = new WebSocket(host);
-            realSocket.onmessage = function(){};
-            setTimeout(function(){
-                try{
-                	realSocket.send(JSON.stringify({ cmd:"ping" }));
-                }catch(e){
-                	// ローカルのIP
-        	        host="ws://localhost:8080/idraw/endpoint";
-                    realSocket = new WebSocket(host);
-                    realSocket.onmessage = function(){};
-                    setTimeout(function(){　realSocket.send(JSON.stringify({ cmd:"ping" }));　}, 500);
-                }
-            }, 500);
-        };
-    }, 500);
+    hosts=[
+    	// 家 手元テスト用にコメントアウト
+    	// "ws://126.15.139.167:8080/idraw/endpoint",
+    	// 本番
+    	// "ws://192.168.1.21:8080/idraw/endpoint",
+    	"ws://localhost:8080/idraw/endpoint",
+    	];
+    hostNum = -1;
+
+    onmessage = function(msg){
+        var json = $.parseJSON(msg.data);
+    	console.log(json);
+    	for(var i=0; i<commands.length; i++){
+    		commands[i](json);
+    	}
+    }
+
+    // 接続先を変えながら最初のsocketを作る
+    createSocket = function(){
+    	if (hostNum+1 < hosts.length) {
+    		hostNum += 1;
+    	    socket = new WebSocket(hosts[hostNum]);
+    	    socket.onerror = function(){
+    	    	createSocket();
+    	    };
+    	    socket.onopen = function(){
+    	    	socket.oneror = function() {
+					reConnectSocket();
+				}
+    	    };
+    	    socket.onmessage = onmessage;
+    	}
+    }
+    createSocket();
         
     // 再接続機能付きsocketにする
-	socket = {
-		send: function(msg) {
-		    try{
-		    	realSocket.send(msg);
-		    }catch(e){
-	            realSocket = new WebSocket(host);
-	            setTimeout(function(){　realSocket.send(msg);　}, 500);
-		    }
+    reConnectSocket = function(){
+        socket = new WebSocket(host);
+    	socket.oneror = function() {
+			reConnectSocket();
 		}
-	};
+	    socket.onopen = function(){
+	    };
+	    socket.onmessage = onmessage;
+    }
 }
 // 次にこちらを実行
 idraw.loadSessionId = function() {
@@ -96,13 +105,7 @@ idraw.eventDefine = function(isMock) {
 	    	}
 	    }
     ];
-    realSocket.onmessage = function(msg){
-        var json = $.parseJSON(msg.data);
-    	console.log(json);
-    	for(var i=0; i<commands.length; i++){
-    		commands[i](json);
-    	}
-    }
+    socket.onmessage = onmessage;
 
     // キー入力時の処理
     keyHookers = [
