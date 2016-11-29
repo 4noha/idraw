@@ -207,6 +207,22 @@ $(function(){
     	case "pubkey":
 			if ($("#idField").val() == json.id) {
 	    		pubkey = json.key;
+	    		
+	    		$("#idField").animate({opacity: '0'},ani_speed);
+	    		$("#idSubmitButton").animate({opacity: '0'},ani_speed);
+	    		// subinfoをしまい終わってから全部出す
+	    		$("#subInfo").animate({opacity: '0'},ani_speed, function() {
+	    			$("#subInfo").text("パスワードを入力");
+
+	    			$("#subInfo").animate({opacity: '1'},ani_speed);
+	    			$("#pwField").show(ani_speed);
+	    			$("#pwSubmitButton").show(ani_speed);
+	    		});
+			}
+    		break;
+    	case "login_done":
+			if ($("#idField").val() == json.id) {
+	    		location.href = "index.jsp";
 			}
     		break;
     	}
@@ -244,16 +260,6 @@ $(function(){
 	$("#idSubmitButton").click(function() {
 		// id送信
 		socket.send(JSON.stringify({ cmd:"login", id:$("#idField").val(), "new":idNew}));
-		$("#idField").animate({opacity: '0'},ani_speed);
-		$("#idSubmitButton").animate({opacity: '0'},ani_speed);
-		// subinfoをしまい終わってから全部出す
-		$("#subInfo").animate({opacity: '0'},ani_speed, function() {
-			$("#subInfo").text("パスワードを入力");
-
-			$("#subInfo").animate({opacity: '1'},ani_speed);
-			$("#pwField").show(ani_speed);
-			$("#pwSubmitButton").show(ani_speed);
-		});
 	});
 
 	$("#pwSubmitButton").click(function() {
@@ -270,12 +276,6 @@ $(function(){
 
 		// id, pwd, sessionid送信
 		socket.send(JSON.stringify({ cmd:"login", id:$("#idField").val(), pwd: pwEncrypt, session_id: sessionId}));
-		var redirect_url = "index.jsp" + location.search;
-		if (document.referrer) {
-			var referrer = "referrer=" + encodeURIComponent(document.referrer);
-			redirect_url = redirect_url + (location.search ? '&' : '?') + referrer;
-		}
-		location.href = redirect_url;
 	});
 
 	$("#loginButton").mouseover(function() {
