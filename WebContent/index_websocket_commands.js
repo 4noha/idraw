@@ -57,7 +57,7 @@ idraw.indexWebsocketCommands = function(){
             canvas.height = 600;
         	newPager[json.page_num] = {
         			bg_image: canvas.toDataURL("image/png"),
-        			image: canvas.toDataURL("image/png"),
+        			image: canvas,
         			timerSec: null, modified: false
         	}
         	if (json.page_num <= currentPage){

@@ -1,6 +1,27 @@
 ﻿idraw.index = function(){
     if (Object.keys(pagerJson).length == 0){
-    	pagerJson = {0:{bg_image: null, image: null, timerSec: null, modified: false}};
+    	pagerJson = {0:{bg_image: null, image: $("<canvas/>")[0], timerSec: null, modified: false}};
+    } else {
+    	for(var pageNum in pagerJson){
+    		// Base64をキャンバスに変換
+    		if (pagerJson[pageNum]["image"] != null) {
+    			var image = new Image();
+    	        var canvas = $("<canvas/>")[0];
+    	        canvas.width = 800;
+    	        canvas.height = 600;
+    			image.onload = function(){
+    				var ctx = canvas.getContext("2d");
+    				ctx.drawImage(image, 0, 0);
+    				// 最初のページ読み込み
+    				if (pageNum == 0) {
+    					var ctx2 = $("#canvas")[0].getContext("2d");
+    					ctx2.putImageData(ctx.getImageData(0, 0, 800, 600), 0, 0);
+    				}
+    			}
+    			image.src = pagerJson[pageNum]["image"];
+				pagerJson[pageNum]["image"] = canvas;
+    		}
+    	}
     }
     currentPage = 0;
     sum = 0;
@@ -10,15 +31,6 @@
 	}
 	// タイマーとイメージをロード
 	$("#timer_text").val(pagerJson[currentPage]["timerSec"] != null ? pagerJson[currentPage]["timerSec"] : "タイマー");
-	if (pagerJson[currentPage]["image"] != null) {
-		var image = new Image();
-		image.src = pagerJson[currentPage]["image"];
-		image.onload = function(){
-			// 画像の読み込みが終わったら、Canvasに画像を反映する。
-			var ctx = $("#canvas")[0].getContext("2d");
-			ctx.drawImage(image, 0, 0);
-		}
-	}
 	if (pagerJson[currentPage]["bg_image"] != null) {
 		$("#panel_canvas").css("background-image", "url('" + pagerJson[currentPage]["bg_image"] + "')");
 	}

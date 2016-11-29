@@ -3,10 +3,8 @@ idraw = {}
 idraw.websocketInit = function() {
 	// 本番のIP
     hosts=[
-    	// 家 手元テスト用にコメントアウト
-    	// "ws://126.15.139.167:8080/idraw/endpoint",
-    	// 本番
-    	// "ws://192.168.1.21:8080/idraw/endpoint",
+    	"ws://126.15.139.167:8080/idraw/endpoint",
+    	"ws://192.168.1.21:8080/idraw/endpoint",
     	"ws://localhost:8080/idraw/endpoint",
     	];
     hostNum = -1;
@@ -23,7 +21,9 @@ idraw.websocketInit = function() {
     createSocket = function(){
     	if (hostNum+1 < hosts.length) {
     		hostNum += 1;
-    	    socket = new WebSocket(hosts[hostNum]);
+    		try {
+    			socket = new WebSocket(hosts[hostNum]);
+    		} catch (e) {}
     	    socket.onerror = function(){
     	    	createSocket();
     	    };
@@ -88,7 +88,6 @@ idraw.eventDefine = function(isMock) {
 	    		    } else {
 	    		    	context.globalCompositeOperation = GCO;
 	    		    	context.strokeStyle = penStyle;
-	    		    	context.strokeStyle = "rgba(0,0,0,1)";
 			            context.lineWidth = 2;
 	    		    }
 		            context.strokeStyle = json.color;
@@ -100,6 +99,23 @@ idraw.eventDefine = function(isMock) {
 		            context.strokeStyle = strokeStyle;
 		            context.lineWidth = lineWidth;
 		            context.globalCompositeOperation = globalCompositeOperation;
+	    		} else {
+	    			var ctx = pagerJson[json.page]["image"].getContext('2d');
+	    			if (json.erase) {
+	    		    	ctx.globalCompositeOperation = "destination-out";
+	    		    	ctx.strokeStyle = "rgba(0,0,0,1)";
+			            ctx.lineWidth = 10;
+	    		    } else {
+	    		    	ctx.globalCompositeOperation = GCO;
+	    		    	ctx.strokeStyle = penStyle;
+			            ctx.lineWidth = 2;
+	    		    }
+		            ctx.strokeStyle = json.color;
+		            ctx.beginPath();
+		            ctx.moveTo(json.fx, json.fy);
+		            ctx.lineTo(json.tx, json.ty);
+		            ctx.stroke();
+		            ctx.closePath();
 	    		}
 	    		break;
 	    	}
@@ -277,19 +293,15 @@ idraw.eventDefine = function(isMock) {
     
     idraw.changePage = function(pageNum) {
     	// 絵を保存
-		pagerJson[currentPage]["image"] = $("#canvas")[0].toDataURL("image/png");
+		var ctx = $("#canvas")[0].getContext("2d");
+		var ctx2 = pagerJson[currentPage]["image"].getContext("2d");
+		ctx2.putImageData(ctx.getImageData(0, 0, 800, 600), 0, 0);
 		// タイマー保存
 		$("#timer_text").val(pagerJson[pageNum]["timerSec"] != null ? pagerJson[pageNum]["timerSec"] : "タイマー");
 		// 絵を読み込み
 		if (pagerJson[pageNum]["image"] != null) {
-			var image = new Image();
-			image.src = pagerJson[pageNum]["image"];
-			image.onload = function(){
-				// 画像の読み込みが終わったら、Canvasに画像を反映する。
-				var ctx = $("#canvas")[0].getContext("2d");
-				ctx.clearRect(0, 0, 800, 600);
-				ctx.drawImage(image, 0, 0);
-			}
+			var ctx2 = pagerJson[pageNum]["image"].getContext("2d");
+			ctx.putImageData(ctx2.getImageData(0, 0, 800, 600), 0, 0);
 		}else{
 			var ctx = $("#canvas")[0].getContext("2d");
 			ctx.clearRect(0, 0, 800, 600);
