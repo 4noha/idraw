@@ -4,7 +4,7 @@
 	<meta charset="utf-8"> 
 	<title>Login</title>
 	<link rel="stylesheet" type="text/css" href="../idraw.css">
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 	<script src="../jquery.cookie-1.4.1.min.js"></script>
 	<script src="../cryptico.min.js"></script>
 	<script src="../idraw.js"></script>
@@ -183,8 +183,17 @@
 $(function(){
 	socket = {
 		send: function(msg) {
-	        var json = $.parseJSON(msg.data);
-	        //JSON.stringify(json);
+	        var json = $.parseJSON(msg);
+	        switch (json.cmd) {
+	        case "save":
+	        	delete json["image"];
+	        	break;
+	        default:
+	        	json = null;
+	        }
+	        if (json != null) {
+	        	socket.onmessage({data: JSON.stringify(json)});
+	        }
 		}
 	}
 	sessionId = "";
