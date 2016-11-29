@@ -3,6 +3,7 @@
     	pagerJson = {0:{bg_image: null, image: null, timerSec: null, modified: false}};
     }
     currentPage = 0;
+    sum = 0;
     presenMode = false;
 	socket.onopen = function(){
         socket.send(JSON.stringify({cmd:"session", id: sessionId}));
