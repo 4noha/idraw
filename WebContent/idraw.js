@@ -295,12 +295,6 @@ idraw.eventDefine = function(isMock) {
 		$("#timer_text").val(pagerJson[pageNum]["timerSec"] != null ? pagerJson[pageNum]["timerSec"] : "タイマー");
 		// 絵を読み込み
 		if (pagerJson[pageNum]["image"] != null) {
-			if ((typeof pagerJson[pageNum]["image"]) == "string") {
-		        var canva = $("<canvas/>")[0];
-		        canva.width = 800;
-		        canva.height = 600;
-				pagerJson[pageNum]["image"] = canva;
-			}
 			var ctx2 = pagerJson[pageNum]["image"].getContext("2d");
 			ctx.putImageData(ctx2.getImageData(0, 0, 800, 600), 0, 0);
 		}else{
