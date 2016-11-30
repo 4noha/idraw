@@ -1,30 +1,25 @@
 ﻿idraw.index = function(){
-	imgs = [];
-	loadCount = 0;
-	imgLoad = function(){
+	// 
+	imgLoad = function(loadCount){
 		var image = new Image();
-		imgs.push(image);
-        var canva = $("<canvas/>")[0];
-        canva.width = 800;
-        canva.height = 600;
+        var canvas = $("<canvas/>")[0];
+        canvas.width = 800;
+        canvas.height = 600;
 		image.onload = function(){
-			var ctx = canva.getContext("2d");
-			imgs.push(ctx);
+			var ctx = canvas.getContext("2d");
 			ctx.drawImage(image, 0, 0);
 			// 最初のページ読み込み
 			if (loadCount == 0) {
-				console.log("aaa");
 				var ctx2 = $("#canvas")[0].getContext("2d");
 				ctx2.putImageData(ctx.getImageData(0, 0, 800, 600), 0, 0);
 			}
-			console.log(image.src);
-			if (loadCount < Object.keys(pagerJson+1).length){
-				loadCount++;
-				imgLoad();
+			console.log(loadCount);
+			if (loadCount < Object.keys(pagerJson).length){
+				imgLoad(loadCount+1);
 			}
 		}
 		image.src = pagerJson[loadCount]["image"];
-		pagerJson[loadCount]["image"] = canva;
+		pagerJson[loadCount]["image"] = canvas;
 	};
 	
     if (Object.keys(pagerJson).length == 0){
@@ -33,7 +28,7 @@
         canva.height = 600;
     	pagerJson = {0:{bg_image: null, image: canvas, timerSec: null, modified: false}};
     } else {
-    	imgLoad();
+    	imgLoad(0);
     }
     currentPage = 0;
     sum = 0;
