@@ -3,7 +3,6 @@ idraw = {}
 idraw.websocketInit = function() {
 	// 本番のIP
     hosts=[
-    	"ws://126.15.139.167:8080/idraw/endpoint",
     	"ws://192.168.1.21:8080/idraw/endpoint",
     	"ws://localhost:8080/idraw/endpoint",
     	];
@@ -63,7 +62,6 @@ idraw.eventDefine = function(isMock) {
     var fromX;
     var fromY;
     var drawFlag = false;
-    var drawFlip = false;
     var context = $("canvas").get(0).getContext('2d');
     var GCO=context.globalCompositeOperation;
     var penStyle="#000000";
@@ -159,10 +157,7 @@ idraw.eventDefine = function(isMock) {
 
     $('canvas').mousemove(function(e) {
         if (drawFlag) {
-        	if (drawFlip) {
-                draw(e);
-        	}
-        	drawFlip = !drawFlip;
+            draw(e);
         }
     });
 
