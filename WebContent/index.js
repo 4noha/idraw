@@ -1,27 +1,39 @@
 ﻿idraw.index = function(){
+	imgs = [];
+	loadCount = 0;
+	imgLoad = function(){
+		var image = new Image();
+		imgs.push(image);
+        var canva = $("<canvas/>")[0];
+        canva.width = 800;
+        canva.height = 600;
+		image.onload = function(){
+			var ctx = canva.getContext("2d");
+			imgs.push(ctx);
+			ctx.drawImage(image, 0, 0);
+			// 最初のページ読み込み
+			if (loadCount == 0) {
+				console.log("aaa");
+				var ctx2 = $("#canvas")[0].getContext("2d");
+				ctx2.putImageData(ctx.getImageData(0, 0, 800, 600), 0, 0);
+			}
+			console.log(image.src);
+			if (loadCount < Object.keys(pagerJson+1).length){
+				loadCount++;
+				imgLoad();
+			}
+		}
+		image.src = pagerJson[loadCount]["image"];
+		pagerJson[loadCount]["image"] = canva;
+	};
+	
     if (Object.keys(pagerJson).length == 0){
-    	pagerJson = {0:{bg_image: null, image: $("<canvas/>")[0], timerSec: null, modified: false}};
+    	var canvas = $("<canvas/>")[0];
+        canva.width = 800;
+        canva.height = 600;
+    	pagerJson = {0:{bg_image: null, image: canvas, timerSec: null, modified: false}};
     } else {
-    	for(var pageNum in pagerJson){
-    		// Base64をキャンバスに変換
-    		if (pagerJson[pageNum]["image"] != null) {
-    			var image = new Image();
-    	        var canvas = $("<canvas/>")[0];
-    	        canvas.width = 800;
-    	        canvas.height = 600;
-    			image.onload = function(){
-    				var ctx = canvas.getContext("2d");
-    				ctx.drawImage(image, 0, 0);
-    				// 最初のページ読み込み
-    				if (pageNum == 0) {
-    					var ctx2 = $("#canvas")[0].getContext("2d");
-    					ctx2.putImageData(ctx.getImageData(0, 0, 800, 600), 0, 0);
-    				}
-    			}
-    			image.src = pagerJson[pageNum]["image"];
-				pagerJson[pageNum]["image"] = canvas;
-    		}
-    	}
+    	imgLoad();
     }
     currentPage = 0;
     sum = 0;
