@@ -1,5 +1,6 @@
 ﻿idraw.index = function(){
-	// 
+	// forでjsonを回してimgに入れると遅延ロードですべて最後の画像になるので
+	// 再帰処理に書き直し
 	imgLoad = function(loadCount){
 		var image = new Image();
         var canvas = $("<canvas/>")[0];
