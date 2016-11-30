@@ -15,7 +15,7 @@
 				ctx2.putImageData(ctx.getImageData(0, 0, 800, 600), 0, 0);
 			}
 			console.log(loadCount);
-			if (loadCount < Object.keys(pagerJson).length){
+			if (loadCount < Object.keys(pagerJson).length - 1){
 				imgLoad(loadCount+1);
 			}
 		}
